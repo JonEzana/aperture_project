@@ -22,8 +22,15 @@ class Photo(db.Model):
   # relationships
   # many side
   album = db.relationship('Album', back_populates='photos')
-
   user = db.relationship('User', back_populates='photos')
+  comments = db.relationship('Comment', back_populates='photo')
+
+  # many to many
+  photos = db.relationship(
+    "Photo",
+    secondary=comments,
+    back_populates="users"
+  )
 
 
   def to_dict(self):

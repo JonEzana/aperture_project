@@ -9,7 +9,7 @@ class User(db.Model, UserMixin):
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
-
+        
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(255), nullable=False)
     last_name = db.Column(db.String(255), nullable=False)
@@ -24,6 +24,16 @@ class User(db.Model, UserMixin):
     # relationships
     albums = db.relationship('Album', back_populates='user', cascade="all, delete-orphan") 
     photos = db.relationship('Photo', back_populates='user', cascade="all, delete-orphan")
+    comments = db.relationship('Comment', back_populates='user')
+
+    # many to many
+    users = db.relationship(
+        "User",
+        secondary=comments,
+        back_populates="photos"
+    )
+
+
 
     @property
     def password(self):
