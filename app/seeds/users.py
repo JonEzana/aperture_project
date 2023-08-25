@@ -5,7 +5,7 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', first_name='Demo', last_name='Lition', email='demo@aa.io', password='password', profile_pic='https://pyxis.nymag.com/v1/imgs/29b/bae/50c47f603f465c28cc385853c6a36169c1-29-steve-brule-check-it-out.rsquare.w700.jpg', bio='I am demo user')
+        username='demo', first_name='Demo', last_name='Lition', email='demo@aa.io', password='password', profile_pic='https://pyxis.nymag.com/v1/imgs/29b/bae/50c47f603f465c28cc385853c6a36169c1-29-steve-brule-check-it-out.rsquare.w700.jpg', bio='I am demo user')
     marnie = User(
         username='marnie', first_name='Marnie', last_name='Johnson', email='marnie@aa.io', password='password', profile_pic='https://img.buzzfeed.com/buzzfeed-static/static/2016-10/28/9/asset/buzzfeed-prod-fastlane01/sub-buzz-6490-1477663180-5.jpg', bio='I am marnie')
     bobbie = User(
@@ -15,7 +15,7 @@ def seed_users():
     ludia = User(
         username='ludia', first_name='Ludia', last_name='Park', email='ludia@aa.io', password='password', profile_pic='https://static.wikia.nocookie.net/cartoons/images/e/ed/Profile_-_SpongeBob_SquarePants.png', bio='I am Ludia')
     colin = User(
-        username='colin', first_name='colin', last_name='Sung', email='colin@aa.io', password='password', profile_pic='https://idsb.tmgrup.com.tr/ly/uploads/images/2020/11/05/thumbs/800x531/70015.jpg', bio='I am Colin')
+        username='colin', first_name='Colin', last_name='Sung', email='colin@aa.io', password='password', profile_pic='https://idsb.tmgrup.com.tr/ly/uploads/images/2020/11/05/thumbs/800x531/70015.jpg', bio='I am Colin')
     vivian = User(
         username='vivian', first_name='Vivian', last_name='Li', email='vivian@aa.io', password='password', profile_pic='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_ScQLXhVvP2Hm38LOXlD-jViHSszfuTVq0g&usqp=CAU.jpg', bio='I am Vivian')
 

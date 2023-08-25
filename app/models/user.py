@@ -21,6 +21,9 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime(), default=datetime.now())
     updated_at = db.Column(db.DateTime(), default=datetime.now())
 
+    # relationships
+    albums = db.relationship('Album', back_populates='user')
+
     @property
     def password(self):
         return self.hashed_password
@@ -35,6 +38,12 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             'id': self.id,
+            'firstName': self.first_name,
+            'lastName': self.last_name,
             'username': self.username,
-            'email': self.email
+            'profilePic': self.profile_pic,
+            'bio': self.bio,
+            'email': self.email,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
         }
