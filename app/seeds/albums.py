@@ -1,4 +1,5 @@
 from app.models import db, Album, environment, SCHEMA
+from sqlalchemy.sql import text
 
 def seed_albums():
     test = Album(
