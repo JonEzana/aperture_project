@@ -18,8 +18,8 @@ class User(db.Model, UserMixin):
     bio = db.Column(db.String(1000))
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    created_at = db.Column(db.Datetime(), default=datetime.now())
-    updated_at = db.Column(db.Datetime(), default=datetime.now())
+    created_at = db.Column(db.DateTime(), default=datetime.now())
+    updated_at = db.Column(db.DateTime(), default=datetime.now())
 
     @property
     def password(self):
