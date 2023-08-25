@@ -20,7 +20,9 @@ class Photo(db.Model):
   updated_at = db.Column(db.DateTime(), default=datetime.now())
 
   # relationships
+  # many side
   album = db.relationship('Album', back_populates='photos')
+
   user = db.relationship('User', back_populates='photos')
 
 
