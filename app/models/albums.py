@@ -18,6 +18,7 @@ class Album(db.Model):
 
     # relationships
     user = db.relationship('User', back_populates='albums')
+    photos = db.relationship('Photo', back_populates='album', cascade="all, delete-orphan")
 
     def to_dict(self):
         return {

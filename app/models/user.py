@@ -22,7 +22,8 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime(), default=datetime.now())
 
     # relationships
-    albums = db.relationship('Album', back_populates='user')
+    albums = db.relationship('Album', back_populates='user', cascade="all, delete-orphan") 
+    photos = db.relationship('Photo', back_populates='user', cascade="all, delete-orphan")
 
     @property
     def password(self):
