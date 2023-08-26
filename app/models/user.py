@@ -24,14 +24,14 @@ class User(db.Model, UserMixin):
     # relationships
     albums = db.relationship('Album', back_populates='user', cascade="all, delete-orphan") 
     photos = db.relationship('Photo', back_populates='user', cascade="all, delete-orphan")
-    comments = db.relationship('Comment', back_populates='user')
+    comments = db.relationship('Comment', back_populates='user', cascade="all, delete-orphan")
 
     # many to many
-    users = db.relationship(
-        "User",
-        secondary=comments,
-        back_populates="photos"
-    )
+    # users = db.relationship(
+    #     "User",
+    #     secondary=comments,
+    #     back_populates="photos"
+    # )
 
 
 
