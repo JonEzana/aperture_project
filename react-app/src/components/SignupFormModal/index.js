@@ -13,6 +13,12 @@ function SignupFormModal() {
 	const [errors, setErrors] = useState([]);
 	const { closeModal } = useModal();
 
+    // First name, last name: 3 <= len <= 50,
+    //bio: textarea, len <= 200, not being valided in backend
+    //profilepic: url required
+
+	    //route = '/signup'
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (password === confirmPassword) {
