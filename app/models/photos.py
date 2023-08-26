@@ -23,7 +23,7 @@ class Photo(db.Model):
   # relationships
   # many side
   album = db.relationship('Album', back_populates='photos')
-  user = db.relationship('User', back_populates='photos')
+ 
   comments = db.relationship('Comment', back_populates='photo', cascade="all, delete-orphan")
 
   #  many to many
