@@ -69,7 +69,7 @@ export const logout = () => async (dispatch) => {
 
 export const signUp = (user) => async (dispatch) => {
 	const {firstName, lastName, email, password, username, profilePic, bio} = user;
-	console.log("THUNK (BEFORE FETCHING).....", user)
+
 	const response = await fetch("/api/auth/signup", {
 		method: "POST",
 		headers: {
@@ -92,11 +92,13 @@ export const signUp = (user) => async (dispatch) => {
 		dispatch(setUser(data));
 		return null;
 	} else if (response.status < 500) {
+	
 		const data = await response.json();
 		if (data.errors) {
 			return data.errors;
 		}
 	} else {
+	
 		return ["An error occurred. Please try again."];
 	}
 };

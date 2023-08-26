@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import {signUp} from "../../store/session";
+import { signUp } from "../../store/session";
 import "./SignupForm.css";
 
 function SignupFormModal() {
@@ -19,11 +19,11 @@ function SignupFormModal() {
 	const [buttonClass, setButtonClass] = useState("disabled-signup-button")
 	const { closeModal } = useModal();
 
-    // First name, last name: 3 <= len <= 50,
-    //bio: textarea, len <= 200, not being valided in backend
-    //profilepic: url required
+	// First name, last name: 3 <= len <= 50,
+	//bio: textarea, len <= 200, not being valided in backend
+	//profilepic: url required
 
-	    //route = '/signup'
+	//route = '/signup'
 
 	useEffect(() => {
 		const errObj = {};
@@ -61,31 +61,34 @@ function SignupFormModal() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (password === confirmPassword) {
-			const userData = {email,
-			  username,
-			  firstName,
-			  lastName,
-			  password
+			
+			const userData = {
+				email,
+				username,
+				firstName,
+				lastName,
+				password,
+				profilePic,
+				bio
 			}
-			console.log('In Handle submit.....', userData)
-		  setErrors({});
-		  return dispatch(
-			signUp({
-			  userData
-			})
-		  )
-			.then(closeModal)
-			.catch(async (res) => {
-			  const data = await res.json();
-			  if (data && data["errors"]) {
-				setErrors(data["errors"]);
-			  }
-			});
-		  }
-		  return setErrors({
+			setErrors({});
+			return dispatch(
+				signUp(
+					userData
+				)
+			)
+				.then(closeModal)
+				.catch(async (res) => {
+					const data = await res.json();
+					if (data && data["errors"]) {
+						setErrors(data["errors"]);
+					}
+				});
+		}
+		return setErrors({
 			confirmPassword: "Confirm Password field must be the same as the Password field"
-		  });
-	  };
+		});
+	};
 
 	//   const isDisabled = () => {
 	// 	if (!email) return true;
