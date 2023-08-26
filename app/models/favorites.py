@@ -6,5 +6,5 @@ favorites = db.Table(
     db.Column("user_id", db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), primary_key=True),
     db.Column("photo_id", db.Integer, db.ForeignKey(add_prefix_for_prod('photos.id')), primary_key=True),
 
-    schema = SCHEMA if environment == "production" else None
+    # schema = SCHEMA if environment == "production" else None
 )
