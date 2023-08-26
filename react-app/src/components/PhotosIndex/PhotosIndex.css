@@ -1,0 +1,41 @@
+.container-container {
+  display: flex;
+  justify-content: center; 
+  border: 2px solid blue;
+  margin-left: 75px;
+}
+
+.all-photos-container {
+  padding-top: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  border: 2px solid red; 
+  gap: 20px;
+  width: 90%;  
+  max-width: 1250px;
+}
+
+.all-photos-card {
+  border: 1px solid black;
+  width: 250px;
+  height: 300px;
+  display: flex;
+}
+
+.all-photos-pic {
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+  border: 2px solid orange;
+}
+
+.bottom-half {
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 2px;
+  width: 100%;
+}
