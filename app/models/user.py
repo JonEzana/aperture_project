@@ -30,7 +30,7 @@ class User(db.Model, UserMixin):
     photos = db.relationship(
         "Photo",
         secondary=favorites,
-        back_populates="users"
+        back_populates="users",
         cascade='all, delete-orphan'
     )
 
