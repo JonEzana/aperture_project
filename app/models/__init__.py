@@ -4,3 +4,4 @@ from .db import environment, SCHEMA
 from .albums import Album
 from .photos import Photo
 from .comments import Comment
+from .favorites import favorites

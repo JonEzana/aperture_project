@@ -2,6 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
+from .favorites import favorites
 
 
 class User(db.Model, UserMixin):
@@ -9,7 +10,7 @@ class User(db.Model, UserMixin):
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
-        
+
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(255), nullable=False)
     last_name = db.Column(db.String(255), nullable=False)
@@ -22,18 +23,16 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime(), default=datetime.now())
 
     # relationships
-    albums = db.relationship('Album', back_populates='user', cascade="all, delete-orphan") 
+    albums = db.relationship('Album', back_populates='user', cascade="all, delete-orphan")
     photos = db.relationship('Photo', back_populates='user', cascade="all, delete-orphan")
     comments = db.relationship('Comment', back_populates='user', cascade="all, delete-orphan")
 
     # many to many
-    # users = db.relationship(
-    #     "User",
-    #     secondary=comments,
-    #     back_populates="photos"
-    # )
-
-
+    photos = db.relationship(
+        "Photo",
+        secondary=favorites,
+        back_populates="users"
+    )
 
     @property
     def password(self):

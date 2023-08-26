@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .favorites import favorites
 from datetime import datetime
 
 
@@ -25,13 +26,12 @@ class Photo(db.Model):
   user = db.relationship('User', back_populates='photos')
   comments = db.relationship('Comment', back_populates='photo', cascade="all, delete-orphan")
 
-  # many to many
-  # photos = db.relationship(
-  #   "Photo",
-  #   secondary=comments,
-  #   back_populates="users"
-  # )
-
+  #  many to many
+  users = db.relationship(
+    "User",
+    secondary=favorites,
+    back_populates="photos"
+  )
 
   def to_dict(self):
     return {
