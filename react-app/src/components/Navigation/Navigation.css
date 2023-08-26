@@ -163,3 +163,8 @@
 .hidden{
   display: none;
 }
+
+
+#login_modal {
+  padding: 10px;
+}
