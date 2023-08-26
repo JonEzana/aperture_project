@@ -91,7 +91,7 @@ function ProfileButton({ user }) {
       <button onClick={openMenu} className='profile-button'>
           {/* <i className="fa-solid fa-bars"></i>
            */}
-           <i class="fas fa-bars"></i>
+           <i className="fas fa-bars"></i>
           <i className="fas fa-user-circle" />
         </button>
       <div className="dropdown">
