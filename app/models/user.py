@@ -31,6 +31,7 @@ class User(db.Model, UserMixin):
         "Photo",
         secondary=favorites,
         back_populates="users"
+        cascade='all, delete-orphan'
     )
 
     @property

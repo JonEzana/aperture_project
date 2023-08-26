@@ -31,6 +31,7 @@ class Photo(db.Model):
     "User",
     secondary=favorites,
     back_populates="photos"
+    cascade='all, delete-orphan'
   )
 
   def to_dict(self):
