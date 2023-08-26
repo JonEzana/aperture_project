@@ -24,7 +24,6 @@ class User(db.Model, UserMixin):
 
     # relationships
     albums = db.relationship('Album', back_populates='user', cascade="all, delete-orphan")
-    photos = db.relationship('Photo', back_populates='user', cascade="all, delete-orphan")
     comments = db.relationship('Comment', back_populates='user', cascade="all, delete-orphan")
 
     # many to many
@@ -32,6 +31,7 @@ class User(db.Model, UserMixin):
         "Photo",
         secondary=favorites,
         back_populates="users"
+        cascade='all, delete-orphan'
     )
 
     @property
