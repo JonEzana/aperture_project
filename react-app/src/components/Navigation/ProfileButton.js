@@ -16,7 +16,6 @@ function ProfileButton({ user }) {
     if (showMenu) return;
     setShowMenu(true);
   };
-  const closeMenuuu = () => setShowMenu(false);
 
   useEffect(() => {
     if (!showMenu) return;
@@ -32,10 +31,12 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
+  const closeMenu = () => setShowMenu(false);
+
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
-    closeMenuuu()
+    closeMenu()
     history.push('/');
 
   };
@@ -48,7 +49,7 @@ function ProfileButton({ user }) {
   // };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
-  const closeMenu = () => setShowMenu(false);
+
 
   const manage = async (e) => {
     e.preventDefault();
@@ -104,7 +105,7 @@ function ProfileButton({ user }) {
               <button className="manage-btn" onClick={manage}>Manage Spots</button>
               <hr style={{background: "black", height: "1px", width: "100%" }}/>
 
-              <button className="logout-btn" onClick={logout}>Log Out</button>
+              <button className="logout-btn" onClick={handleLogout}>Log Out</button>
             </div>
           ) : (
             <div className="dropdown-content loggedout">
@@ -118,6 +119,7 @@ function ProfileButton({ user }) {
                 </li>
               <li className="li">
                 <OpenModalButton
+                  id='login_modal'
                   itemText="Log In"
                   onItemClick={closeMenu}
                   modalComponent={<LoginFormModal />}
