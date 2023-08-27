@@ -25,15 +25,16 @@ export const PhotosIndex = () => {
         photo["Owner"] = userArr.find(user => user.id === photo.userId)
     });
 
-    // if (!photos.length || !users.length) return <><h1 style={{textAlign: "center", marginTop: "50%"}}>Loading...</h1></>;
-
     return (
         <div className='container-container'>
             <div className='all-photos-container'>
                 {photos.map(photo =>
                     <span className='all-photos-card' title={photo.name} onClick={() => history.push(`/photos/${photo.id}`)} key={photo.id}>
                         <img className='all-photos-pic' src={photo.url} alt={photo.title} style={{borderTopRightRadius: "10px", borderTopLeftRadius: "10px"}}></img>
-                        <UserBlurb url={photo.Owner.profilePic} username={photo.Owner.username} styles={{display: "flex", flexDirection: "row", justifyContent: "space-between", paddingTop: "4px", paddingLeft: "4px", alignItems: "center"}}
+                        <UserBlurb
+                            url={photo?.Owner?.profilePic}
+                            username={photo?.Owner?.username}
+                            styles={{display: "flex", flexDirection: "row", justifyContent: "space-between", paddingTop: "4px", paddingLeft: "4px", alignItems: "center"}}
                         />
                     </span>
                 )}
