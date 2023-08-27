@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import './ProfileHeader.css'
-import { fetchUser } from '../../store/users'
+import { thunkGetAllUsers } from '../../store/users'
 
 export default function ProfileHeader({userId, url}){
     const dispatch = useDispatch()
     const user = useSelector(state => state.users.user)
     useEffect(() => {
-        dispatch(fetchUser(userId))
+        dispatch(thunkGetAllUsers(userId))
     }, [])
 
     if (!user) return null
@@ -16,7 +16,7 @@ export default function ProfileHeader({userId, url}){
         return `url(${url})`
     }
 
-    const backgorundImageStyle = (url) => {
+    const backgroundImageStyle = (url) => {
         return {
             backgroundImage: urlToString(url),
             backgroundSize: 'cover',
@@ -24,10 +24,10 @@ export default function ProfileHeader({userId, url}){
             backgroundRepeat: 'no-repeat',
         }
     }
-    console.log('background image', backgorundImageStyle);
+    console.log('background image', backgroundImageStyle);
 
     return (
-        <div className='user-profile-container' style={backgorundImageStyle(url)}>
+        <div className='user-profile-container' style={backgroundImageStyle(url)}>
             <div className='profile-content'>
                 <div className='profile-img'>
                     <img src={user.profilePic} style={{height: "100px", width: "100px", borderRadius: "50px"}}/>
