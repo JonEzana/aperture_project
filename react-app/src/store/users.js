@@ -1,8 +1,14 @@
 const GET_ALL_USERS = "users/getAllUsers";
+const GET_USER = "api/user/GET_USER";
 
 export const getAllUsers = (users) => ({
     type: GET_ALL_USERS,
     payload: users
+});
+
+export const getUser = (user) => ({
+    type: GET_USER,
+    user
 });
 
 export const thunkGetAllUsers = () => async (dispatch) => {
@@ -12,7 +18,22 @@ export const thunkGetAllUsers = () => async (dispatch) => {
         dispatch(getAllUsers(users.users));
         return users;
     }
-}
+};
+
+export const fetchUser = (userId) => async (dispatch) => {
+    const res = await fetch(`/api/users/${userId}`, {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
+
+    if (res.ok){
+        const data = await res.json();
+        dispatch(getUser(data));
+    } else {
+        return ["An error occurred. Please try again."]
+    }
+};
 
 const initialState = {allUsers: {}, singleUser: {}};
 
@@ -26,6 +47,8 @@ export default function userReducer(state = initialState, action) {
             });
             return newState;
         }
+        case GET_USER:
+            return {...state, singleUser: {...action.user}};
         default:
             return state;
     }
