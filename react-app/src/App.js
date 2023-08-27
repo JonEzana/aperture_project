@@ -9,6 +9,7 @@ import LandingPage from "./components/LandingPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import AllAlbums from "./components/AlbumsIndex";
 import { PhotosIndex } from "./components/PhotosIndex";
+import AlbumDetail from "./components/AlbumDetail";
 
 
 function App() {
@@ -26,6 +27,9 @@ function App() {
           <Route exact path="/">
             <LandingPage />
           </Route>
+          <ProtectedRoute path='/users/:userId/albums/:albumId'>
+              <AlbumDetail />
+          </ProtectedRoute>
           <ProtectedRoute path='/users/:userId/albums'>
               <AllAlbums />
           </ProtectedRoute>
