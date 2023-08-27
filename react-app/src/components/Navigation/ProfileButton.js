@@ -91,7 +91,7 @@ function ProfileButton({ user }) {
       <button onClick={openMenu} className='profile-button'>
           {/* <i className="fa-solid fa-bars"></i>
            */}
-           <i className="fas fa-bars"></i>
+          <i className="fas fa-bars"></i>
           <i className="fas fa-user-circle" />
         </button>
       <div className="dropdown">
@@ -108,24 +108,30 @@ function ProfileButton({ user }) {
               <button className="logout-btn" onClick={handleLogout}>Log Out</button>
             </div>
           ) : (
-            <div className="dropdown-content loggedout">
-              <li className="li">
-                <OpenModalButton
-                  itemText="Sign Up"
-                  onItemClick={closeMenu}
-                  modalComponent={<SignupFormModal />}
-                  style={{border: "none", width: "100%", fontWeight: "900", textAlign: "left"}}
-                  />
-                </li>
-              <li className="li">
-                <OpenModalButton
-                  id='login_modal'
-                  itemText="Log In"
-                  onItemClick={closeMenu}
-                  modalComponent={<LoginFormModal />}
-                  style={{border: "none", width: "100%", textAlign: "left"}}
-                  />
-              </li>
+            <div className="dropdown-content loggedout" id='logged-out-menu'>
+              <div className='single-button-container-div'>
+                <li className="li">
+                  <OpenModalButton
+                    className = 'sign-up-button'
+                    buttonText="Sign Up"
+                    onItemClick={closeMenu}
+                    modalComponent={<SignupFormModal />}
+                    // style={{border: "1px solid red", width: "90%", fontWeight: "500", textAlign: "left", height: "90%"}}
+                    />
+                  </li>
+                </div>
+                <div className='single-button-container-div'>
+                  <li className="li">
+                    <OpenModalButton
+                      className = 'sign-up-button'
+                      id='login_modal'
+                      buttonText="Log In"
+                      onItemClick={closeMenu}
+                      modalComponent={<LoginFormModal />}
+                      // style={{border: "none", width: "100%", textAlign: "left"}}
+                      />
+                  </li>
+               </div> 
             </div>
         )}
         </ul>
