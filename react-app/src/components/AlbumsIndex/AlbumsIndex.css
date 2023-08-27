@@ -1,0 +1,12 @@
+.albums-container {
+    border: 2px solid red;
+    margin-top: 200px;
+    height: 500px;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+img {
+    height: 100px;
+}
