@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {thunkGetAllAlbums} from '../../store/albums'
+import { thunkGetAllAlbums } from '../../store/albums'
 import './AlbumsIndex.css'
 
 export default function AllAlbums() {
@@ -18,25 +18,36 @@ export default function AllAlbums() {
     // const res = albums.find(album => album.photos.find(photo => photo.previewImg === true))
     // console.log('res', res);
 
-    function helper(album){
+    const photoUrl = (album) => {
         for (let photo of album.photos) {
             if (photo.previewImg === true) {
-                return photo.url
+                return `url(${photo.url})`
             }
         }
     }
-    // console.log('preview photo', previewPhoto);
+
+    const backgorundImageStyle = (album) => {
+        return {
+            backgroundImage: photoUrl(album),
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+        }
+    }
 
     return (
         <div>
             <div className='albums-container'>
-                {albums.map(album => <div className='album' key={album.id}>
-                    <img src={helper(album)} />
-                        <div>{album.title}</div>
+                {albums.map(album => <div className='album' style={backgorundImageStyle(album)} key={album.id}>
+                    <div className='title-photo-container'>
                         <div>
-                            {helper(album)}
+                            <div>{album.title}</div>
+                            <div>{album.photos.length} photos</div>
                         </div>
-                        <div>{album.photos.length} photos</div>
+                        <div id='album-arrow-icon'>
+                            <i className="fa-solid fa-share"></i>
+                        </div>
+                    </div>
                 </div>
                 )}
 
