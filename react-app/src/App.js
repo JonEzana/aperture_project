@@ -23,22 +23,20 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path="/">
+            <LandingPage />
+          </Route>
+          <ProtectedRoute path='/users/:userId/albums'>
+              <AllAlbums />
+          </ProtectedRoute>
+          <ProtectedRoute path="/photos/all" >
+              <PhotosIndex />
+          </ProtectedRoute>
           <Route path="/login" >
             <LoginFormPage />
           </Route>
           <Route path="/signup">
             <SignupFormPage />
-          </Route>
-          <ProtectedRoute>
-            <Route path='/users/:userId/albums'>
-              <AllAlbums />
-            </Route>
-          </ProtectedRoute>
-          <Route path="/photos/all">
-            <PhotosIndex />
-          </Route>
-          <Route exact path="/">
-            <LandingPage />
           </Route>
         </Switch>
       )}
