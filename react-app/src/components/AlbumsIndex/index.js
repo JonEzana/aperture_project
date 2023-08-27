@@ -31,13 +31,12 @@ export default function AllAlbums() {
         <div>
             <div className='albums-container'>
                 {albums.map(album => <div className='album' key={album.id}>
-                    <div className='img' style = {{ backgroundImage: `url('helper(album)')` }}>
+                    <img src={helper(album)} />
                         <div>{album.title}</div>
                         <div>
                             {helper(album)}
                         </div>
                         <div>{album.photos.length} photos</div>
-                    </div>
                 </div>
                 )}
 
