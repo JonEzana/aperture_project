@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import './ProfileHeader.css'
-import { thunkGetAllUsers } from '../../store/users'
+import { fetchUser } from '../../store/users'
 
 export default function ProfileHeader({userId, url}){
     const dispatch = useDispatch()
-    const user = useSelector(state => state.users.user)
+    const user = useSelector(state => state.users.singleUser)
     useEffect(() => {
-        dispatch(thunkGetAllUsers(userId))
+        dispatch(fetchUser(userId))
     }, [])
 
     if (!user) return null
