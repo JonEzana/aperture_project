@@ -8,6 +8,8 @@ import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import AllAlbums from "./components/AlbumsIndex";
+import { PhotosIndex } from "./components/PhotosIndex";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +34,9 @@ function App() {
               <AllAlbums />
             </Route>
           </ProtectedRoute>
+          <Route path="/photos/all">
+            <PhotosIndex />
+          </Route>
           <Route exact path="/">
             <LandingPage />
           </Route>
