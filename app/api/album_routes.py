@@ -1,7 +1,7 @@
 from flask import Blueprint, session
 from sqlalchemy import and_
 from flask_login import login_required, current_user
-from app.models import Album, db, Photo
+from app.models import Album, User, db, Photo
 from app.forms import CreateAlbumForm
 
 album_routes = Blueprint('albums', __name__)
@@ -25,18 +25,26 @@ def all_albums(userId):
 
     for index in range(len(album_list)):
         album_list[index]['photos'] = new_photo[index]
-    print('album list', album_list)
+    # print('album list', album_list)
     return {'albums': album_list}
 
 
 @album_routes.route('/<int:userId>/<int:id>')
 @login_required
-def one_album(id):
+def one_album(userId, id):
     """
     Query for one album by album id
     """
-    one_album = Album.query.get(id)
-    return one_album.to_dict()
+    one_user = User.query.get(userId).to_dict()
+    one_album = Album.query.get(id).to_dict()
+    one_album["user"] = one_user
+    # print('one album backend')
+    return one_album
+    # return {
+    #     # "album": one_album.to_dict(),
+    #     "user": one_user.to_dict()
+    # }
+    # return one_album.to_dict()
 
 
 @album_routes.route('/<int:userId>/new', methods=['POST'])

@@ -1,8 +1,14 @@
 const GET_ALL_ALBUMS = "albums/GET_ALL";
+const GET_ONE_ALBUM = "album/GET_ONE_ALBUM";
 
 const getAllAlbums = (albums) => ({
     type: GET_ALL_ALBUMS,
     albums
+})
+
+const getOneAlbum = (album) => ({
+    type: GET_ONE_ALBUM,
+    album
 })
 
 // thunk
@@ -15,6 +21,15 @@ export const thunkGetAllAlbums = (userId) => async (dispatch) => {
     }
 }
 
+export const thunkOneAlbum = (userId, albumId) => async (dispatch) => {
+    const res = await fetch(`/api/albums/${userId}/${albumId}`);
+    if (res.ok) {
+        const album = await res.json();
+        dispatch(getOneAlbum(album))
+        return album
+    }
+}
+
 
 // reducer
 const initialState = {allAlbums: {}, singleAlbum: {}, currentUserAlbums: {}};
@@ -24,12 +39,14 @@ export default function albumsReducer(state = initialState, action) {
     switch (action.type) {
         case GET_ALL_ALBUMS:{
             let newObj = {}
-            console.log('in reducer', action.albums.albums);
             action.albums.albums.forEach(album => {
                 newObj[album.id] = album
             });
             newState = {...state, allAlbums:{...newObj}}
             return newState
+        }
+        case GET_ONE_ALBUM: {
+            return {...state, singleAlbum: {...action.album}}
         }
         default:
             return state

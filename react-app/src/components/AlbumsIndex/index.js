@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { thunkGetAllAlbums } from '../../store/albums'
 import './AlbumsIndex.css'
 import ProfileHeader from '../ProfileHeader'
+import ProfileNav from '../ProfileNav'
 import { useParams } from "react-router-dom";
 
 export default function AllAlbums() {
@@ -59,6 +60,7 @@ export default function AllAlbums() {
     return (
         <div>
             <ProfileHeader userId={userId} url={earliestAlbumUrl(albums)}/>
+            <ProfileNav userId={userId} />
             <div className='albums-container'>
                 {sortAlbumList(albums).map(album => <div className='album' style={backgorundImageStyle(album)} key={album.id}>
                     <div className='title-photo-container'>
