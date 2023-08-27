@@ -71,40 +71,41 @@ function LoginFormModal() {
     // </>
     <div id="loginmodal" className="modal">
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label className="label">
+      <form onSubmit={handleSubmit} id='login-form'>
+        <div id='input-container'>
           <input
-          className="input"
+            className="login-input"
             type="text"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{borderRadius: "10px"}}
           />
-        </label>
-        <label className="label">
-          <div className="ogPW" style={{display: "flex", flexDirection: "row", width: "100%"}}>
+
+
+        
             <input
-              className="input"
+              className="login-input"
               type={pwType}
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              style={{borderRadius: "10px"}}
             />
             {/* {showPassword === false && <i className="fa-solid fa-eye-slash" style={{color: "#000000", alignSelf: "center", position: "absolute", marginLeft: "81%", zIndex: "2"}} onClick={handleShowPW}></i>}
             {showPassword === true && <i className="fa-solid fa-eye" style={{color: "#000000", alignSelf: "center", position: "absolute", marginLeft: "81%", zIndex: "2"}} onClick={handleShowPW}></i>} */}
-          </div>
-        </label>
+     
+
         {errors.credential && (
           <p className="valErr">{errors.credential}</p>
         )}
-        <button disabled={disabled} className={disabled ? "submit" : "submit enabled"} type="submit" style={{borderRadius: "10px"}}>Log In</button>
+        </div>
+        <div id='login-button-div'>
+        <button disabled={disabled} className={disabled ? "submit" : "submit enabled"} type="submit" style={{borderRadius: "12px", padding: '3px', width: '65%'}}>Log In</button>
         {/* <button className="demoUser" onClick={handleDemo} style={{borderRadius: "10px"}}>Log in as Demo User</button> */}
         {/* <hr style={{backgroundColor: "black", width: "100%", height: "1px"}} dataContent="or"></hr> */}
         {/* <p className="hrOr">or</p> */}
+        </div>
       </form>
       {/* <div style={{display: "flex", flexDirection: "column", gap: "14px", textAlign: "center", marginTop: "5px"}}>
         <div className="externalLinksDiv" style={{display: "flex", flexDirection: "row", alignItems: "center", borderRadius: "8px", justifyContent: "center", gap: "10px"}}>
@@ -120,6 +121,7 @@ function LoginFormModal() {
           <a className="external-links" href="https://apple.com">Continue with Apple</a>
         </div>
       </div> */}
+      {/* </div> */}
     </div>
   );
 }

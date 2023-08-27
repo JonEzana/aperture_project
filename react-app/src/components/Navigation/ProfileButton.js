@@ -128,7 +128,6 @@ function ProfileButton({ user }) {
                       buttonText="Log In"
                       onItemClick={closeMenu}
                       modalComponent={<LoginFormModal />}
-                      // style={{border: "none", width: "100%", textAlign: "left"}}
                       />
                   </li>
                </div> 
