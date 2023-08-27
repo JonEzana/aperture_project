@@ -1,0 +1,15 @@
+.profile-nav-container {
+    display: flex;
+    flex-direction: row;
+    margin-left: 120px;
+    align-items: center;
+    gap: 40px;
+    height: 40px;
+
+}
+
+.profile-nav-container a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+}
