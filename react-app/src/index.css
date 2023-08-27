@@ -3,3 +3,7 @@ body {
     background-color: white;
     font-family: 'Raleway', sans-serif;
 }
+
+.errors {
+    color: red;
+}

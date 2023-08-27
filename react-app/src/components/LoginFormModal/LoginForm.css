@@ -27,11 +27,12 @@
   box-sizing: border-box;
   font-size: 11;
   padding: 5px;
+  /* color: rgb(46, 147, 255); i tried to make outline of input blue, but i can't */
 }
 
 #disabled-login-button {
   background-color: rgb(214, 233, 254);
-  color: rgb(126, 127, 130);
+  color: rgb(168, 170, 174);
   border-radius: 12px;
   border: none;
   padding: 5px; 
