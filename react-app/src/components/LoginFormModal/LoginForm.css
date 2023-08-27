@@ -6,34 +6,46 @@
   padding: 15px 20px 30px;
 }
 
-/* 
-
-  border: 4px solid black;
-  border-radius: 18px;
-  overflow: hidden;
-  background-color: white;
-  
-  
-  height: fit-content;
-  
-  justify-content: center; */
-
 #login-form {
   display: flex;
   width: 100%;
   flex-direction: column;
+  align-items: center;
 }
 
-#input-container {
+#login-input-container {
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 3px;
   align-items: center;
+  padding-bottom: 20px;
 }
 
 .login-input {
   width: 90%;
   box-sizing: border-box;
+  font-size: 11;
+  padding: 5px;
+}
+
+#disabled-login-button {
+  background-color: rgb(214, 233, 254);
+  color: rgb(126, 127, 130);
+  border-radius: 12px;
+  border: none;
+  padding: 5px; 
+  width: 65%;
+  font-size: 13px;
+}
+
+#enabled-login-button {
+  background-color: rgb(87, 168, 255);
+  color: white;
+  border-radius: 12px;
+  border: none;
+  padding: 5px; 
+  width: 65%;
+  font-size: 13px;
 }
 
