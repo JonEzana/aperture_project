@@ -26,8 +26,11 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route exact path="/photos/all">
+          <Route path="/photos/all">
             <PhotosIndex />
+          </Route>
+          <Route exact path="/">
+            <LandingPage />
           </Route>
         </Switch>
       )}

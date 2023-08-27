@@ -9,7 +9,6 @@ export const thunkGetAllPhotos = () => async (dispatch) => {
     const res = await fetch('/api/photos/all');
     if (res.ok) {
         const photos = await res.json();
-        console.log('PHOTOS IN THUNK, LINE 12......', photos)
         dispatch(getAllPhotos(photos));
         return photos;
     }
