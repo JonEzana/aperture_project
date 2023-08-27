@@ -2,12 +2,15 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { thunkGetAllAlbums } from '../../store/albums'
 import './AlbumsIndex.css'
+import ProfileHeader from '../ProfileHeader'
+import { useParams } from "react-router-dom";
 
 export default function AllAlbums() {
     const currentUser = useSelector(state => state.session.user)
     const dispatch = useDispatch()
     const albums = Object.values(useSelector(state => state.albums.allAlbums))
-
+    const {userId} = useParams()
+    // console.log('user id', userId);
 
     useEffect(() => {
         dispatch(thunkGetAllAlbums(currentUser.id))
@@ -35,10 +38,29 @@ export default function AllAlbums() {
         }
     }
 
+    const sortAlbumList = (albums) => {
+        return albums.sort((a, b) => {
+            const latest = new Date(a.createdAt)
+            const earliest = new Date(b.createdAt)
+            if (earliest.getTime() > latest.getTime()) return -1
+            if (latest.getTime() > earliest.getTime()) return 1
+            return 0
+        })
+    }
+
+    const earliestAlbumUrl = (albums) => {
+      for (let photo of sortAlbumList(albums)[0].photos) {
+        if (photo.previewImg === true) {
+            return photo.url
+        }
+      }
+    }
+
     return (
         <div>
+            <ProfileHeader userId={userId} url={earliestAlbumUrl(albums)}/>
             <div className='albums-container'>
-                {albums.map(album => <div className='album' style={backgorundImageStyle(album)} key={album.id}>
+                {sortAlbumList(albums).map(album => <div className='album' style={backgorundImageStyle(album)} key={album.id}>
                     <div className='title-photo-container'>
                         <div>
                             <div>{album.title}</div>

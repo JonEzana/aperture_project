@@ -1,0 +1,41 @@
+.user-profile-container {
+    margin-top: 60px;
+    background-color: white;
+    height: 260px;
+    /* width: 100%; */
+    width: 100vw;
+    margin-left: -8px;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: flex-start; */
+    /* align-items: flex-end; */
+    /* gap: 10px; */
+    border: 2px solid yellow;
+}
+
+.profile-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin-left: 120px;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.names {
+    color: white;
+    font-size: 25px;
+}
+
+.bio {
+    color: white;
+    padding-bottom: 30px;
+    padding-top: 5px;
+}
+
+/* .name-and-bio { */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-self: center; */
+/* } */
