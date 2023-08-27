@@ -1,9 +1,3 @@
-import {useEffect} from "react";
-import { thunkGetAllPhotos } from "../../store/photos";
-import { thunkGetAllUsers } from "../../store/users";
-import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-
 export const UserBlurb = ({url, username, styles}) => {
 
     return (
