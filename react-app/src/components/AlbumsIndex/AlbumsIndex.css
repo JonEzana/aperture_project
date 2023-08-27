@@ -1,0 +1,47 @@
+.albums-container {
+    border: 2px solid red;
+    margin-top: 100px;
+    height: 500px;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.album {
+    position: relative;
+    height: 241px;
+    width: 241px;
+    box-shadow: 3px 3px 3px gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    border: 2px solid green;
+}
+
+.title-photo-container {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 160px;
+    transition: top 0.5s ease-in-out;
+    gap: 20px;
+    width: 100%
+}
+
+.title-photo-container div {
+    margin: 0 20px;
+}
+
+#album-arrow-icon {
+    align-self: flex-end;
+}
+
+.title-photo-container:hover {
+    top: 110px
+}
+
+.album div {
+    padding: 3px;
+}

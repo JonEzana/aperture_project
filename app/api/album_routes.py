@@ -9,10 +9,24 @@ album_routes = Blueprint('albums', __name__)
 @album_routes.route('/<int:userId>')
 @login_required
 def all_albums(userId):
-    """Display all albums for the current user"""
+    """
+    Display all albums for the current user
+    """
     albums = Album.query.filter(Album.user_id == userId).all()
+    album_list = [album.to_dict() for album in albums]
+    # photos = [album.photos for album in albums]
+    new_photo = []
+    for album in albums:
+        res = []
+        photos = Photo.query.filter(Photo.album_id == album.id)
+        for photo in photos:
+            res.append(photo.to_dict())
+        new_photo.append(res)
 
-    return {'albums': [album.to_dict() for album in albums]}
+    for index in range(len(album_list)):
+        album_list[index]['photos'] = new_photo[index]
+    print('album list', album_list)
+    return {'albums': album_list}
 
 
 @album_routes.route('/<int:userId>/<int:id>')
