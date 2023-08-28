@@ -4,9 +4,10 @@ import { thunkGetAllAlbums } from '../../store/albums'
 import './AlbumsIndex.css'
 import ProfileHeader from '../ProfileHeader'
 import ProfileNav from '../ProfileNav'
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 export default function AllAlbums() {
+    const history = useHistory()
     const currentUser = useSelector(state => state.session.user)
     const dispatch = useDispatch()
     const albums = Object.values(useSelector(state => state.albums.allAlbums))
@@ -57,19 +58,23 @@ export default function AllAlbums() {
       }
     }
 
+    const detailsAlbum = (userId, albumId) => {
+        history.push(`/users/${userId}/albums/${albumId}`)
+    }
+
     return (
         <div>
             <ProfileHeader userId={userId} url={earliestAlbumUrl(albums)}/>
             <ProfileNav userId={userId} />
             <div className='albums-container'>
-                {sortAlbumList(albums).map(album => <div className='album' style={backgorundImageStyle(album)} key={album.id}>
+                {sortAlbumList(albums).map(album => <div onClick={() => detailsAlbum(album.userId, album.id)} className='album' style={backgorundImageStyle(album)} key={album.id}>
                     <div className='title-photo-container'>
                         <div>
                             <div>{album.title}</div>
                             <div>{album.photos.length} photos</div>
                         </div>
                         <div id='album-arrow-icon'>
-                            <i className="fa-solid fa-share"></i>
+                            <i className="fas fa-share"></i>
                         </div>
                     </div>
                 </div>

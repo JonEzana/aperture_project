@@ -24,7 +24,7 @@ export default function ProfileHeader({userId, url}){
             backgroundRepeat: 'no-repeat',
         }
     }
-    console.log('background image', backgroundImageStyle);
+
 
     return (
         <div className='user-profile-container' style={backgroundImageStyle(url)}>
