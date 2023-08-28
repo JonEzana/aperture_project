@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import './ProfileHeader.css'
-import { fetchUser } from '../../store/users'
+import { fetchUser } from '../../store/users';
+import { useBackgroundImgContext } from '../../context/BackgroundImage';
 
-export default function ProfileHeader({userId, url}){
+export default function ProfileHeader({userId}){
     const dispatch = useDispatch()
+    const {backgroundImg, setBackgroundImg} = useBackgroundImgContext();
     const user = useSelector(state => state.users.singleUser)
     useEffect(() => {
         dispatch(fetchUser(userId))
@@ -25,9 +27,8 @@ export default function ProfileHeader({userId, url}){
         }
     }
 
-
     return (
-        <div className='user-profile-container' style={backgroundImageStyle(url)}>
+        <div className='user-profile-container' style={backgroundImageStyle(backgroundImg)}>
             <div style={{width: '80%'}}>
                 <span className='profile-content'>
                     <div className='profile-img'>

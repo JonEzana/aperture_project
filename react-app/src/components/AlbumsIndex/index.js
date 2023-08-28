@@ -6,7 +6,7 @@ import ProfileHeader from '../ProfileHeader'
 import ProfileNav from '../ProfileNav'
 import { useParams, useHistory } from "react-router-dom";
 
-export default function AllAlbums() {
+export default function AllAlbums({backgroundUrl}) {
     const history = useHistory()
     const currentUser = useSelector(state => state.session.user)
     const dispatch = useDispatch()
@@ -15,7 +15,7 @@ export default function AllAlbums() {
     // console.log('user id', userId);
 
     useEffect(() => {
-        dispatch(thunkGetAllAlbums(currentUser.id))
+        dispatch(thunkGetAllAlbums(userId))
     }, [])
 
     if (!albums.length) return null
@@ -31,7 +31,7 @@ export default function AllAlbums() {
         }
     }
 
-    const backgorundImageStyle = (album) => {
+    const backgroundImageStyle = (album) => {
         return {
             backgroundImage: photoUrl(album),
             backgroundSize: 'cover',
@@ -64,10 +64,10 @@ export default function AllAlbums() {
 
     return (
         <div>
-            <ProfileHeader userId={userId} url={earliestAlbumUrl(albums)}/>
+            <ProfileHeader userId={userId} url={backgroundUrl}/>
             <ProfileNav userId={userId} />
             <div className='albums-container'>
-                {sortAlbumList(albums).map(album => <div onClick={() => detailsAlbum(album.userId, album.id)} className='album' style={backgorundImageStyle(album)} key={album.id}>
+                {sortAlbumList(albums).map(album => <div onClick={() => detailsAlbum(album.userId, album.id)} className='album' style={backgroundImageStyle(album)} key={album.id}>
                     <div className='title-photo-container'>
                         <div>
                             <div>{album.title}</div>
