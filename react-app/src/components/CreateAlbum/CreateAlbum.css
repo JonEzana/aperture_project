@@ -1,12 +1,75 @@
 .album-form {
     display: flex;
-    margin-top: 120px;
+    margin-top: 100px;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    /* border: 2px solid gray; */
+    height: 500px;
 }
 
 .upper-side {
     display: flex;
     flex-direction: row;
+    padding-bottom: 300px;
+    width: 100%;
+    border: 2px solid red;
+    height: 200px;
+
+}
+
+.left-create {
+    border: 2px solid blue;
+    flex: 0.3;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 10px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    /* margin-bottom: 100px; */
+}
+
+.left-create input {
+    height: 20px;
+    width: 200px;
+}
+
+.description-box textarea {
+    height: 300px;
+    width: 200px;
+}
+
+.select-photos {
+    border: 2px solid purple;
+    flex: 0.7;
+    height: 500px;
+    overflow: scroll;
+}
+
+.buttom-side {
+    display: flex;
+    /* border: 2px solid green; */
+    /* justify-content: space-around; */
+    margin-top: 20px;
+    gap: 50px;
+    /* height:  100px; */
+}
+
+.photo-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 200px;
+    margin-top: 10px;
+    gap: 15px;
+}
+
+.photo-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    height: 100%;
 }
