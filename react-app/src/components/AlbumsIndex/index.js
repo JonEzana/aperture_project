@@ -31,7 +31,7 @@ export default function AllAlbums() {
         }
     }
 
-    const backgorundImageStyle = (album) => {
+    const backgroundImageStyle = (album) => {
         return {
             backgroundImage: photoUrl(album),
             backgroundSize: 'cover',
@@ -67,7 +67,7 @@ export default function AllAlbums() {
             <ProfileHeader userId={userId} url={earliestAlbumUrl(albums)}/>
             <ProfileNav userId={userId} />
             <div className='albums-container'>
-                {sortAlbumList(albums).map(album => <div onClick={() => detailsAlbum(album.userId, album.id)} className='album' style={backgorundImageStyle(album)} key={album.id}>
+                {sortAlbumList(albums).map(album => <div onClick={() => detailsAlbum(album.userId, album.id)} className='album' style={backgroundImageStyle(album)} key={album.id}>
                     <div className='title-photo-container'>
                         <div>
                             <div>{album.title}</div>

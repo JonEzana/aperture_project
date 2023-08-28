@@ -1,5 +1,6 @@
 const GET_ALL_PHOTOS = "photos/GET_ALL";
 const GET_SINGLE_PHOTO = "photos/getSinglePhoto";
+const DELETE_PHOTO = "photos/DELETE_PHOTO"
 
 const getAllPhotos = (photos) => ({
     type: GET_ALL_PHOTOS,
@@ -9,6 +10,11 @@ const getAllPhotos = (photos) => ({
 const getSinglePhoto = (photo) => ({
     type: GET_SINGLE_PHOTO,
     payload: photo
+});
+
+const deletePhoto = (photoId) => ({
+    type: DELETE_PHOTO,
+    payload: photoId
 });
 
 export const thunkGetAllPhotos = () => async (dispatch) => {
@@ -31,6 +37,16 @@ export const thunkGetSinglePhoto = (id) => async (dispatch) => {
     }
 };
 
+export const thunkDeletePhoto = (photoId) => async (dispatch) => {
+    const res = await fetch(`/api/photos/delete/${photoId}`, {
+        method: 'DELETE'
+    })
+    if (res.ok) {
+        await dispatch(deletePhoto(photoId))
+    }
+}
+
+
 const initialState = {allPhotos: {}, singlePhoto: {}, currentUserPhotos: {}};
 
 export default function photosReducer(state = initialState, action) {
@@ -44,6 +60,12 @@ export default function photosReducer(state = initialState, action) {
         }
         case GET_SINGLE_PHOTO: {
             return {...state, allPhotos: {...state.allPhotos}, singlePhoto: {...action.payload}, currentUserPhotos: {}}
+        }
+        case DELETE_PHOTO: {
+            const newState = {...state, allPhotos: {...state.allPhotos}, currentUserPhotos: {...state.currentUserPhotos}}
+            delete newState.allPhotos[action.photoId]
+            delete newState.currentUserPhotos[action.photoId]
+            return newState;
         }
         default:
             return state;
