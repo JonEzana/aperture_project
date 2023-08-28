@@ -12,7 +12,6 @@ class Album(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
     title = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(255), nullable=False)
-    thumbnail_Url = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime(), default=datetime.now())
     updated_at = db.Column(db.DateTime(), default=datetime.now())
 
@@ -27,7 +26,6 @@ class Album(db.Model):
             'userId': self.user_id,
             'title': self.title,
             'description': self.description,
-            'thumbnailUrl': self.thumbnail_Url,
             'createdAt': self.created_at,
             'updatedAt': self.updated_at
         }
