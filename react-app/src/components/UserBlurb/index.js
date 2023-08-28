@@ -1,4 +1,4 @@
-export const UserBlurb = ({url, username, styles}) => {
+export const UserBlurb = ({url, username, styles, bio}) => {
 
     return (
         <div className="user-blurb-container" style={styles}>
