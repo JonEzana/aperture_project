@@ -7,7 +7,7 @@ import ProfileHeader from "../ProfileHeader";
 import ProfileNav from "../ProfileNav";
 import './Photostream.css'
 
-export const Photostream = () => {
+export const Photostream = ({backgroundUrl}) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const {userId} = useParams();
@@ -23,7 +23,7 @@ export const Photostream = () => {
 
     return (
         <div>
-            <ProfileHeader userId={user.id} url={"https://e1.pxfuel.com/desktop-wallpaper/532/607/desktop-wallpaper-pinterest-thebabester-aesthetic-purple-wide.jpg"}/>
+            <ProfileHeader userId={user.id} url={backgroundUrl} />
             <ProfileNav userId={user.id}/>
             <div id='user-photos-container-container'>
                 <div id='user-photos-container'>

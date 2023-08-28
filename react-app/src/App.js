@@ -32,7 +32,7 @@ function App() {
           <ProtectedRoute path='/users/:userId/albums/:albumId'>
               <AlbumDetail />
           </ProtectedRoute>
-          <ProtectedRoute path='/users/:userId/albums'>
+          <ProtectedRoute path='/users/:userId/albums' >
               <AllAlbums />
           </ProtectedRoute>
           <ProtectedRoute path="/photos/all" >
@@ -41,7 +41,7 @@ function App() {
           <ProtectedRoute path="/photos/:photoId" >
               <PhotoDetails />
           </ProtectedRoute>
-          <ProtectedRoute path='/users/:userId/photos'>
+          <ProtectedRoute path='/users/:userId/photos' >
               <Photostream />
           </ProtectedRoute>
           <Route path="/login" >
