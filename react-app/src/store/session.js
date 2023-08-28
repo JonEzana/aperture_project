@@ -88,17 +88,16 @@ export const signUp = (user) => async (dispatch) => {
 
 	if (response.ok) {
 		const data = await response.json();
-		console.log("THUNK (AFTER FETCHING)......", data)
 		dispatch(setUser(data));
 		return null;
 	} else if (response.status < 500) {
-	
+
 		const data = await response.json();
 		if (data.errors) {
 			return data.errors;
 		}
 	} else {
-	
+
 		return ["An error occurred. Please try again."];
 	}
 };
