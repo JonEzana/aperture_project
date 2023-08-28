@@ -27,7 +27,10 @@ export default function PhotoContainer({photo, album}) {
                         <div>{photo.title}</div>
                         <div>by {album.user.firstName} {album.user.lastName}</div>
                     </div>
-                    <div><i className="far fa-star"></i></div>
+                    <div className="icons">
+                        <i className="far fa-star"></i>
+                        <i className="far fa-comment"></i>
+                    </div>
                     </div>}</div>
 
 
