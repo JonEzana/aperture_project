@@ -61,8 +61,7 @@ def create_album(userId):
         new_album = Album(
             title=form.data['title'],
             description=form.data['description'],
-            user_id=current_user.id,
-            thumbnail_Url=photo.url
+            user_id=current_user.id
         )
 
         db.session.add(new_album)
