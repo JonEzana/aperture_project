@@ -7,7 +7,7 @@ export const UserBlurb = ({url, username, styles, bio}) => {
                 <p className="user-name">{username}</p>
             </span>
             <span className="user-blurb-right">
-                <i className="far fa-heart" style={{color: "#707070", paddingRight: "10px"}}></i>
+                <i className="far fa-star" style={{color: "#FFD700", paddingRight: "10px"}}></i>
             </span>
         </div>
     )
