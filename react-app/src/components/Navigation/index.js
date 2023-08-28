@@ -7,8 +7,6 @@ import './Navigation.css';
 
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
-	const history = useHistory();
-	console.log('session user', sessionUser)
 	let homeUrl;
 	sessionUser ? homeUrl = "/photos/all" : homeUrl = "/";
 
