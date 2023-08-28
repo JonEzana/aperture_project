@@ -16,7 +16,6 @@ const backgroundUrlPicker = () => {
     "https://c0.wallpaperflare.com/preview/652/943/804/close-up-fresh-freshness-garden.jpg"
     ];
     const index = Math.floor(Math.random() * imgArray.length);
-    console.log('IMG ARRAY', imgArray)
     return imgArray[index];
 
 }

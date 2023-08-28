@@ -85,10 +85,11 @@ export default function photosReducer(state = initialState, action) {
             return newState;
         }
         case DELETE_PHOTO: {
-            const newState = {...state, allPhotos: {...state.allPhotos}, currentUserPhotos: {...state.currentUserPhotos}}
-            delete newState.allPhotos[action.photoId]
-            delete newState.currentUserPhotos[action.photoId]
-            return newState;
+            const newState = {...state, allPhotos: {...state.allPhotos}, singlePhoto: {...state.singlePhoto}, currentUserPhotos: {...state.currentUserPhotos}}
+            delete newState.allPhotos[action.payload]
+            delete newState.currentUserPhotos[action.payload]
+            delete newState.singlePhoto;
+            return {...newState, allPhotos: {...newState.allPhotos}, currentUserPhotos: {...newState.currentUserPhotos}, singlePhoto: {...newState.singlePhoto}};
         }
         default:
             return state;

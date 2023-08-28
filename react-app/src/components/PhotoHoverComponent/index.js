@@ -1,7 +1,10 @@
 import React, {useRef, useState} from "react";
+import { NavLink } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
+import DeletePhotoModalFunction from "../DeletePhotoModal";
 // import './AlbumDetail.css'
 
-export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage}) {
+export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, userid}) {
     const [photoInfoBox, setPhotoInfoBox] = useState(false)
     const ref = useRef()
 
@@ -9,12 +12,13 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage}) {
         return `url(${url})`
     }
 
-    const individualImageStyle = (url) => {
+    const backgroundImageStyle = (url) => {
         return {
             backgroundImage: urlToString(url),
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
+            width: "300px"
         }
     }
 
@@ -23,23 +27,39 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage}) {
             return "YOU!"
         } return photo.Owner.username;
     }
-    console.log('hover component', photo.url)
-    console.log('hover component', isCurrentUserOnOwnPage)
-    // console.log('hover component', photo)
+    // console.log('hover component', photo.url)
+    // console.log('hover component', isCurrentUserOnOwnPage)
+
     return (
-        <div>
-            <div style={individualImageStyle(photo.url)} className="photo-detail-container" ref={ref} onMouseEnter={() => setPhotoInfoBox(true)} onMouseLeave={() => setPhotoInfoBox(false)} key={photo.id}>
-                {!photoInfoBox && <div className="text">
 
-                    <div className="title-and-name">
-                        <div>{photo.title}</div>
-                        <div>by {displayName(photo)}</div>
+            <div style={backgroundImageStyle(photo.url)} className="photo-detail-container" ref={ref} onMouseEnter={() => setPhotoInfoBox(true)} onMouseLeave={() => setPhotoInfoBox(false)} key={photo.id}>
+                {photoInfoBox &&
+                    <div className="text">
+                        <div className="title-name-icons" style={{display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%", alignItems: "center"}}>
+                            <div className="title-and-name" style={{border: "2px solid red"}}>
+                                <div>{photo.title}</div>
+                                <div style={{fontSize: "11px"}}>by {displayName(photo)}</div>
+                            </div>
+                            { isCurrentUserOnOwnPage &&
+                                <div className="owner-icons" style={{display: "flex", gap:"6px"}}>
+                                    <NavLink to={`/photos/${photo.id}/edit`}>
+                                        <i className="fas fa-edit" style={{color: "#ababab"}}></i>
+                                    </NavLink>
+                                    <OpenModalButton
+                                        modalComponent={<DeletePhotoModalFunction photoId={photo.id} userid={userid}/>}
+                                        buttonText={<i className="fas fa-trash-alt" style={{color: "#ababab"}}></i>}
+                                        style={{backgroundColor: "transparent", border: "none"}}
+                                    />
+                                </div>
+                            }
+                            { !isCurrentUserOnOwnPage &&
+                                <div className="not-owner-icons">
+                                    <i className="far fa-star" style={{color: "#FFD700"}}></i>
+                                </div>
+                            }
+                        </div>
                     </div>
-
-                    { isCurrentUserOnOwnPage && <p>OWNER</p> }
-                    { !isCurrentUserOnOwnPage && <p>NOT OWNER</p> }
-                </div>}
+                }
             </div>
-        </div>
     )
 }

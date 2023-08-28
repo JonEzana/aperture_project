@@ -29,21 +29,24 @@ export const Photostream = ({backgroundUrl}) => {
         return false;
     }
 
-    if (!photos.length) return <></>;
+    if (Object.values(currentUser).length && !photos.length) return (
+        <div>
+            <ProfileHeader userId={+userId} url={backgroundUrl} />
+            <ProfileNav userId={+userId}/>
+            <div>No photos yet!</div>
+        </div>
+    );
 
     return (
         <div>
-            <ProfileHeader userId={currentUser.id} url={backgroundUrl} />
-            <ProfileNav userId={currentUser.id}/>
+            <ProfileHeader userId={+userId} url={backgroundUrl} />
+            <ProfileNav userId={+userId}/>
             <div id='user-photos-container-container'>
                 <div id='user-photos-container'>
                     {photos.map(photo =>
-                        // <span className='all-photos-card' title={photo.name} onClick={() => history.push(`/photos/${photo.id}`)} key={photo.id}>
                         <div key={photo.id}>
-                            <PhotoHoverComponent isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo}/>
+                            <PhotoHoverComponent isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId}/>
                         </div>
-                        //     <img className='user-photos-pic' src={photo.url} alt={photo.title} style={{}}></img>
-                        //  </span>
                     )}
                 </div>
             </div>
