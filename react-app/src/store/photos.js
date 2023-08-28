@@ -29,7 +29,7 @@ export const thunkGetSinglePhoto = (id) => async (dispatch) => {
     } else {
         return "u thought";
     }
-}
+};
 
 const initialState = {allPhotos: {}, singlePhoto: {}, currentUserPhotos: {}};
 
