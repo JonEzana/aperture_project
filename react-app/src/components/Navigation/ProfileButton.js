@@ -16,7 +16,6 @@ function ProfileButton({ user }) {
     if (showMenu) return;
     setShowMenu(true);
   };
-  const closeMenuuu = () => setShowMenu(false);
 
   useEffect(() => {
     if (!showMenu) return;
@@ -32,10 +31,12 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
+  const closeMenu = () => setShowMenu(false);
+
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
-    closeMenuuu()
+    closeMenu()
     history.push('/');
 
   };
@@ -48,7 +49,7 @@ function ProfileButton({ user }) {
   // };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
-  const closeMenu = () => setShowMenu(false);
+
 
   const manage = async (e) => {
     e.preventDefault();
@@ -90,7 +91,7 @@ function ProfileButton({ user }) {
       <button onClick={openMenu} className='profile-button'>
           {/* <i className="fa-solid fa-bars"></i>
            */}
-           <i class="fas fa-bars"></i>
+          <i className="fas fa-bars"></i>
           <i className="fas fa-user-circle" />
         </button>
       <div className="dropdown">
@@ -104,26 +105,32 @@ function ProfileButton({ user }) {
               <button className="manage-btn" onClick={manage}>Manage Spots</button>
               <hr style={{background: "black", height: "1px", width: "100%" }}/>
 
-              <button className="logout-btn" onClick={logout}>Log Out</button>
+              <button className="logout-btn" onClick={handleLogout}>Log Out</button>
             </div>
           ) : (
-            <div className="dropdown-content loggedout">
-              <li className="li">
-                <OpenModalButton
-                  itemText="Sign Up"
-                  onItemClick={closeMenu}
-                  modalComponent={<SignupFormModal />}
-                  style={{border: "none", width: "100%", fontWeight: "900", textAlign: "left"}}
-                  />
-                </li>
-              <li className="li">
-                <OpenModalButton
-                  itemText="Log In"
-                  onItemClick={closeMenu}
-                  modalComponent={<LoginFormModal />}
-                  style={{border: "none", width: "100%", textAlign: "left"}}
-                  />
-              </li>
+            <div className="dropdown-content loggedout" id='logged-out-menu'>
+              <div className='single-button-container-div'>
+                <li className="li">
+                  <OpenModalButton
+                    className = 'sign-up-button'
+                    buttonText="Sign Up"
+                    onItemClick={closeMenu}
+                    modalComponent={<SignupFormModal />}
+                    // style={{border: "1px solid red", width: "90%", fontWeight: "500", textAlign: "left", height: "90%"}}
+                    />
+                  </li>
+                </div>
+                <div className='single-button-container-div'>
+                  <li className="li">
+                    <OpenModalButton
+                      className = 'sign-up-button'
+                      id='login_modal'
+                      buttonText="Log In"
+                      onItemClick={closeMenu}
+                      modalComponent={<LoginFormModal />}
+                      />
+                  </li>
+               </div> 
             </div>
         )}
         </ul>
