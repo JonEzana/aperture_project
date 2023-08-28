@@ -8,7 +8,7 @@ import ProfileNav from "../ProfileNav";
 import PhotoHoverComponent from "../PhotoHoverComponent";
 import './Photostream.css'
 
-export const Photostream = () => {
+export const Photostream = ({backgroundUrl}) => {
     const dispatch = useDispatch();
     const {userId} = useParams();
     const photos = Object.values(useSelector(state => state.photos.currentUserPhotos));
@@ -33,8 +33,8 @@ export const Photostream = () => {
 
     return (
         <div>
-            <ProfileHeader userId={+userId} url={"https://e1.pxfuel.com/desktop-wallpaper/532/607/desktop-wallpaper-pinterest-thebabester-aesthetic-purple-wide.jpg"}/>
-            <ProfileNav userId={+userId}/>
+            <ProfileHeader userId={currentUser.id} url={backgroundUrl} />
+            <ProfileNav userId={currentUser.id}/>
             <div id='user-photos-container-container'>
                 <div id='user-photos-container'>
                     {photos.map(photo =>
