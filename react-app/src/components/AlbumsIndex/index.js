@@ -5,6 +5,7 @@ import './AlbumsIndex.css'
 import ProfileHeader from '../ProfileHeader'
 import ProfileNav from '../ProfileNav'
 import { useParams, useHistory } from "react-router-dom";
+import { NavLink } from 'react-router-dom'
 
 export default function AllAlbums({backgroundUrl}) {
     const history = useHistory()
@@ -50,13 +51,13 @@ export default function AllAlbums({backgroundUrl}) {
         })
     }
 
-    const earliestAlbumUrl = (albums) => {
-      for (let photo of sortAlbumList(albums)[0].photos) {
-        if (photo.previewImg === true) {
-            return photo.url
-        }
-      }
-    }
+    // const earliestAlbumUrl = (albums) => {
+    //   for (let photo of sortAlbumList(albums)[0].photos) {
+    //     if (photo.previewImg === true) {
+    //         return photo.url
+    //     }
+    //   }
+    // }
 
     const detailsAlbum = (userId, albumId) => {
         history.push(`/users/${userId}/albums/${albumId}`)
@@ -66,6 +67,7 @@ export default function AllAlbums({backgroundUrl}) {
         <div>
             <ProfileHeader userId={userId} url={backgroundUrl}/>
             <ProfileNav userId={userId} />
+            {currentUser && <NavLink to={`/users/${userId}/albums/new`}>New album</NavLink>}
             <div className='albums-container'>
                 {sortAlbumList(albums).map(album => <div onClick={() => detailsAlbum(album.userId, album.id)} className='album' style={backgroundImageStyle(album)} key={album.id}>
                     <div className='title-photo-container'>

@@ -21,13 +21,19 @@ export const PhotoDetails = () => {
     return (
         <div style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
             <img src={photo?.url} alt={photo?.title} style={{margin: "0", border: "1px solid red"}}></img>
-            <span style={{display: "flex", flexDirection: "row", gap: "17px", alignItems: "center"}}>
-                <img src={photo?.Owner?.profilePic} style={{height: "75px", borderRadius: "60px", justifySelf: "center"}}></img>
-                <span style={{display: "flex", flexDirection: "column"}}>
-                    <h2 style={{border: "1px red solid", fontWeight: "bold"}}>{photo?.Owner?.username}</h2>
-                    <h4 style={{border: "1px red solid"}}>{photo?.description}</h4>
+            <div style={{display: "flex", justifyContent: "space-between"}}>
+                <span style={{display: "flex", flexDirection: "row", gap: "17px", alignItems: "center"}}>
+                    <img src={photo?.Owner?.profilePic} style={{height: "75px", borderRadius: "60px", justifySelf: "center"}}></img>
+                    <span style={{display: "flex", flexDirection: "column"}}>
+                        <h2 style={{border: "1px red solid", fontWeight: "bold"}}>{photo?.Owner?.username}</h2>
+                        <h4 style={{border: "1px red solid"}}>{photo?.description}</h4>
+                    </span>
                 </span>
-            </span>
+                <span style={{display: "flex", gap: "5px"}}>
+                    <p style={{height: "fit-content"}}>Favorite</p>
+                    <i className="far fa-star" style={{color: "#FFD700", paddingRight: "10px", paddingBottom: "2px"}}></i>
+                </span>
+            </div>
             <div>
                 comments go here
             </div>
