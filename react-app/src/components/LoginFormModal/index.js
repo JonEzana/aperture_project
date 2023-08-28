@@ -41,7 +41,7 @@ function LoginFormModal() {
   //route = '/login'
   return (
     <div id="loginmodal" className="modal">
-      <h1 style={{color: 'rgb(46, 147, 255)'}}>Log In</h1>
+      <h2 style={{color: 'rgb(46, 147, 255)'}}>Log In</h2>
       <form onSubmit={handleSubmit} id='login-form'>
         <div id='login-input-container'>
           <input

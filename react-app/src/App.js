@@ -11,6 +11,7 @@ import AllAlbums from "./components/AlbumsIndex";
 import { PhotosIndex } from "./components/PhotosIndex";
 import AlbumDetail from "./components/AlbumDetail";
 import {PhotoDetails} from "./components/PhotoDetails";
+import { Photostream } from "./components/Photostream";
 
 
 function App() {
@@ -39,6 +40,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path="/photos/:photoId" >
               <PhotoDetails />
+          </ProtectedRoute>
+          <ProtectedRoute path='/users/:userId/photos'>
+              <Photostream />
           </ProtectedRoute>
           <Route path="/login" >
             <LoginFormPage />
