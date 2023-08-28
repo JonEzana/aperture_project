@@ -35,10 +35,10 @@ def one_album(userId, id):
     """
     Query for one album by album id
     """
+    print('one album backend')
     one_user = User.query.get(userId).to_dict()
     one_album = Album.query.get(id).to_dict()
     one_album["user"] = one_user
-    # print('one album backend')
     return one_album
     # return {
     #     # "album": one_album.to_dict(),

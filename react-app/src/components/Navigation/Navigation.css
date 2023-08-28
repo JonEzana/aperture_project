@@ -127,6 +127,10 @@
   cursor: pointer;
 
 }
+.logo-btn {
+  padding-left: 40px;
+
+}
 .logout-btn{
   height: 30px;
   width: 90%;
