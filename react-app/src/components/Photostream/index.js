@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import ProfileHeader from "../ProfileHeader";
 import ProfileNav from "../ProfileNav";
+import './Photostream.css'
 
 export const Photostream = () => {
     const dispatch = useDispatch();
@@ -24,12 +25,12 @@ export const Photostream = () => {
         <div>
             <ProfileHeader userId={user.id} url={"https://e1.pxfuel.com/desktop-wallpaper/532/607/desktop-wallpaper-pinterest-thebabester-aesthetic-purple-wide.jpg"}/>
             <ProfileNav userId={user.id}/>
-            <div className='container-container'>
-                <div className='all-photos-container'>
+            <div id='user-photos-container-container'>
+                <div id='user-photos-container'>
                     {photos.map(photo =>
-                        <span className='all-photos-card' title={photo.name} onClick={() => history.push(`/photos/${photo.id}`)} key={photo.id}>
-                            <img className='all-photos-pic' src={photo.url} alt={photo.title} style={{borderTopRightRadius: "10px", borderTopLeftRadius: "10px"}}></img>
-                        </span>
+                        // <span className='all-photos-card' title={photo.name} onClick={() => history.push(`/photos/${photo.id}`)} key={photo.id}>
+                            <img className='user-photos-pic' src={photo.url} alt={photo.title} style={{}}></img>
+                        // </span>
                     )}
                 </div>
             </div>

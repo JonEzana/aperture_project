@@ -28,14 +28,16 @@ export default function ProfileHeader({userId, url}){
 
     return (
         <div className='user-profile-container' style={backgroundImageStyle(url)}>
-            <div className='profile-content'>
-                <div className='profile-img'>
-                    <img src={user.profilePic} style={{height: "100px", width: "100px", borderRadius: "50px"}}/>
-                </div>
-                <div className='name-and-bio'>
-                    <div className='names'>{user.firstName} {user.lastName}</div>
-                    <div className='bio'>{user.bio}</div>
-                </div>
+            <div style={{width: '80%'}}>
+                <span className='profile-content'>
+                    <div className='profile-img'>
+                        <img src={user.profilePic} style={{height: "100px", width: "100px", borderRadius: "50px"}}/>
+                    </div>
+                    <div className='name-and-bio'>
+                        <div className='names'>{user.firstName} {user.lastName}</div>
+                        <div className='bio'>{user.bio}</div>
+                    </div>
+                </span>
             </div>
         </div>
     )
