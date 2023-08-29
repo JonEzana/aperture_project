@@ -12,6 +12,7 @@ import { PhotosIndex } from "./components/PhotosIndex";
 import AlbumDetail from "./components/AlbumDetail";
 import {PhotoDetails} from "./components/PhotoDetails";
 import { Photostream } from "./components/Photostream";
+import CreateAlbum from "./components/CreateAlbum";
 
 
 function App() {
@@ -29,19 +30,23 @@ function App() {
           <Route exact path="/">
             <LandingPage />
           </Route>
-          <ProtectedRoute path='/users/:userId/albums/:albumId'>
-              <AlbumDetail />
+          <ProtectedRoute exact path='/albums/new'>
+              <CreateAlbum />
           </ProtectedRoute>
-          <ProtectedRoute path='/users/:userId/albums'>
+          <ProtectedRoute exact path='/users/:userId/albums' >
               <AllAlbums />
           </ProtectedRoute>
+          <ProtectedRoute exact path='/users/:userId/albums/:albumId'>
+              <AlbumDetail />
+          </ProtectedRoute>
+
           <ProtectedRoute path="/photos/all" >
               <PhotosIndex />
           </ProtectedRoute>
           <ProtectedRoute path="/photos/:photoId" >
               <PhotoDetails />
           </ProtectedRoute>
-          <ProtectedRoute path='/users/:userId/photos'>
+          <ProtectedRoute path='/users/:userId/photos' >
               <Photostream />
           </ProtectedRoute>
           <Route path="/login" >

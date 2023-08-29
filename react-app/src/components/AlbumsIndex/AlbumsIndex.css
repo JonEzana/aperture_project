@@ -18,6 +18,7 @@
     flex-direction: column;
     justify-content: end;
     cursor: pointer;
+    overflow: hidden;
 }
 
 .title-photo-container {
@@ -45,4 +46,17 @@
 
 .album div {
     padding: 3px;
+}
+#create-new-album {
+    margin: 10px;
+    text-align: end;
+}
+
+#create-new-album a{
+    text-decoration: none;
+    color: black;
+}
+
+.Edit-Delete-Album {
+    display: flex;
 }

@@ -1,36 +1,52 @@
 import {useEffect} from "react";
-import { thunkGetAllPhotos } from "../../store/photos";
-import { fetchUser } from "../../store/users";
+import { thunkGetCurrentUserPhotos } from "../../store/photos";
+import { thunkGetAllUsers } from "../../store/users";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ProfileHeader from "../ProfileHeader";
 import ProfileNav from "../ProfileNav";
+import PhotoHoverComponent from "../PhotoHoverComponent";
 import './Photostream.css'
 
-export const Photostream = () => {
+export const Photostream = ({backgroundUrl}) => {
     const dispatch = useDispatch();
-    const history = useHistory();
     const {userId} = useParams();
-    const allPhotos = useSelector(state => state.photos.allPhotos);
-    const user = useSelector(state => state.users.singleUser);
+    const photos = Object.values(useSelector(state => state.photos.currentUserPhotos));
+    const currentUser = useSelector(state => state.session.user);
+    const allUsers = Object.values(useSelector(state => state.users.allUsers));
 
     useEffect(() => {
-        dispatch(thunkGetAllPhotos());
-        dispatch(fetchUser(userId))
+        dispatch(thunkGetCurrentUserPhotos(userId));
+        dispatch(thunkGetAllUsers());
     }, [dispatch]);
 
-    const photos = Object.values(allPhotos).filter(photo => photo?.userId === user.id);
+    photos.forEach(photo => {
+        photo["Owner"] = Object.values(allUsers).find(user => user.id === photo.userId);
+    });
+
+    const currentUserOnOwnPage = () => {
+        if (currentUser.id == userId) return true;
+        return false;
+    }
+
+    if (Object.values(currentUser).length && !photos.length) return (
+        <div>
+            <ProfileHeader userId={+userId} url={backgroundUrl} />
+            <ProfileNav userId={+userId}/>
+            <div>No photos yet!</div>
+        </div>
+    );
 
     return (
         <div>
-            <ProfileHeader userId={user.id} url={"https://e1.pxfuel.com/desktop-wallpaper/532/607/desktop-wallpaper-pinterest-thebabester-aesthetic-purple-wide.jpg"}/>
-            <ProfileNav userId={user.id}/>
+            <ProfileHeader userId={+userId} url={backgroundUrl} />
+            <ProfileNav userId={+userId}/>
             <div id='user-photos-container-container'>
                 <div id='user-photos-container'>
                     {photos.map(photo =>
-                        // <span className='all-photos-card' title={photo.name} onClick={() => history.push(`/photos/${photo.id}`)} key={photo.id}>
-                            <img className='user-photos-pic' src={photo.url} alt={photo.title} style={{}}></img>
-                        // </span>
+                        <div key={photo.id}>
+                            <PhotoHoverComponent isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId}/>
+                        </div>
                     )}
                 </div>
             </div>
