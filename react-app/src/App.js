@@ -15,6 +15,9 @@ import { Photostream } from "./components/Photostream";
 import CreateAlbum from "./components/CreateAlbum";
 import {PhotoFormModalFunction} from "./components/PhotoFormModalFunction";
 import { UpdatePhoto } from "./components/UpdatePhoto";
+import FavPhotos from "./components/FavPhotos";
+
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -32,6 +35,9 @@ function App() {
           </Route>
           <ProtectedRoute exact path='/albums/new'>
               <CreateAlbum />
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/users/:userId/faves' >
+              <FavPhotos />
           </ProtectedRoute>
           <ProtectedRoute exact path='/users/:userId/albums' >
               <AllAlbums />
