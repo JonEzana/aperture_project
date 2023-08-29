@@ -43,7 +43,7 @@ export const Photostream = ({backgroundUrl}) => {
             <ProfileNav userId={+userId}/>
             <div id='user-photos-container-container'>
                 <div id='user-photos-container'>
-                    {photos.map(photo =>
+                    {photos.toReversed().map(photo =>
                         <div key={photo.id}>
                             <PhotoHoverComponent isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId}/>
                         </div>
