@@ -50,8 +50,6 @@ def create_photo():
         print('NEW PHOTO BACKEND !!!!!!!', new_photo)
         db.session.add(new_photo)
         db.session.commit()
-        # new_photo = Photo.query.filter(Photo.user_id == current_user.id).all()
-        # return {"photos": [photo.to_dict() for photo in new_photo]}
         return new_photo.to_dict();
 
     if form.errors:
