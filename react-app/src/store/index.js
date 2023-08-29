@@ -4,23 +4,16 @@ import session from './session'
 import photosReducer from './photos';
 import albumsReducer from './albums';
 import userReducer from './users';
-<<<<<<< HEAD
 import commentReducer from './comments'
-
-=======
 import favReducer from './fav';
->>>>>>> dev
 
 const rootReducer = combineReducers({
   session,
   photos: photosReducer,
   albums: albumsReducer,
   users: userReducer,
-<<<<<<< HEAD
-  comments: commentReducer
-=======
+  comments: commentReducer,
   favs: favReducer
->>>>>>> dev
 });
 
 
