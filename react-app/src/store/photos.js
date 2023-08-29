@@ -93,8 +93,9 @@ export const thunkCreatePhoto = (photoData) => async (dispatch) => {
         dispatch(createPhoto(photo));
         return photo;
     } else {
-        console.log('thunk failture')
+        console.log('thunk failure')
         const err = await res.json();
+        console.log('ERRORS', err['errors'])
         return err['errors'];
     }
 }
