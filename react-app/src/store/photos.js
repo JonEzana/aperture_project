@@ -101,7 +101,7 @@ export const thunkCreatePhoto = (photoData) => async (dispatch) => {
 	}
 }
 
-export const thunkUpdatePhoto = (photoId, photoData) => async (dispatch) => {
+export const thunkUpdatePhoto = (photoData, photoId) => async (dispatch) => {
     const res = await fetch(`/api/photos/edit/${photoId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

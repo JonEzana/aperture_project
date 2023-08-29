@@ -37,11 +37,12 @@ export const PhotoFormModalFunction = ({ photo, formType }) => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     if (formType === "Update") {
-      const finalData = {...newData, title, description, url};
-      const updatedPhoto = await dispatch(sessionActions.thunkUpdatePhoto(finalData));
+      const finalData = {...newData, title, description, url, user_id: currentUser.id};
+      const updatedPhoto = await dispatch(sessionActions.thunkUpdatePhoto(finalData, finalData.id));
       if (updatedPhoto.id) {
-        const updatedPhotoDetails = await dispatch(sessionActions.thunkGetSinglePhoto(updatedPhoto.id));
-        history.push(`/photos/${updatedPhotoDetails.id}`)
+        await dispatch(sessionActions.thunkGetCurrentUserPhotos(currentUser.id));
+        closeModal();
+        history.push(`/users/${currentUser.id}/photos`);
       }
     } else {
       const data = {title, description, url, user_id: currentUser.id}
@@ -50,8 +51,6 @@ export const PhotoFormModalFunction = ({ photo, formType }) => {
         await dispatch(sessionActions.thunkGetCurrentUserPhotos(currentUser.id));
         closeModal();
         history.push(`/users/${currentUser.id}/photos`);
-      } else {
-        // console.log('failure')
       }
     }
   };
