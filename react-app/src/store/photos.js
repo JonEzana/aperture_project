@@ -102,26 +102,21 @@ export const thunkCreatePhoto = (photoData) => async (dispatch) => {
 }
 
 export const thunkUpdatePhoto = (photoData) => async (dispatch) => {
-    console.log('THUNK, photoData', photoData.photoId)
     const res = await fetch(`/api/photos/${photoData.photoId}/edit`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(photoData)
     });
     if (res.ok) {
-        console.log('RES.OK!!')
         const updatedPhoto = await res.json();
         dispatch(updatePhoto(updatedPhoto));
         return updatedPhoto;
     } else if (res.status < 500) {
-        console.log('LINE 117')
 		const data = await res.json();
 		if (data.errors) {
-            console.log('LINE 120', data.errors)
 			return data.errors;
 		}
 	} else {
-        console.log('LINE 124')
 		return ["An error occurred. Please try again."];
 	}
 
@@ -189,8 +184,6 @@ export default function photosReducer(state = initialState, action) {
             }
         }
         case UPDATE_PHOTO: {
-            console.log('in reducer action', action.payload.id);
-            console.log('in reducer, state', state.allPhotos);
             return {
                 ...state,
                 allPhotos: { ...state.allPhotos, [action.payload.id]: { ...action.payload } },
