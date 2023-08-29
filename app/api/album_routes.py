@@ -1,4 +1,4 @@
-from flask import Blueprint, session
+from flask import Blueprint, session, request
 from sqlalchemy import and_
 from flask_login import login_required, current_user
 from app.models import Album, User, db, Photo
@@ -14,18 +14,21 @@ def all_albums(userId):
     """
     albums = Album.query.filter(Album.user_id == userId).all()
     album_list = [album.to_dict() for album in albums]
-    # photos = [album.photos for album in albums]
+
     new_photo = []
+    
     for album in albums:
         res = []
-        photos = Photo.query.filter(Photo.album_id == album.id)
+        photos = Photo.query.filter(and_(Photo.album_id == album.id, Photo.user_id == userId)).all()
         for photo in photos:
+            print(photo)
             res.append(photo.to_dict())
         new_photo.append(res)
+ 
 
     for index in range(len(album_list)):
         album_list[index]['photos'] = new_photo[index]
-    # print('album list', album_list)
+
     return {'albums': album_list}
 
 
@@ -40,11 +43,7 @@ def one_album(userId, id):
     one_album = Album.query.get(id).to_dict()
     one_album["user"] = one_user
     return one_album
-    # return {
-    #     # "album": one_album.to_dict(),
-    #     "user": one_user.to_dict()
-    # }
-    # return one_album.to_dict()
+
 
 
 @album_routes.route('/<int:userId>/new', methods=['POST'])
@@ -55,8 +54,6 @@ def create_album(userId):
     """
     form = CreateAlbumForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    photo = Photo.query.filter(and_(Photo.preview_img == True, Photo.user_id == userId)).first()
-
     if form.validate_on_submit():
         new_album = Album(
             title=form.data['title'],
@@ -75,17 +72,19 @@ def create_album(userId):
 
 @album_routes.route('/<int:userId>/edit/<int:id>', methods=['PUT'])
 @login_required
-def update_album(id):
+def update_album(userId, id):
     """
     Update an album based on album id for the current user
     """
     form = CreateAlbumForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    album_to_edit = Album.query.get(id)
+    album_to_edit = Album.query.filter(and_(Album.id == id, Album.user_id == userId )).first()
+    
 
     if form.validate_on_submit():
-        album_to_edit['title'] = form.data['title']
-        album_to_edit['description'] = form.data['description']
+   
+        album_to_edit.title = form.data['title']
+        album_to_edit.description = form.data['description']
 
         db.session.commit()
         return album_to_edit.to_dict()
@@ -98,7 +97,8 @@ def update_album(id):
 @album_routes.route('/delete/<int:id>', methods=['DELETE'])
 @login_required
 def delete_your_album(id):
+    
     to_delete = Album.query.get(id)
     db.session.delete(to_delete)
     db.session.commit()
-    return {"Message": "Album Deleted Successfully"}
+    return to_delete.to_dict()
