@@ -4,16 +4,20 @@ import { useParams } from "react-router-dom";
 import { thunkGetAllUsers } from "../../store/users";
 import { thunkGetSinglePhoto } from "../../store/photos";
 import { UserBlurb } from "../UserBlurb";
+import { thunkGetAllCommentsByPhotoId } from "../../store/comments";
+import GetAllCommentsByPhotoIdFunction from "../GetAllComments";
 
 export const PhotoDetails = () => {
     const dispatch = useDispatch();
     const {photoId} = useParams();
     const users = useSelector(state => state.users.allUsers);
     let photo = useSelector(state => state.photos.singlePhoto);
+    const comments = Object.values(useSelector(state => state.comments.photo));
 
     useEffect(() => {
         dispatch(thunkGetSinglePhoto(photoId));
-        dispatch(thunkGetAllUsers())
+        dispatch(thunkGetAllUsers());
+        dispatch(thunkGetAllCommentsByPhotoId(photoId));
     }, [dispatch]);
 
     photo["Owner"] = Object.values(users).find(user => user.id === photo.userId);
@@ -34,9 +38,7 @@ export const PhotoDetails = () => {
                     <i className="far fa-star" style={{color: "#FFD700", paddingRight: "10px", paddingBottom: "2px"}}></i>
                 </span>
             </div>
-            <div>
-                comments go here
-            </div>
+            <GetAllCommentsByPhotoIdFunction />
             <span>
                 <form>
                     <textarea placeholder="Leave your comment here!"></textarea>
