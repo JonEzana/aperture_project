@@ -13,6 +13,7 @@ import AlbumDetail from "./components/AlbumDetail";
 import {PhotoDetails} from "./components/PhotoDetails";
 import { Photostream } from "./components/Photostream";
 import CreateAlbum from "./components/CreateAlbum";
+import FavPhotos from "./components/FavPhotos";
 
 
 function App() {
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <ProtectedRoute exact path='/albums/new'>
               <CreateAlbum />
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/users/:userId/faves' >
+              <FavPhotos />
           </ProtectedRoute>
           <ProtectedRoute exact path='/users/:userId/albums' >
               <AllAlbums />

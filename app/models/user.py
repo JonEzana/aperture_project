@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 from .favorites import favorites
+# from .favorites import Fav
 
 
 class User(db.Model, UserMixin):
@@ -25,6 +26,7 @@ class User(db.Model, UserMixin):
     # relationships
     albums = db.relationship('Album', back_populates='user', cascade="all, delete-orphan")
     comments = db.relationship('Comment', back_populates='user', cascade="all, delete-orphan")
+    # favorites = db.relationship('Fav', back_populates='users')
 
     # many to many
     photos = db.relationship(

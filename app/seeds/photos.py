@@ -7,16 +7,16 @@ photos = ["https://w7.pngwing.com/pngs/132/187/png-transparent-cheems-dog-thumbn
 
 def seed_photos():
   Photo1 = Photo(
-    user_id=1, album_id=1, url=random.choice(photos), title='Photo1', description='description1', preview_img=True
+    user_id=1, album_id=1, url=random.choice(photos), title='Photo1', description='description1', preview_img=True, liked=True
   )
   Photo2 = Photo(
-    user_id=2, album_id=2, url=random.choice(photos), title='Photo2', description='description2', preview_img=True
+    user_id=2, album_id=2, url=random.choice(photos), title='Photo2', description='description2', preview_img=True, liked=True
   )
   Photo3 = Photo(
-    user_id=3, album_id=3, url=random.choice(photos), title='Photo3', description='description3', preview_img=True
+    user_id=3, album_id=3, url=random.choice(photos), title='Photo3', description='description3', preview_img=True, liked=True
   )
   Photo4 = Photo(
-    user_id=4, album_id=4, url=random.choice(photos), title='Photo4', description='description4', 
+    user_id=4, album_id=4, url=random.choice(photos), title='Photo4', description='description4',
     preview_img=True
   )
   Photo5 = Photo(
@@ -24,34 +24,34 @@ def seed_photos():
     preview_img=True
   )
   Photo6 = Photo(
-    user_id=6, album_id=2, url=random.choice(photos), title='Photo6', description='description6', 
+    user_id=6, album_id=2, url=random.choice(photos), title='Photo6', description='description6',
   )
   Photo7 = Photo(
-    user_id=7, album_id=3, url=random.choice(photos), title='Photo7', description='description7', 
+    user_id=7, album_id=3, url=random.choice(photos), title='Photo7', description='description7',
   )
   Photo8 = Photo(
-    user_id=1, album_id=4, url=random.choice(photos), title='Photo8', description='description8', 
+    user_id=1, album_id=4, url=random.choice(photos), title='Photo8', description='description8', liked=True
   )
   Photo9 = Photo(
-    user_id=2, album_id=5, url=random.choice(photos), title='Photo9', description='description9', 
+    user_id=2, album_id=5, url=random.choice(photos), title='Photo9', description='description9',
   )
   Photo10 = Photo(
-    user_id=3, album_id=1, url=random.choice(photos), title='Photo10', description='description10', 
+    user_id=3, album_id=1, url=random.choice(photos), title='Photo10', description='description10',
   )
   Photo11 = Photo(
-    user_id=4, album_id=2, url=random.choice(photos), title='Photo11', description='description11', 
+    user_id=4, album_id=2, url=random.choice(photos), title='Photo11', description='description11',
   )
   Photo12 = Photo(
-    user_id=5, album_id=3, url=random.choice(photos), title='Photo12', description='description12', 
+    user_id=5, album_id=3, url=random.choice(photos), title='Photo12', description='description12',
   )
   Photo13 = Photo(
-    user_id=6, album_id=4, url=random.choice(photos), title='Photo13', description='description13', 
+    user_id=6, album_id=4, url=random.choice(photos), title='Photo13', description='description13',
   )
   Photo14 = Photo(
-    user_id=7, album_id=5, url=random.choice(photos), title='Photo14', description='description14', 
+    user_id=7, album_id=5, url=random.choice(photos), title='Photo14', description='description14',
   )
   Photo15 = Photo(
-    user_id=1, album_id=1, url=random.choice(photos), title='Photo15', description='description15', 
+    user_id=1, album_id=1, url=random.choice(photos), title='Photo15', description='description15',
   )
 
 

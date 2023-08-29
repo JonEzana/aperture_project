@@ -25,7 +25,7 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, user
     const displayName = (photo) => {
         if (isCurrentUserOnOwnPage) {
             return "YOU!"
-        } return photo.Owner.username;
+        } return photo.Owner?.username;
     }
     // console.log('hover component', photo.url)
     // console.log('hover component', isCurrentUserOnOwnPage)

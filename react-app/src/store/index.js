@@ -4,13 +4,14 @@ import session from './session'
 import photosReducer from './photos';
 import albumsReducer from './albums';
 import userReducer from './users';
-
+import favReducer from './fav';
 
 const rootReducer = combineReducers({
   session,
   photos: photosReducer,
   albums: albumsReducer,
-  users: userReducer
+  users: userReducer,
+  favs: favReducer
 });
 
 
