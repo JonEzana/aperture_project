@@ -50,7 +50,7 @@ export const Photostream = ({backgroundUrl, fav, like}) => {
                         </div>
                     )
                     :
-                    photos.map(photo =>
+                    photos.toReversed().map(photo =>
                         <div key={photo.id}>
                             <PhotoHoverComponent isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId}/>
                         </div>

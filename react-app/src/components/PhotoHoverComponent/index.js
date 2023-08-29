@@ -2,7 +2,7 @@ import React, {useRef, useState} from "react";
 import { NavLink } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeletePhotoModalFunction from "../DeletePhotoModal";
-// import './AlbumDetail.css'
+import { PhotoFormModalFunction } from "../PhotoFormModalFunction";
 
 export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, userid}) {
     const [photoInfoBox, setPhotoInfoBox] = useState(false)
@@ -42,9 +42,11 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, user
                             </div>
                             { isCurrentUserOnOwnPage &&
                                 <div className="owner-icons" style={{display: "flex", gap:"6px"}}>
-                                    <NavLink to={`/photos/${photo.id}/edit`}>
-                                        <i className="fas fa-edit" style={{color: "#ababab"}}></i>
-                                    </NavLink>
+                                    <OpenModalButton
+                                        modalComponent={<PhotoFormModalFunction photo={photo} formType={'Update'}/>}
+                                        buttonText={<i className="fas fa-edit" style={{color: "#ababab"}}></i>}
+                                        style={{backgroundColor: "transparent", border: "none"}}
+                                    />                                    
                                     <OpenModalButton
                                         modalComponent={<DeletePhotoModalFunction photoId={photo.id} userid={userid}/>}
                                         buttonText={<i className="fas fa-trash-alt" style={{color: "#ababab"}}></i>}

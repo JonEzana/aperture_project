@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { thunkGetCurrentUserPhotos } from "../../store/photos";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -54,8 +55,8 @@ function ProfileButton({ user }) {
   const manage = async (e) => {
     e.preventDefault();
     closeMenu();
-    // await dispatch(thunkGetCurrentUsersSpots());
-    // history.push('/spots/current')
+    await dispatch(thunkGetCurrentUserPhotos());
+    history.push(`/users/${user.id}/photos`)
   }
 
   return (
@@ -102,7 +103,7 @@ function ProfileButton({ user }) {
               <p className="email">{user.email}</p>
               <hr style={{background: "black", height: "1px", width: "100%" }}/>
 
-              <button className="manage-btn" onClick={manage}>Manage Spots</button>
+              <button className="manage-btn" onClick={manage}>My Photos</button>
               <hr style={{background: "black", height: "1px", width: "100%" }}/>
 
               <button className="logout-btn" onClick={handleLogout}>Log Out</button>
@@ -130,7 +131,7 @@ function ProfileButton({ user }) {
                       modalComponent={<LoginFormModal />}
                       />
                   </li>
-               </div> 
+               </div>
             </div>
         )}
         </ul>

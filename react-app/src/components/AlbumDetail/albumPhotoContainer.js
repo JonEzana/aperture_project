@@ -1,7 +1,7 @@
 import React, {useRef, useState} from "react";
 import './AlbumDetail.css'
 
-export default function PhotoContainer({photo, album}) {
+export default function AlbumPhotoContainer({photo, album}) {
     const [albumInfoBox, setAlbumInfoBox] = useState(false)
     const ref = useRef()
 
@@ -17,11 +17,11 @@ export default function PhotoContainer({photo, album}) {
             backgroundRepeat: 'no-repeat',
         }
     }
-
+    console.log('photo url', photo.url);
 
     return (
         <div>
-            <div style={backgroundImageStyle(photo.url)} className="photo-detail-container" ref={ref} onMouseEnter={() => setAlbumInfoBox(true)} onMouseLeave={() => setAlbumInfoBox(false)} key={photo.id}>{albumInfoBox && <div className="text">
+            <div style={backgroundImageStyle(photo.url)} className="album-photo-detail-container" ref={ref} onMouseEnter={() => setAlbumInfoBox(true)} onMouseLeave={() => setAlbumInfoBox(false)} key={photo.id}>{albumInfoBox && <div className="text">
 
                     <div className="title-and-name">
                         <div>{photo.title}</div>
@@ -38,3 +38,4 @@ export default function PhotoContainer({photo, album}) {
         </div>
     )
 }
+// style={backgroundImageStyle(photo.url)}

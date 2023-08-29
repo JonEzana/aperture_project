@@ -46,10 +46,10 @@ def create_photo():
             album_id=form.data['album_id'],
             user_id=current_user.id
         )
+
         db.session.add(new_photo)
         db.session.commit()
-        new_photo = Photo.query.filter(user_id == current_user.id)
-        return new_photo.to_dict()
+        return new_photo.to_dict();
 
     if form.errors:
         print(form.errors)
@@ -63,7 +63,6 @@ def update_photo(id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-
         photo_to_edit = Photo.query.get(id)
         album = Album.query.get(form.data['album_id'])
 
@@ -75,9 +74,26 @@ def update_photo(id):
         return photo_to_edit.to_dict()
 
     if form.errors:
-        print(form.errors)
         return {'errors': form.errors}
 
+@photo_routes.route('/<int:id>/edit', methods=['PUT'])
+@login_required
+def update_photo_route(id):
+    form = CreatePhotoForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        photo_to_edit = Photo.query.get(id)
+
+        photo_to_edit.title = form.data['title']
+        photo_to_edit.description = form.data['description']
+        photo_to_edit.url = form.data['url']
+
+        db.session.commit()
+        return photo_to_edit.to_dict()
+
+    if form.errors:
+        return {'errors': form.errors}
 
 @photo_routes.route('/delete/<int:id>', methods=['DELETE'])
 @login_required
