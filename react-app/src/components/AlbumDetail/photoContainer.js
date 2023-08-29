@@ -17,7 +17,7 @@ export default function PhotoContainer({photo, album}) {
             backgroundRepeat: 'no-repeat',
         }
     }
- 
+
 
     return (
         <div>
@@ -38,4 +38,3 @@ export default function PhotoContainer({photo, album}) {
         </div>
     )
 }
-

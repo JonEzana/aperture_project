@@ -38,6 +38,7 @@ def create_photo():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        print('IN BACKEND @OU#OJ@!!!!!!!!!!!!!!!!!')
         new_photo = Photo(
             title=form.data['title'],
             url=form.data['url'],
@@ -46,10 +47,10 @@ def create_photo():
             album_id=form.data['album_id'],
             user_id=current_user.id
         )
+        print('NEW PHOTO BACKEND !!!!!!!', new_photo)
         db.session.add(new_photo)
         db.session.commit()
-        new_photo = Photo.query.filter(user_id == current_user.id)
-        return new_photo.to_dict()
+        return new_photo.to_dict();
 
     if form.errors:
         print(form.errors)

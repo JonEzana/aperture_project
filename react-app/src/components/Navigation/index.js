@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import { useHistory } from 'react-router-dom/';
 import './Navigation.css';
+import OpenModalButton from '../OpenModalButton';
+import { PhotoFormModalFunction } from '../PhotoFormModalFunction';
 
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
@@ -19,10 +21,16 @@ function Navigation({ isLoaded }){
           </NavLink>
 		  <span id="right-side-nav" style={{display: "flex", flexDirection: "row", justifyContent: "center", marginRight: "20px", gap: "15px"}}>
 			<span className="upload-links">
-				{sessionUser && <NavLink to="/spots/new" className="new-spot-link">
+				{/* {sessionUser && <NavLink to="/photos/new" className="new-spot-link">
 					Upload Picture
-				</NavLink>}
-				{sessionUser && <NavLink to="/spots/new" className="new-spot-link">
+				</NavLink>} */}
+				{ sessionUser &&
+					<OpenModalButton
+						modalComponent={ <PhotoFormModalFunction />}
+						buttonText={"Post Your Photo"}
+						style={{width: "120px", backgroundColor: "transparent", color: "white", border: "none"}}
+					/>}
+				{sessionUser && <NavLink to="/albums/new" className="new-spot-link">
 					Upload Album
 				</NavLink>}
 			</span>
