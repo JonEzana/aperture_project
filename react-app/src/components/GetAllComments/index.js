@@ -1,9 +1,3 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { thunkGetAllCommentsByPhotoId } from '../../store/comments';
-import { thunkGetAllUsers } from "../../store/users";
-import { useParams } from 'react-router-dom';
-
 export default function GetAllCommentsByPhotoIdFunction({comment}) {
   function convertDate(date) {
     const splitData = date.split(' ')
