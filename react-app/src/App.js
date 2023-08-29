@@ -30,12 +30,11 @@ function App() {
           <Route exact path="/">
             <LandingPage />
           </Route>
-
+          <ProtectedRoute exact path='/albums/new'>
+              <CreateAlbum />
+          </ProtectedRoute>
           <ProtectedRoute exact path='/users/:userId/albums' >
               <AllAlbums />
-          </ProtectedRoute>
-          <ProtectedRoute exact path='/users/:userId/albums/new'>
-              <CreateAlbum />
           </ProtectedRoute>
           <ProtectedRoute exact path='/users/:userId/albums/:albumId'>
               <AlbumDetail />

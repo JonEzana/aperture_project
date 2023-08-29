@@ -1,10 +1,8 @@
 .album-form {
     display: flex;
-    margin-top: 100px;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    /* border: 2px solid gray; */
     height: 500px;
 }
 
@@ -13,23 +11,32 @@
     flex-direction: row;
     padding-bottom: 300px;
     width: 100%;
-    border: 2px solid red;
     height: 200px;
 
 }
 
+#create-album {
+    margin: 100px auto;
+    text-align: center;
+    border: 2px solid grey;
+    box-shadow: 2px 2px 2px grey;
+    width: 120px;
+    font-size: 20px
+}
+
 .left-create {
-    border: 2px solid blue;
     flex: 0.3;
-    height: 500px;
+    height: 490px;
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding-top: 10px;
     display: flex;
-    /* justify-content: center; */
+    border: 2px solid grey;
+    box-shadow: 2px 2px 2px grey;
+    border-radius: 5px;
     align-items: center;
-    /* margin-bottom: 100px; */
+   
 }
 
 .left-create input {
@@ -43,19 +50,28 @@
 }
 
 .select-photos {
-    border: 2px solid purple;
+    border: 2px solid grey;
+    box-shadow: 2px 2px 2px grey;
     flex: 0.7;
     height: 500px;
     overflow: scroll;
+    border-radius: 5px;
 }
 
 .buttom-side {
     display: flex;
-    /* border: 2px solid green; */
-    /* justify-content: space-around; */
+    justify-content: center;
     margin-top: 20px;
     gap: 50px;
-    /* height:  100px; */
+    width: 100%;
+}
+
+.buttom-side button {
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    border-radius: 20px;
+    box-shadow: 2px 2px 2px grey;
 }
 
 .photo-container {
@@ -63,7 +79,8 @@
     grid-template-columns: 1fr 1fr 1fr;
     height: 200px;
     margin-top: 10px;
-    gap: 15px;
+    gap: 20px;
+    padding: 10px;
 }
 
 .photo-div {
@@ -73,3 +90,9 @@
     align-items: flex-end;
     height: 100%;
 }
+
+#select-photo {
+    padding: 10px;
+}
+
+

@@ -75,10 +75,10 @@ export const thunkDeletePhoto = (photoId) => async (dispatch) => {
 }
 
 export const thunkCreatePhoto = (photoData) => async (dispatch) => {
-    const {title, url, description, previewImg, userId} = photoData;
+    const { title, url, description, previewImg, userId } = photoData;
     const res = await fetch('/api/photos/new', {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             title: title,
             url: url,
@@ -100,7 +100,7 @@ export const thunkCreatePhoto = (photoData) => async (dispatch) => {
 export const thunkUpdatePhoto = (photoId, photoData) => async (dispatch) => {
     const res = await fetch(`/api/photos/edit/${photoId}`, {
         method: "PUT",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(photoData)
     });
     if (res.ok) {
@@ -115,68 +115,63 @@ export const thunkUpdatePhoto = (photoId, photoData) => async (dispatch) => {
 }
 export const thunkUpdatePhotoList = (photoData, albumId) => async (dispatch) => {
 
-    const req = photoData.map(photo =>{
+    const req = photoData.map(photo => {
         photo['album_id'] = albumId
-        // console.log('updated photo thunk!', photo);
-        // Promise.allSettled()
-         fetch(`/api/photos/edit/${photo.id}`, {
-        method: 'PUT',
-        headers:{
-            'Content-Type':'application/json'
-        },
-        body:JSON.stringify(photo)
-    }).then(res => res.json()).then(res => dispatch(updatePhoto(res))).catch(e => console.log(e))
+        return fetch(`/api/photos/edit/${photo.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(photo)
+        }).then(res => res.json()).catch(e => {
+            throw e
+        })
+    })
 
-})
 
-    // console.log('resarr', resArr);
-    // Promise.allSettled(resArr).then(response=>{
-    //     console.log('in promise', resArr);
-    //     if(response.status === 'fulfilled') {
-    //         // const data = response.json()
-    //         console.log('response', response);
-    //         dispatch(updatePhoto(response))
-    //         return response
-    //     }
-    //     }).catch(e=>{
-    //     throw e
-    // })
+    Promise.allSettled(req).then(res => {
+        if (res.status === 'fulfilled') {
+            dispatch(updatePhoto(res))
+        }
+    }).catch(e => {
+        throw e
+    })
 
 }
 
-const initialState = {allPhotos: {}, singlePhoto: {}, currentUserPhotos: {}};
+const initialState = { allPhotos: {}, singlePhoto: {}, currentUserPhotos: {} };
 
 export default function photosReducer(state = initialState, action) {
-    switch(action.type) {
+    switch (action.type) {
         case GET_ALL_PHOTOS: {
-            const newState = { allPhotos: {...state.allPhotos}, singlePhoto: {}, currentUserPhotos: {}};
+            const newState = { allPhotos: { ...state.allPhotos }, singlePhoto: {}, currentUserPhotos: {} };
             action.payload.photos.forEach(photo => {
                 newState.allPhotos[photo.id] = photo;
             });
             return newState;
         }
         case GET_SINGLE_PHOTO: {
-            return {...state, allPhotos: {...state.allPhotos}, singlePhoto: {...action.payload}, currentUserPhotos: {}}
+            return { ...state, allPhotos: { ...state.allPhotos }, singlePhoto: { ...action.payload }, currentUserPhotos: {} }
         }
         case GET_CURRENT_USER_PHOTOS: {
-            const newState = {...state, allPhotos: {...state.allPhotos}, currentUserPhotos: {...state.currentUserPhotos}};
+            const newState = { ...state, allPhotos: { ...state.allPhotos }, currentUserPhotos: { ...state.currentUserPhotos } };
             action.payload.forEach(photo => {
                 newState.currentUserPhotos[photo.id] = photo;
             });
             return newState;
         }
         case DELETE_PHOTO: {
-            const newState = {...state, allPhotos: {...state.allPhotos}, singlePhoto: {...state.singlePhoto}, currentUserPhotos: {...state.currentUserPhotos}}
+            const newState = { ...state, allPhotos: { ...state.allPhotos }, singlePhoto: { ...state.singlePhoto }, currentUserPhotos: { ...state.currentUserPhotos } }
             delete newState.allPhotos[action.payload]
             delete newState.currentUserPhotos[action.payload]
             delete newState.singlePhoto;
-            return {...newState, allPhotos: {...newState.allPhotos}, currentUserPhotos: {...newState.currentUserPhotos}, singlePhoto: {...newState.singlePhoto}};
+            return { ...newState, allPhotos: { ...newState.allPhotos }, currentUserPhotos: { ...newState.currentUserPhotos }, singlePhoto: { ...newState.singlePhoto } };
         }
         case CREATE_PHOTO: {
             return {
                 ...state,
-                allPhotos: {...state.allPhotos, [action.payload.id]: action.payload},
-                currentUserPhotos: {...state.currentUserPhotos, [action.payload.id]: action.payload},
+                allPhotos: { ...state.allPhotos, [action.payload.id]: action.payload },
+                currentUserPhotos: { ...state.currentUserPhotos, [action.payload.id]: action.payload },
                 singlePhoto: action.payload
             }
         }
@@ -185,9 +180,9 @@ export default function photosReducer(state = initialState, action) {
             console.log('in reducer, state', state.allPhotos);
             return {
                 ...state,
-                allPhotos: {...state.allPhotos, [action.payload.id]: {...action.payload}},
-                currentUserPhotos: {...state.currentUserPhotos, [action.payload.id]: {...action.payload}},
-                singlePhoto: {...action.payload}
+                allPhotos: { ...state.allPhotos, [action.payload.id]: { ...action.payload } },
+                currentUserPhotos: { ...state.currentUserPhotos, [action.payload.id]: { ...action.payload } },
+                singlePhoto: { ...action.payload }
             }
         }
         default:
