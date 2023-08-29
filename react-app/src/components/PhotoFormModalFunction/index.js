@@ -15,12 +15,6 @@ export const PhotoFormModalFunction = ({ photo, formType }) => {
   const [url, setUrl] = useState(photo ? photo.url : '');
   const [disabled, setDisabled] = useState(true);
   const [valObj, setValObj] = useState({});
-  const newData = {};
-
-  if (photo && photo.id && photo.userId) {
-    newData.id = photo.id;
-    newData.userId = photo.userId;
-  }
 
   useEffect(() => {
     const errObj = {};
@@ -37,8 +31,9 @@ export const PhotoFormModalFunction = ({ photo, formType }) => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     if (formType === "Update") {
-      const finalData = {...newData, title, description, url, user_id: currentUser.id};
-      const updatedPhoto = await dispatch(sessionActions.thunkUpdatePhoto(finalData, finalData.id));
+      const finalData = { title, description, url, photoId: photo.id };
+      const updatedPhoto = await dispatch(sessionActions.thunkUpdatePhoto(finalData));
+      console.log('IN HANDLE SUBMIT')
       if (updatedPhoto.id) {
         await dispatch(sessionActions.thunkGetCurrentUserPhotos(currentUser.id));
         closeModal();
