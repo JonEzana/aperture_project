@@ -15,34 +15,29 @@ export const PhotoFormModalFunction = ({ photo, formType }) => {
   const [url, setUrl] = useState(photo ? photo.url : '');
   const [disabled, setDisabled] = useState(true);
   const [valObj, setValObj] = useState({});
-  const newData = {};
-
-  if (photo && photo.id && photo.userId) {
-    newData.id = photo.id;
-    newData.userId = photo.userId;
-  }
 
   useEffect(() => {
     const errObj = {};
     if (title && title.length < 1) errObj.title = "Title is required";
-    if (description && description.length < 1) errObj.description = "Description is required";
-    if (url && url.length < 1) errObj.description = "Photo URL is required";
-    if (title.length > 1 && description.length > 1 && url.length > 1) {
+    if (url && url.length < 1) errObj.url = "Photo URL is required";
+    if (title.length > 1 && url.length > 1) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
     setValObj(errObj);
-  }, [title.length, description.length, url.length]);
+  }, [title.length, url.length]);
 
   const handleSubmit = async(e) => {
     e.preventDefault();
     if (formType === "Update") {
-      const finalData = {...newData, title, description, url};
+      const finalData = { title, description, url, photoId: photo.id };
       const updatedPhoto = await dispatch(sessionActions.thunkUpdatePhoto(finalData));
+      console.log('IN HANDLE SUBMIT')
       if (updatedPhoto.id) {
-        const updatedPhotoDetails = await dispatch(sessionActions.thunkGetSinglePhoto(updatedPhoto.id));
-        history.push(`/photos/${updatedPhotoDetails.id}`)
+        await dispatch(sessionActions.thunkGetCurrentUserPhotos(currentUser.id));
+        closeModal();
+        history.push(`/users/${currentUser.id}/photos`);
       }
     } else {
       const data = {title, description, url, user_id: currentUser.id}
@@ -51,8 +46,6 @@ export const PhotoFormModalFunction = ({ photo, formType }) => {
         await dispatch(sessionActions.thunkGetCurrentUserPhotos(currentUser.id));
         closeModal();
         history.push(`/users/${currentUser.id}/photos`);
-      } else {
-        // console.log('failure')
       }
     }
   };
@@ -75,7 +68,6 @@ export const PhotoFormModalFunction = ({ photo, formType }) => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        {valObj.description && <p className="errors" style={{color: "red"}}>{valObj.description}</p>}
         <input
           type='url'
           placeholder='File Url'

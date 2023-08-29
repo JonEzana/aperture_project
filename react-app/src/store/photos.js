@@ -101,20 +101,29 @@ export const thunkCreatePhoto = (photoData) => async (dispatch) => {
 	}
 }
 
-export const thunkUpdatePhoto = (photoId, photoData) => async (dispatch) => {
-    const res = await fetch(`/api/photos/edit/${photoId}`, {
+export const thunkUpdatePhoto = (photoData) => async (dispatch) => {
+    console.log('THUNK, photoData', photoData.photoId)
+    const res = await fetch(`/api/photos/${photoData.photoId}/edit`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(photoData)
     });
     if (res.ok) {
+        console.log('RES.OK!!')
         const updatedPhoto = await res.json();
         dispatch(updatePhoto(updatedPhoto));
         return updatedPhoto;
-    } else {
-        const err = await res.json();
-        return err['errors'];
-    }
+    } else if (res.status < 500) {
+        console.log('LINE 117')
+		const data = await res.json();
+		if (data.errors) {
+            console.log('LINE 120', data.errors)
+			return data.errors;
+		}
+	} else {
+        console.log('LINE 124')
+		return ["An error occurred. Please try again."];
+	}
 
 }
 export const thunkUpdatePhotoList = (photoData, albumId) => async (dispatch) => {
