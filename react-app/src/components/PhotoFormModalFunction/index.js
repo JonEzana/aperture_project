@@ -2,10 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import * as sessionActions from "../../store/photos";
 import { useHistory } from "react-router-dom";
+import { useModal } from "../../context/Modal"
 
 export const PhotoFormModalFunction = ({ photo, formType }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { closeModal } = useModal();
   const currentUser = useSelector(state => state.session.user);
   const currentUserPhotos = useSelector(state => state.photos.currentUserPhotos)
   const [title, setTitle] = useState(photo ? photo.title : '');
@@ -43,15 +45,14 @@ export const PhotoFormModalFunction = ({ photo, formType }) => {
         history.push(`/photos/${updatedPhotoDetails.id}`)
       }
     } else {
-      console.log('IN HANDLE SUBMIT')
-      const data = {title, description, url, userId: currentUser.id}
+      const data = {title, description, url, user_id: currentUser.id}
       const newPhoto = await dispatch(sessionActions.thunkCreatePhoto(data));
       if (newPhoto.id) {
-        console.log('SUCCESSFUL CREATION')
-        await dispatch(sessionActions.thunkGetSinglePhoto(newPhoto.id));
-        history.push(`/photos/${newPhoto.id}`);
+        await dispatch(sessionActions.thunkGetCurrentUserPhotos(currentUser.id));
+        closeModal();
+        history.push(`/users/${currentUser.id}/photos`);
       } else {
-        console.log('failure')
+        // console.log('failure')
       }
     }
   };

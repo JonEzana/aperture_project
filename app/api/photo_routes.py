@@ -1,4 +1,4 @@
-from flask import Blueprint, session
+from flask import Blueprint, session, request
 from flask_login import login_required, current_user
 from app.models import Photo, db
 from app.forms import CreatePhotoForm
@@ -38,6 +38,7 @@ def create_photo():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        print('IN BACKEND @OU#OJ@!!!!!!!!!!!!!!!!!')
         new_photo = Photo(
             title=form.data['title'],
             url=form.data['url'],
@@ -46,10 +47,12 @@ def create_photo():
             album_id=form.data['album_id'],
             user_id=current_user.id
         )
+        print('NEW PHOTO BACKEND !!!!!!!', new_photo)
         db.session.add(new_photo)
         db.session.commit()
-        new_photo = Photo.query.filter(user_id == current_user.id)
-        return new_photo.to_dict()
+        # new_photo = Photo.query.filter(Photo.user_id == current_user.id).all()
+        # return {"photos": [photo.to_dict() for photo in new_photo]}
+        return new_photo.to_dict();
 
     if form.errors:
         print(form.errors)

@@ -13,7 +13,7 @@ import AlbumDetail from "./components/AlbumDetail";
 import {PhotoDetails} from "./components/PhotoDetails";
 import { Photostream } from "./components/Photostream";
 import CreateAlbum from "./components/CreateAlbum";
-import PhotoFormModalFunction from "./components/PhotoForm";
+import {PhotoFormModalFunction} from "./components/PhotoFormModalFunction";
 import { UpdatePhoto } from "./components/UpdatePhoto";
 function App() {
   const dispatch = useDispatch();

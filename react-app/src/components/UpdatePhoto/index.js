@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { thunkGetSinglePhoto } from "../../store/photos";
-import PhotoFormModalFunction from "../PhotoForm";
+import {PhotoFormModalFunction} from "../PhotoFormModalFunction";
 import { useEffect } from "react";
 export const UpdatePhoto = () => {
     const dispatch = useDispatch();
