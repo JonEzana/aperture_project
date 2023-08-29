@@ -1,9 +1,9 @@
-import {useEffect} from "react";
+import { useEffect } from "react";
 import { thunkGetAllPhotos } from "../../store/photos";
 import { thunkGetAllUsers } from "../../store/users";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {UserBlurb} from '../UserBlurb';
+import { UserBlurb } from '../UserBlurb';
 import './PhotosIndex.css';
 
 export const PhotosIndex = () => {
@@ -30,11 +30,11 @@ export const PhotosIndex = () => {
             <div className='all-photos-container'>
                 {photos.map(photo =>
                     <span className='all-photos-card' title={photo.name} onClick={() => history.push(`/photos/${photo.id}`)} key={photo.id}>
-                        <img className='all-photos-pic' src={photo.url} alt={photo.title} style={{borderTopRightRadius: "10px", borderTopLeftRadius: "10px"}}></img>
-                        <UserBlurb
+                        <img className='all-photos-pic' src={photo.url} alt={photo.title} style={{ borderTopRightRadius: "10px", borderTopLeftRadius: "10px" }}></img>
+                        <UserBlurb userId={photo.userId}
                             url={photo?.Owner?.profilePic}
                             username={photo?.Owner?.username}
-                            styles={{display: "flex", flexDirection: "row", justifyContent: "space-between", paddingTop: "4px", paddingLeft: "4px", alignItems: "center"}}
+                            styles={{ display: "flex", flexDirection: "row", justifyContent: "space-between", paddingTop: "4px", paddingLeft: "4px", alignItems: "center" }}
                         />
                     </span>
                 )}
