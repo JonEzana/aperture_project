@@ -75,7 +75,8 @@ export const thunkDeletePhoto = (photoId) => async (dispatch) => {
 }
 
 export const thunkCreatePhoto = (photoData) => async (dispatch) => {
-    const {title, url, description, previewImg, userId} = photoData;
+    const { title, url, description, userId } = photoData;
+    console.log("THUNK: photoData not destructured...", photoData)
     const res = await fetch('/api/photos/new', {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -87,10 +88,12 @@ export const thunkCreatePhoto = (photoData) => async (dispatch) => {
         })
     });
     if (res.ok) {
+        console.log('thunk RES.OK')
         const photo = await res.json();
         dispatch(createPhoto(photo));
         return photo;
     } else {
+        console.log('thunk failture')
         const err = await res.json();
         return err['errors'];
     }
@@ -142,6 +145,7 @@ export default function photosReducer(state = initialState, action) {
             return {...newState, allPhotos: {...newState.allPhotos}, currentUserPhotos: {...newState.currentUserPhotos}, singlePhoto: {...newState.singlePhoto}};
         }
         case CREATE_PHOTO: {
+            console.log('IN REDUCER')
             return {
                 ...state,
                 allPhotos: {...state.allPhotos, [action.payload.id]: action.payload},
