@@ -1,0 +1,14 @@
+.delete-album-container {
+    width: 300px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 50px;
+}
+
+#yes-no-album {
+    display: flex;
+    justify-content: space-evenly
+}

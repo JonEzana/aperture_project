@@ -1,6 +1,6 @@
-from flask import Blueprint, session
+from flask import Blueprint, session, request
 from flask_login import login_required, current_user
-from app.models import Photo, db
+from app.models import Photo, db, Album
 from app.forms import CreatePhotoForm
 
 photo_routes = Blueprint('photos', __name__)
@@ -63,9 +63,13 @@ def update_photo(id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+
         photo_to_edit = Photo.query.get(id)
-        photo_to_edit['title'] = form.data['title']
-        photo_to_edit['description'] = form.data['description']
+        album = Album.query.get(form.data['album_id'])
+
+        photo_to_edit.title = form.data['title']
+        photo_to_edit.description = form.data['description']
+        album.photos.append(photo_to_edit)
 
         db.session.commit()
         return photo_to_edit.to_dict()
