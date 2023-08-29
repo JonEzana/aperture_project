@@ -83,7 +83,6 @@ export const thunkCreatePhoto = (photoData) => async (dispatch) => {
             title: title,
             url: url,
             description: description,
-            preview_img: previewImg,
             user_id: userId
         })
     });
