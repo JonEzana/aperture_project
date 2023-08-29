@@ -9,7 +9,7 @@ export const thunkGetAllCommentsByPhotoId = (photoId) => async (dispatch) => {
   const res = await fetch(`/api/comments/${photoId}`);
   if (res.ok) {
     const commentsData = await res.json();
-    dispatch(getAllCommentsByPhotoId(commentsData.comments));   
+    dispatch(getAllCommentsByPhotoId([...Object.values(commentsData)]));
     return commentsData;
   }
 }
@@ -21,14 +21,14 @@ export default function commentReducer (state = initialState, action) {
   let newState;
   switch(action.type) {
     case GET_ALL_COMMENTS: {
+      console.log('REDUCER, action.payload', action.payload)
       newState = {...state, photo: {}}
       action.payload.forEach(comment => {
         newState.photo[comment.id] = comment
       })
-
       return newState;
     }
-
-    default: return state;
+    default:
+      return state;
   }
 }

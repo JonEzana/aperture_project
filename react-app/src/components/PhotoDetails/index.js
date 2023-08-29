@@ -10,7 +10,7 @@ import GetAllCommentsByPhotoIdFunction from "../GetAllComments";
 export const PhotoDetails = () => {
     const dispatch = useDispatch();
     const {photoId} = useParams();
-    const users = useSelector(state => state.users.allUsers);
+    const users = Object.values(useSelector(state => state.users.allUsers));
     let photo = useSelector(state => state.photos.singlePhoto);
     const comments = Object.values(useSelector(state => state.comments.photo));
 
@@ -38,7 +38,9 @@ export const PhotoDetails = () => {
                     <i className="far fa-star" style={{color: "#FFD700", paddingRight: "10px", paddingBottom: "2px"}}></i>
                 </span>
             </div>
-            <GetAllCommentsByPhotoIdFunction />
+            {comments.toReversed().map(comment =>
+                <GetAllCommentsByPhotoIdFunction comment={comment}/>
+            )}
             <span>
                 <form>
                     <textarea placeholder="Leave your comment here!"></textarea>
