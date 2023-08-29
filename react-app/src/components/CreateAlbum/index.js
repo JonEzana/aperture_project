@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import './CreateAlbum.css'
 import { thunkCreateAlbum } from '../../store/albums'
 import { thunkGetAllPhotos } from '../../store/photos'
+// import { thunkUpdatePhoto } from '../../store/photos'
+import { thunkUpdatePhotoList } from '../../store/photos'
 
 export default function CreateAlbum() {
     const photos = Object.values(useSelector(state => state.photos.allPhotos))
@@ -18,8 +20,8 @@ export default function CreateAlbum() {
 
     if (!photos.length || !currentUser) return null;
 
-    const userPhotos = photos.filter(photo => photo.userId == currentUser.id)
-
+    const userPhotos = photos.filter(photo => photo.userId == currentUser.id && !photo.albumId)
+    console.log('user photo', userPhotos);
     const backgroundImageStyle = (photoUrl) => {
         return {
             backgroundImage: `url(${photoUrl})`,
@@ -32,15 +34,20 @@ export default function CreateAlbum() {
     const handleSubmit = (e) => {
         e.preventDefault()
 
+        const res = []
         const newAlbum = {
             title: title,
             description: description,
             user_id: currentUser.id
         }
 
-        const newPhotosList = photoIdList
+        for (let id of photoIdList) {
+            for (let userPhoto of userPhotos) {
+                if (id == userPhoto.id) res.push(userPhoto)
+            }
+        }
 
-        dispatch(thunkCreateAlbum(newAlbum, currentUser.id))
+        dispatch(thunkCreateAlbum(newAlbum, currentUser.id)).then((album) => dispatch(thunkUpdatePhotoList(res, album.id)))
     }
 
     // const filterPhotoList = (e) => {
@@ -51,7 +58,7 @@ export default function CreateAlbum() {
     // console.log('before', photoIdList);
     // const newArr = photoIdList
     // console.log('photo id list', photoIdList.splice(1, 1));
-    // console.log('after', photoIdList);
+
 
     return (
         <div>

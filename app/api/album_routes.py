@@ -1,4 +1,4 @@
-from flask import Blueprint, session
+from flask import Blueprint, session, request
 from sqlalchemy import and_
 from flask_login import login_required, current_user
 from app.models import Album, User, db, Photo
@@ -56,7 +56,6 @@ def create_album(userId):
     form = CreateAlbumForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     photo = Photo.query.filter(and_(Photo.preview_img == True, Photo.user_id == userId)).first()
-
     if form.validate_on_submit():
         new_album = Album(
             title=form.data['title'],

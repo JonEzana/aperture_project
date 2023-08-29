@@ -113,6 +113,36 @@ export const thunkUpdatePhoto = (photoId, photoData) => async (dispatch) => {
     }
 
 }
+export const thunkUpdatePhotoList = (photoData, albumId) => async (dispatch) => {
+
+    const req = photoData.map(photo =>{
+        photo['album_id'] = albumId
+        // console.log('updated photo thunk!', photo);
+        // Promise.allSettled()
+         fetch(`/api/photos/edit/${photo.id}`, {
+        method: 'PUT',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(photo)
+    }).then(res => res.json()).then(res => dispatch(updatePhoto(res))).catch(e => console.log(e))
+
+})
+
+    // console.log('resarr', resArr);
+    // Promise.allSettled(resArr).then(response=>{
+    //     console.log('in promise', resArr);
+    //     if(response.status === 'fulfilled') {
+    //         // const data = response.json()
+    //         console.log('response', response);
+    //         dispatch(updatePhoto(response))
+    //         return response
+    //     }
+    //     }).catch(e=>{
+    //     throw e
+    // })
+
+}
 
 const initialState = {allPhotos: {}, singlePhoto: {}, currentUserPhotos: {}};
 
@@ -151,11 +181,13 @@ export default function photosReducer(state = initialState, action) {
             }
         }
         case UPDATE_PHOTO: {
+            console.log('in reducer action', action.payload.id);
+            console.log('in reducer, state', state.allPhotos);
             return {
                 ...state,
-                allPhotos: {...state.allPhotos, [action.payload.id]: action.payload},
-                currentUserPhotos: {...state.currentUserPhotos, [action.payload.id]: action.payload},
-                singlePhoto: action.payload
+                allPhotos: {...state.allPhotos, [action.payload.id]: {...action.payload}},
+                currentUserPhotos: {...state.currentUserPhotos, [action.payload.id]: {...action.payload}},
+                singlePhoto: {...action.payload}
             }
         }
         default:

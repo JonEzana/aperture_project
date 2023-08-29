@@ -38,7 +38,7 @@ export const thunkOneAlbum = (userId, albumId) => async (dispatch) => {
 
 export const thunkCreateAlbum = (album, userId) => async (dispatch) => {
     const {title, description} = album
-    const res = await fetch(`api/albums/${userId}/new`, {
+    const res = await fetch(`/api/albums/${userId}/new`, {
         method: "POST",
         headers: {
 			"Content-Type": "application/json",
