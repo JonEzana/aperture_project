@@ -7,13 +7,13 @@ photos = ["https://w7.pngwing.com/pngs/132/187/png-transparent-cheems-dog-thumbn
 
 def seed_photos():
   Photo1 = Photo(
-    user_id=1, album_id=1, url=random.choice(photos), title='Photo1', description='description1', preview_img=True, liked=True
+    user_id=1, album_id=1, url=random.choice(photos), title='Photo1', description='description1', preview_img=True
   )
   Photo2 = Photo(
-    user_id=2, album_id=2, url=random.choice(photos), title='Photo2', description='description2', preview_img=True, liked=True
+    user_id=2, album_id=2, url=random.choice(photos), title='Photo2', description='description2', preview_img=True
   )
   Photo3 = Photo(
-    user_id=3, album_id=3, url=random.choice(photos), title='Photo3', description='description3', preview_img=True, liked=True
+    user_id=3, album_id=3, url=random.choice(photos), title='Photo3', description='description3', preview_img=True
   )
   Photo4 = Photo(
     user_id=4, album_id=4, url=random.choice(photos), title='Photo4', description='description4',
@@ -30,7 +30,7 @@ def seed_photos():
     user_id=7, album_id=3, url=random.choice(photos), title='Photo7', description='description7',
   )
   Photo8 = Photo(
-    user_id=1, album_id=4, url=random.choice(photos), title='Photo8', description='description8', liked=True
+    user_id=1, album_id=4, url=random.choice(photos), title='Photo8', description='description8'
   )
   Photo9 = Photo(
     user_id=2, album_id=5, url=random.choice(photos), title='Photo9', description='description9',

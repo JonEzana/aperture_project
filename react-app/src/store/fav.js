@@ -22,7 +22,12 @@ export const thunkAllFav = (userId) => async (dispatch) => {
 
 export const thunkCreateFav = (userId, photoId) => async (dispatch) => {
     const res = await fetch(`/api/fav/${userId}/${photoId}/new`, {
-        method: 'PUT'
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            user_id: userId,
+            photo_id : photoId,
+        })
     })
 
     if (res.ok) {
@@ -42,7 +47,7 @@ export default function favReducer(state = initialState, action) {
             return newState
         }
         case CREATE_FAV: {
-            console.log('in reducer', state.allFav);
+
             const newState = {...state, allFav: {...state.allFav}}
             return {...newState, allFav: {...newState.allFav, ...action.favorites.allFav}}
         }
