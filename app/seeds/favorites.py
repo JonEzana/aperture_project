@@ -10,23 +10,23 @@ def seed_favorites():
         liked=True,
   )
   fav2 = Favorite(
-        photo_id=2,
+        photo_id=15,
         user_id=1,
         liked=True,
   )
   fav3 = Favorite(
-        photo_id=3,
-        user_id=2,
+        photo_id=8,
+        user_id=1,
         liked=True,
   )
   fav4 = Favorite(
-        photo_id=4,
-        user_id=4,
+        photo_id=2,
+        user_id=2,
         liked=True,
   )
   fav5 = Favorite(
-        photo_id=5,
-        user_id=5,
+        photo_id=6,
+        user_id=2,
         liked=True,
   )
 

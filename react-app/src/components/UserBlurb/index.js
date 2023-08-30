@@ -1,23 +1,25 @@
 import { useHistory } from "react-router-dom"
 import { thunkCreateFav } from "../../store/fav"
 import { useDispatch, useSelector } from "react-redux"
+import { useState } from "react"
 
-export const UserBlurb = ({url, username, styles, userId, photoId}) => {
+
+
+export const UserBlurb = ({url, username, styles, userId, photoId,  currentUser, userFavpic}) => {
     const history = useHistory()
     const dispatch = useDispatch()
-    const currentUser = useSelector(state => state.session.user)
-
-
+    const fillStars = userFavpic.filter(photo=>photo.id == photoId)
+    const [fav, setFav] = useState(fillStars.length ? true : false)
     const handleClick = (e) => {
         e.stopPropagation();
         history.push(`/users/${userId}/photos`)
     }
-
     const handleSubmit = (e, userId, photoId) => {
         e.stopPropagation()
+        setFav(!fav)
         dispatch(thunkCreateFav(userId, photoId))
     }
-
+    
     return (
         <div className="user-blurb-container" style={styles}>
             <span onClick={e=>handleClick(e)} className="user-blurb-left" style={{display: "flex", flexDirection: "row", gap: "10px", alignItems: "center"}}>
@@ -25,7 +27,7 @@ export const UserBlurb = ({url, username, styles, userId, photoId}) => {
                 <p className="user-name">{username}</p>
             </span>
             <span className="user-blurb-right">
-                <i className="far fa-star" onClick={e => handleSubmit(e, currentUser.id, photoId)} style={{color: "#FFD700", paddingRight: "10px"}}></i>
+                <i className={fav ? "fas fa-star" : "far fa-star"} onClick={e => handleSubmit(e, currentUser.id, photoId)} style={{color: "#FFD700", paddingRight: "10px"}}></i>
             </span>
         </div>
     )

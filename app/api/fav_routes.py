@@ -41,3 +41,4 @@ def create_fav(userId, photoId):
         db.session.commit()
 
         return {"favPhotos": searchFavorite[0].to_dict(), 'Delete':'DeleteFav'}
+
