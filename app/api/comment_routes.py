@@ -13,14 +13,14 @@ def all_comments(photoId):
   fetch all comments by the photo's id
   """
   comments = Comment.query.filter(Comment.photo_id == photoId).all()
-  res = {"comments": {}}
+  lst = []
+  res = {"comments": lst}
   for comment in comments:
     user = User.query.filter(User.id == comment.user_id).first()
     new_comment = comment.to_dict()
     user = user.to_dict()
-    res["comments"] = new_comment
-    res["comments"]["Author"] = user
     new_comment["Author"] = user
+    res["comments"].append(new_comment)
   return res
 
 

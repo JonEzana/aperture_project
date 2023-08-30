@@ -15,7 +15,8 @@ export const PhotoDetails = () => {
     const {photoId} = useParams();
     const users = Object.values(useSelector(state => state.users.allUsers));
     const currentUser = useSelector(state => state.session.user);
-    let photo = useSelector(state => state.photos.singlePhoto);
+    const photo = useSelector(state => state.photos.singlePhoto);
+    const comments = Object.values(useSelector(state => state.comments.photoComments)).filter(comment => comment.photoId == photoId);
 
     useEffect(() => {
         dispatch(thunkGetSinglePhoto(photoId));
@@ -30,6 +31,8 @@ export const PhotoDetails = () => {
     }
 
     photo["Owner"] = Object.values(users).find(user => user.id === photo.userId);
+
+    console.log('PhotoDetails Line 35, comments: ', comments)
 
     return (
         <div style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
@@ -48,11 +51,10 @@ export const PhotoDetails = () => {
                 </span>
             </div>
             <div>
-
-            {comments.toReversed().map(comment =>
-                <GetAllCommentsByPhotoIdFunction comment={comment} currentUser={currentUser} photoId={photo.id}/>
+                {comments.toReversed().map(comment =>
+                    <GetAllCommentsByPhotoIdFunction comment={comment} currentUser={currentUser} photoId={photo.id}/>
                 )}
-                </div>
+            </div>
             <span>
                 <CreateComments />
             </span>

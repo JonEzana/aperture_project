@@ -21,7 +21,7 @@ export const thunkGetAllCommentsByPhotoId = (photoId) => async (dispatch) => {
   const res = await fetch(`/api/comments/${photoId}`);
   if (res.ok) {
     const commentsData = await res.json();
-    dispatch(getAllCommentsByPhotoId([...Object.values(commentsData)]));
+    dispatch(getAllCommentsByPhotoId(commentsData.comments));
     return commentsData;
   }
 }
@@ -47,16 +47,12 @@ export const thunkCreateComment = (data, photoId) => async (dispatch) => {
 }
 
 export const thunkDeleteComment = (commentId) => async (dispatch) => {
-  console.log('In thunk')
   const res = await fetch(`/api/comments/${commentId}/delete`, {
     method: "DELETE"
   });
   if (res.ok) {
-
-  console.log('res.ok')
     dispatch(deleteComment(commentId));
   } else {
-    console.log('error')
     const error = res.json()
     throw error
 }
@@ -68,7 +64,6 @@ export default function commentReducer (state = initialState, action) {
   let newState;
   switch(action.type) {
     case GET_ALL_COMMENTS: {
-      console.log('REDUCER, action.payload', action.payload)
       newState = {...state, photoComments: {}}
       action.payload.forEach(comment => {
         newState.photoComments[comment.id] = comment
@@ -76,17 +71,13 @@ export default function commentReducer (state = initialState, action) {
       return newState;
     }
     case CREATE_COMMENT: {
-      console.log('REDUCER...', action.payload)
       const newState = {...state, photoComments: {...state.photoComments}};
       newState.photoComments[action.payload.id] = action.payload;
       return newState;
     }
     case DELETE_COMMENT: {
-
-  console.log('in reducer, action.payload', action.payload)
       const newState = {...state, photoComments: {...state.photoComments}};
       delete newState.photoComments[action.payload];
-      console.log('reducer newstate', newState)
       return newState;
     }
     default:
