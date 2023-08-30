@@ -7,27 +7,22 @@ def seed_favorites():
   fav1 = Favorite(
         photo_id=1,
         user_id=1,
-        liked=True,
   )
   fav2 = Favorite(
         photo_id=15,
         user_id=1,
-        liked=True,
   )
   fav3 = Favorite(
         photo_id=8,
         user_id=1,
-        liked=True,
   )
   fav4 = Favorite(
         photo_id=2,
         user_id=2,
-        liked=True,
   )
   fav5 = Favorite(
         photo_id=6,
         user_id=2,
-        liked=True,
   )
 
   #  user2 = User.query.get(2)

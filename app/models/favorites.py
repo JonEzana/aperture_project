@@ -27,7 +27,6 @@ class Favorite(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
     photo_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('photos.id')))
-    liked = db.Column(db.Boolean, default=False)
 
 
     users = db.relationship('User', back_populates='favorites')

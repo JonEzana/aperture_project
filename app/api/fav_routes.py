@@ -15,9 +15,11 @@ def all_fav(userId):
     # for fav in favs:
     #     photoUrl = Photo.query.filter(Photo.id == fav.photo_id).first().to_dict()
     #     res.append(photoUrl)
-    photos = Favorite.query.filter(Photo.user_id == userId)
-    res =[photo.to_dict() for photo in user.favorites]
-    print(res)
+    # user = User.query.get(userId)
+    # lst = []
+    favorites = Favorite.query.filter(Photo.user_id == userId)
+    res =[favorite.photo.to_dict() for favorite in favorites]
+    # print('RES backend....', res)
     return {"favPhotos": res}
 
 
@@ -29,16 +31,17 @@ def create_fav(userId, photoId):
     user = Photo.query.get(userId)
     searchFavorite = Favorite.query.filter(and_(Favorite.user_id == userId, Favorite.photo_id == photoId)).all()
     if not len(searchFavorite):
-        new_fav = Favorite(user_id = userId, photo_id = photoId, liked=True)
+        new_fav = Favorite(user_id = userId, photo_id = photoId)
+        newphoto = photo.favorites.append(new_fav)
+        # print('!!!!!!!!!!!!!!NEW PHOTO, line 35...........', newphoto)
+        # print('...........LINE 39', new_fav.photo)
         photo.favorite_count += 1
         db.session.add(new_fav)
         db.session.commit()
-
-        return {"favPhotos": new_fav.to_dict()}
+        return {"favPhotos": new_fav.photo.to_dict()}
     else:
         photo.favorite_count -= 1
         db.session.delete(searchFavorite[0])
         db.session.commit()
 
         return {"favPhotos": searchFavorite[0].to_dict(), 'Delete':'DeleteFav'}
-
