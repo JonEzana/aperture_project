@@ -15,12 +15,13 @@ export const PhotosIndex = () => {
     const currentUser = useSelector(state => state.session.user)
     const favPics = Object.values(useSelector(state=>state.favs.allFav))
     const userFavpic = favPics.filter(photo=>photo.userId == currentUser.id)
+
     useEffect(() => {
         dispatch(thunkAllFav(currentUser.id))
         dispatch(thunkGetAllPhotos())
         dispatch(thunkGetAllUsers());
     }, [dispatch])
-    
+
     const photos = [...Object.values(fotos)];
 
     const userArr = [...Object.values(users)];
@@ -41,7 +42,7 @@ export const PhotosIndex = () => {
                             styles={{ display: "flex", flexDirection: "row", justifyContent: "space-between", paddingTop: "4px", paddingLeft: "4px", alignItems: "center" }}
                             favPics={favPics}
                             currentUser={currentUser}
-                            userFavpic={userFavpic}
+                            userFavpic={favPics}
                         />
                     </span>
                 )}
