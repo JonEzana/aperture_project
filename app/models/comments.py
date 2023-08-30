@@ -6,11 +6,11 @@ from datetime import datetime
 class Comment(db.Model):
   __tablename__='comments'
   if environment == "production":
-    __table_args__ = {'schema': SCHEMA} 
+    __table_args__ = {'schema': SCHEMA}
   id = db.Column(db.Integer, primary_key=True)
   user_id =db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
   photo_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('photos.id')))
-  comment = db.Column(db.String(200), nullable=False)
+  comment = db.Column(db.String(100), nullable=False)
   created_at = db.Column(db.DateTime(), default=datetime.now())
 
   user = db.relationship('User', back_populates='comments')
@@ -21,9 +21,6 @@ class Comment(db.Model):
       'id': self.id,
       'userId': self.user_id,
       'photoId': self.photo_id,
-      'comment': self.comment,  
+      'comment': self.comment,
       'createdAt': self.created_at,
     }
-
-
- 

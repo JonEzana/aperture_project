@@ -6,6 +6,8 @@ export default function GetAllCommentsByPhotoIdFunction({comment}) {
     const cleanData = `${splitData[2]} ${splitData[1]}, ${splitData[3]}`
     return cleanData;
   }
+if (comment && comment["Author"] == undefined) return <></>
+console.log('Comment, get all comments', comment)
 if (!Object.values(comment).length) {
   return (
     <>
@@ -15,10 +17,10 @@ if (!Object.values(comment).length) {
 } else {
   return (
     <div>
-          <p>{comment.comment}</p>
+          <p>{comment?.comment}</p>
           <div>
-            <p>{comment.Author.username}</p>
-            <p>{convertDate(comment.createdAt)}</p>
+            <p>{comment?.Author?.username}</p>
+            <p>{convertDate(comment?.createdAt)}</p>
           </div>
     </div>
   )

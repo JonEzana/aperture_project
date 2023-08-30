@@ -13,8 +13,8 @@ def all_comments(photoId):
   fetch all comments by the photo's id
   """
   comments = Comment.query.filter(Comment.photo_id == photoId).all()
+  res = {"comments": {}}
   for comment in comments:
-    res = {"comments": {}}
     user = User.query.filter(User.id == comment.user_id).first()
     new_comment = comment.to_dict()
     user = user.to_dict()
@@ -22,3 +22,29 @@ def all_comments(photoId):
     res["comments"]["Author"] = user
     new_comment["Author"] = user
   return res
+
+
+@comment_routes.route('/<int:photoId>/new', methods=["POST"])
+@login_required
+def create_comment(photoId):
+  """
+  Create new comment
+  """
+  form = CreateCommentForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+
+  if form.validate_on_submit():
+
+    new_comment = Comment(
+      comment=form.data["comment"],
+      user_id=current_user.id,
+      photo_id=photoId
+    )
+
+    db.session.add(new_comment)
+    db.session.commit()
+    return new_comment.to_dict()
+
+  if form.errors:
+      print(form.errors)
+      return {'errors': form.errors}
