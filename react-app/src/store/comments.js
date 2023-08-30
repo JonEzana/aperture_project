@@ -47,12 +47,16 @@ export const thunkCreateComment = (data, photoId) => async (dispatch) => {
 }
 
 export const thunkDeleteComment = (commentId) => async (dispatch) => {
-  const res = await fetch(`/api/comments/delete/${commentId}`, {
+  console.log('In thunk')
+  const res = await fetch(`/api/comments/${commentId}/delete`, {
     method: "DELETE"
   });
   if (res.ok) {
+
+  console.log('res.ok')
     dispatch(deleteComment(commentId));
   } else {
+    console.log('error')
     const error = res.json()
     throw error
 }
@@ -78,8 +82,11 @@ export default function commentReducer (state = initialState, action) {
       return newState;
     }
     case DELETE_COMMENT: {
+
+  console.log('in reducer, action.payload', action.payload)
       const newState = {...state, photoComments: {...state.photoComments}};
       delete newState.photoComments[action.payload];
+      console.log('reducer newstate', newState)
       return newState;
     }
     default:
