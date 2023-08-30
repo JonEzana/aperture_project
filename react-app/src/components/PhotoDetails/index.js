@@ -8,6 +8,7 @@ import * as sessionActions from "../../store/comments";
 import GetAllCommentsByPhotoIdFunction from "../GetAllComments";
 import { CreateComments } from "../CreateComments";
 
+import { thunkCreateFav } from "../../store/fav"
 
 export const PhotoDetails = () => {
     const dispatch = useDispatch();
@@ -15,13 +16,18 @@ export const PhotoDetails = () => {
     const users = Object.values(useSelector(state => state.users.allUsers));
     const currentUser = useSelector(state => state.session.user);
     let photo = useSelector(state => state.photos.singlePhoto);
-    const comments = Object.values(useSelector(state => state.comments.photoComments)).filter(com => com.photoId == photoId);
-    console.log('COMMENTS', comments)
+
     useEffect(() => {
         dispatch(thunkGetSinglePhoto(photoId));
         dispatch(thunkGetAllUsers());
         dispatch(sessionActions.thunkGetAllCommentsByPhotoId(photoId));
     }, [dispatch]);
+
+    const handleSubmit = (userId, photoId) => {
+        console.log(userId);
+        console.log(photoId);
+        dispatch(thunkCreateFav(userId, photoId))
+    }
 
     photo["Owner"] = Object.values(users).find(user => user.id === photo.userId);
 
@@ -38,7 +44,7 @@ export const PhotoDetails = () => {
                 </span>
                 <span style={{display: "flex", gap: "5px"}}>
                     <p style={{height: "fit-content"}}>Favorite</p>
-                    <i className="far fa-star" style={{color: "#FFD700", paddingRight: "10px", paddingBottom: "2px"}}></i>
+                    <i className="far fa-star" onClick={handleSubmit(currentUser.id, photoId)} style={{color: "#FFD700", paddingRight: "10px", paddingBottom: "2px"}}></i>
                 </span>
             </div>
             <div>
