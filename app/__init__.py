@@ -13,6 +13,7 @@ from .api.comment_routes import comment_routes
 from .api.fav_routes import fav_routes
 from .seeds import seed_commands
 from .config import Config
+from .api.aws_routes import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 

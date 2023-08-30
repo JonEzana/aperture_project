@@ -74,38 +74,36 @@ export const thunkDeletePhoto = (photoId) => async (dispatch) => {
     }
 }
 
-export const thunkCreatePhoto = (photoData) => async (dispatch) => {
-    const { title, url, description, user_id } = photoData;
+export const thunkCreatePhoto = (formData) => async (dispatch) => {
+    console.log('in thunk')
     const res = await fetch('/api/photos/new', {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            title,
-            url,
-            description,
-            user_id
-        })
+        body: formData
     })
 
     if (res.ok) {
         const photo = await res.json();
+        console.log('res ok photo', photo)
         dispatch(createPhoto(photo));
         return photo;
     } else if (res.status < 500) {
+        console.log('status < 500')
 		const data = await res.json();
 		if (data.errors) {
+            console.log('data errors', data.errors)
 			return data.errors;
 		}
 	} else {
+        console.log('failed')
 		return ["An error occurred. Please try again."];
 	}
 }
 
-export const thunkUpdatePhoto = (photoData) => async (dispatch) => {
-    const res = await fetch(`/api/photos/${photoData.photoId}/edit`, {
+export const thunkUpdatePhoto = (formData) => async (dispatch) => {
+    const res = await fetch(`/api/photos/${formData.photoId}/edit`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(photoData)
+        body: JSON.stringify(formData)
     });
     if (res.ok) {
         const updatedPhoto = await res.json();
@@ -176,6 +174,7 @@ export default function photosReducer(state = initialState, action) {
             return { ...newState, allPhotos: { ...newState.allPhotos }, currentUserPhotos: { ...newState.currentUserPhotos }, singlePhoto: { ...newState.singlePhoto } };
         }
         case CREATE_PHOTO: {
+            console.log('reducer', action.payload)
             return {
                 ...state,
                 allPhotos: { ...state.allPhotos, [action.payload.id]: action.payload },
