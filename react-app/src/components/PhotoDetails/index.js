@@ -4,18 +4,23 @@ import { useParams } from "react-router-dom";
 import { thunkGetAllUsers } from "../../store/users";
 import { thunkGetSinglePhoto } from "../../store/photos";
 import { UserBlurb } from "../UserBlurb";
+import * as sessionActions from "../../store/comments";
+import GetAllCommentsByPhotoIdFunction from "../GetAllComments";
+import { CreateComments } from "../CreateComments";
+
 import { thunkCreateFav } from "../../store/fav"
 
 export const PhotoDetails = () => {
     const dispatch = useDispatch();
     const {photoId} = useParams();
-    const users = useSelector(state => state.users.allUsers);
+    const users = Object.values(useSelector(state => state.users.allUsers));
+    const currentUser = useSelector(state => state.session.user);
     let photo = useSelector(state => state.photos.singlePhoto);
-    const currentUser = useSelector(state => state.session.user)
 
     useEffect(() => {
         dispatch(thunkGetSinglePhoto(photoId));
-        dispatch(thunkGetAllUsers())
+        dispatch(thunkGetAllUsers());
+        dispatch(sessionActions.thunkGetAllCommentsByPhotoId(photoId));
     }, [dispatch]);
 
     const handleSubmit = (userId, photoId) => {
@@ -43,13 +48,13 @@ export const PhotoDetails = () => {
                 </span>
             </div>
             <div>
-                comments go here
-            </div>
+
+            {comments.toReversed().map(comment =>
+                <GetAllCommentsByPhotoIdFunction comment={comment} currentUser={currentUser} photoId={photo.id}/>
+                )}
+                </div>
             <span>
-                <form>
-                    <textarea placeholder="Leave your comment here!"></textarea>
-                </form>
-                    <input type="submit" style={{width: "90px"}}></input>
+                <CreateComments />
             </span>
         </div>
     )

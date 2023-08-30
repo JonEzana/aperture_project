@@ -10,7 +10,7 @@ photo_routes = Blueprint('photos', __name__)
 @login_required
 def all_photos():
     """
-    Logged in homepage display all photots
+    Logged in homepage display all photos
     """
     photos = Photo.query.all()
     res = [photo.to_dict() for photo in photos]
