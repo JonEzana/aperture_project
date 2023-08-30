@@ -2,6 +2,7 @@ from flask import Blueprint, session, request
 from flask_login import login_required, current_user
 from app.models import Photo, db, Album
 from app.forms import CreatePhotoForm
+from app.api.aws_routes import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
 photo_routes = Blueprint('photos', __name__)
 
@@ -38,9 +39,20 @@ def create_photo():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        url = form.data["url"]
+        url.filename = get_unique_filename(url.filename)
+        upload = upload_file_to_s3(url)
+        print('LINE 70 signup backend.......', upload)
+
+        if "url" not in upload:
+        #   return render_template("post_form.html", form=form, errors=[upload])
+            # return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+            print('URL ERRORS......', {"errors": upload})
+            return {"errors": upload}
+
         new_photo = Photo(
             title=form.data['title'],
-            url=form.data['url'],
+            url=upload['url'],
             description=form.data['description'],
             preview_img=form.data['preview_img'],
             album_id=form.data['album_id'],
