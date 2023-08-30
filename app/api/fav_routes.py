@@ -23,13 +23,19 @@ def all_fav(userId):
 @login_required
 def create_fav(userId, photoId):
     """Create new fav to a photo by the user"""
-    print('IN backend user id', userId)
-    print('IN backend photo id', photoId)
-    user = User.query.get(userId)
     photo = Photo.query.get(photoId)
+    user = Photo.query.get(userId)
+    searchFavorite = Favorite.query.filter(and_(Favorite.user_id == userId, Favorite.photo_id == photoId)).all()
+    if not len(searchFavorite):
+        new_fav = Favorite(user_id = userId, photo_id = photoId, liked=True)
+        photo.favorite_count += 1
+        db.session.add(new_fav)
+        db.session.commit()
 
-    new_fav = Favorite(user_id = userId, photo_id = photoId)
-    db.session.add(new_fav)
-    db.session.commit()
+        return {"favPhotos": new_fav.to_dict()}
+    else:
+        photo.favorite_count -= 1
+        db.session.delete(searchFavorite[0])
+        db.session.commit()
 
-    return {"favPhotos": new_fav.to_dict()}
+        return {"favPhotos": searchFavorite[0].to_dict(), 'Delete':'DeleteFav'}
