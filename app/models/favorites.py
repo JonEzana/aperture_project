@@ -17,8 +17,10 @@ from sqlalchemy import UniqueConstraint
 class Favorite(db.Model):
     __tablename__ = 'favorites'
 
-    if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
+    __table_args__ = (
+        UniqueConstraint('user_id', 'photo_id', name='unique_combination_constraint'),
+        {'schema': SCHEMA} if environment == "production" else None,
+    )
 
 
 
@@ -27,7 +29,6 @@ class Favorite(db.Model):
     photo_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('photos.id')))
     liked = db.Column(db.Boolean, default=False)
 
-    UniqueConstraint('user_id', 'photo_id', name='unique_combination_constraint')
 
     users = db.relationship('User', back_populates='favorites')
     photo = db.relationship('Photo', back_populates='favorites')
