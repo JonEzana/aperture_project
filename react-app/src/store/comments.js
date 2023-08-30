@@ -1,5 +1,6 @@
 const GET_ALL_COMMENTS = 'comments/GET_ALL';
 const CREATE_COMMENT = 'comments/createComment';
+const DELETE_COMMENT = 'comments/deleteComment';
 
 const getAllCommentsByPhotoId = (comments) => ({    //need to specify cuz later we might wanna make get all comments by current user.
   type: GET_ALL_COMMENTS,
@@ -9,6 +10,11 @@ const getAllCommentsByPhotoId = (comments) => ({    //need to specify cuz later 
 const createComment = (comment) => ({
   type: CREATE_COMMENT,
   payload: comment
+});
+
+const deleteComment = (commentId) => ({
+  type: DELETE_COMMENT,
+  payload: commentId
 })
 
 export const thunkGetAllCommentsByPhotoId = (photoId) => async (dispatch) => {
@@ -40,6 +46,21 @@ export const thunkCreateComment = (data, photoId) => async (dispatch) => {
 	}
 }
 
+export const thunkDeleteComment = (commentId) => async (dispatch) => {
+  console.log('In thunk')
+  const res = await fetch(`/api/comments/${commentId}/delete`, {
+    method: "DELETE"
+  });
+  if (res.ok) {
+
+  console.log('res.ok')
+    dispatch(deleteComment(commentId));
+  } else {
+    console.log('error')
+    const error = res.json()
+    throw error
+}
+}
 
 const initialState = { userComments: {}, photoComments: {} };   // user:{} is for if we wish to implement manage all comments by current user, not gonna touch.
 
@@ -58,6 +79,14 @@ export default function commentReducer (state = initialState, action) {
       console.log('REDUCER...', action.payload)
       const newState = {...state, photoComments: {...state.photoComments}};
       newState.photoComments[action.payload.id] = action.payload;
+      return newState;
+    }
+    case DELETE_COMMENT: {
+
+  console.log('in reducer, action.payload', action.payload)
+      const newState = {...state, photoComments: {...state.photoComments}};
+      delete newState.photoComments[action.payload];
+      console.log('reducer newstate', newState)
       return newState;
     }
     default:

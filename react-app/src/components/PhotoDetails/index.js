@@ -13,6 +13,7 @@ export const PhotoDetails = () => {
     const dispatch = useDispatch();
     const {photoId} = useParams();
     const users = Object.values(useSelector(state => state.users.allUsers));
+    const currentUser = useSelector(state => state.session.user);
     let photo = useSelector(state => state.photos.singlePhoto);
     const comments = Object.values(useSelector(state => state.comments.photoComments)).filter(com => com.photoId == photoId);
     console.log('COMMENTS', comments)
@@ -43,7 +44,7 @@ export const PhotoDetails = () => {
             <div>
 
             {comments.toReversed().map(comment =>
-                <GetAllCommentsByPhotoIdFunction comment={comment}/>
+                <GetAllCommentsByPhotoIdFunction comment={comment} currentUser={currentUser} photoId={photo.id}/>
                 )}
                 </div>
             <span>

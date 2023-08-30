@@ -1,4 +1,7 @@
-export default function GetAllCommentsByPhotoIdFunction({comment}) {
+import OpenModalButton from '../OpenModalButton'
+import { DeleteCommentsModal } from '../DeleteCommentsModal';
+
+export default function GetAllCommentsByPhotoIdFunction({comment, currentUser, photoId}) {
   function convertDate(date) {
     const splitData = date.split(' ')
     // console.log('regular date = ', date)
@@ -22,6 +25,13 @@ if (!Object.values(comment).length) {
             <p>{comment?.Author?.username}</p>
             <p>{convertDate(comment?.createdAt)}</p>
           </div>
+          {currentUser.id === comment.userId &&
+            <OpenModalButton
+            modalComponent={<DeleteCommentsModal commentId={comment.id} userid={currentUser.id} photoId={photoId}/>}
+            buttonText={<i className="fas fa-trash-alt" style={{color: "#ababab"}}></i>}
+            style={{backgroundColor: "transparent", border: "none"}}
+            />
+          }
     </div>
   )
 }

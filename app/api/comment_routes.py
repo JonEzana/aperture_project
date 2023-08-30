@@ -48,3 +48,12 @@ def create_comment(photoId):
   if form.errors:
       print(form.errors)
       return {'errors': form.errors}
+
+
+@comment_routes.route('/<int:id>/delete', methods=["DELETE"])
+@login_required
+def delete_comment(id):
+  to_delete = Comment.query.get(id)
+  db.session.delete(to_delete)
+  db.session.commit()
+  return {"Message": "Comment Deleted Successfully"}
