@@ -16,8 +16,8 @@ export default function AllAlbums({ backgroundUrl }) {
     const albums = Object.values(useSelector(state => state.albums.allAlbums))
     const { userId } = useParams()
     const { backgroundImg } = useBackgroundImgContext()
-  
-    
+
+
     useEffect(() => {
         dispatch(thunkGetAllAlbums(userId))
     }, [])
@@ -34,7 +34,7 @@ export default function AllAlbums({ backgroundUrl }) {
                     return `url(${photo.url})`
                 }
             }
-        
+
             return album.photos[0] ? `url(${album.photos[0]?.url})` : `url(${backgroundImg})`
         }
         return `url(${backgroundImg})`
@@ -62,14 +62,14 @@ export default function AllAlbums({ backgroundUrl }) {
     const detailsAlbum = (userId, albumId) => {
         history.push(`/users/${userId}/albums/${albumId}`)
     }
-    
-    
+
+
     return (
         <div>
             <ProfileHeader userId={userId} url={backgroundUrl} />
             <ProfileNav userId={userId} />
 
-            {currentUser && <div id='create-new-album'><NavLink to={`/albums/new`}>New album</NavLink></div>}
+            {currentUser.id == userId && <div id='create-new-album'><NavLink to={`/albums/new`}>New album</NavLink></div>}
             <div className='albums-container'>
                 {sortAlbumList(userAlbum).map(album => <div onClick={() => detailsAlbum(album.userId, album.id)} className='album' style={backgroundImageStyle(album)} key={album.id}>
                     <div className='title-photo-container'>
@@ -77,14 +77,14 @@ export default function AllAlbums({ backgroundUrl }) {
                             <div>{album.title}</div>
                             <div>{album.photos?.length == 1 || album.photos?.length === 0 ? `${album.photos?.length} photo` : `${album.photos?.length} photos`} </div>
                         </div>{
-                            currentUser.id == userId ? <div className='Edit-Delete-Album'> 
+                            currentUser.id == userId ? <div className='Edit-Delete-Album'>
                             <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id)}>
                                 Edit
                             </div>
                             <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id)}>
                                 <OpenModalButton modalComponent={<DeleteAlbum album={album} />} buttonText={'Delete'} />
                             </div>
-                            </div> 
+                            </div>
                             :
                              <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id)}>
                               <i className="fas fa-share"></i>

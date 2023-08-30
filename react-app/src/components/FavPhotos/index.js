@@ -10,12 +10,12 @@ export default function FavPhotos() {
     const { userId } = useParams()
     const dispatch = useDispatch()
     const likedPhotos = Object.values(useSelector(state => state.favs.allFav))
-
+    console.log('liked photos', likedPhotos);
     useEffect(() => {
         dispatch(thunkAllFav(userId))
     }, [])
 
-    if (!likedPhotos.length) return null
+
 
 
     return (

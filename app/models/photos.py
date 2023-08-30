@@ -1,6 +1,4 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from .favorites import favorites
-# from .favorites import Fav
 from datetime import datetime
 
 
@@ -18,7 +16,6 @@ class Photo(db.Model):
   description = db.Column(db.String(500))
   preview_img = db.Column(db.Boolean, default=False)
   favorite_count = db.Column(db.Integer, nullable=False, default=0)
-  liked = db.Column(db.Boolean, default=False)
   created_at = db.Column(db.DateTime(), default=datetime.now())
   updated_at = db.Column(db.DateTime(), default=datetime.now())
 
@@ -28,14 +25,14 @@ class Photo(db.Model):
 
   comments = db.relationship('Comment', back_populates='photo', cascade="all, delete-orphan")
 
-  # favorites = db.relationship('Fav', back_populates='photo')
+  favorites = db.relationship('Favorite', back_populates='photo', cascade="all, delete-orphan")
 
   #  many to many
-  users = db.relationship(
-    "User",
-    secondary=favorites,
-    back_populates="photos"
-  )
+  # users = db.relationship(
+  #   "User",
+  #   secondary=favorites,
+  #   back_populates="photos"
+  # )
 
   def to_dict(self):
     return {
@@ -47,7 +44,6 @@ class Photo(db.Model):
       'description': self.description,
       'previewImg': self.preview_img,
       'favoriteCount': self.favorite_count,
-      'liked': self.liked,
       'createdAt': self.created_at,
       'updatedAt': self.updated_at
     }

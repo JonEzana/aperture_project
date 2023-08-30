@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 243eb2a7222e
+Revision ID: 60b1eff75009
 Revises:
-Create Date: 2023-08-29 16:28:27.317926
+Create Date: 2023-08-29 19:03:04.300292
 
 """
 from alembic import op
@@ -13,7 +13,7 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '243eb2a7222e'
+revision = '60b1eff75009'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -55,7 +55,6 @@ def upgrade():
     sa.Column('description', sa.String(length=500), nullable=True),
     sa.Column('preview_img', sa.Boolean(), nullable=True),
     sa.Column('favorite_count', sa.Integer(), nullable=False),
-    sa.Column('liked', sa.Boolean(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['album_id'], ['albums.id'], ),
@@ -73,11 +72,14 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('favorites',
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('photo_id', sa.Integer(), nullable=False),
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('photo_id', sa.Integer(), nullable=True),
+    sa.Column('liked', sa.Boolean(), nullable=True),
     sa.ForeignKeyConstraint(['photo_id'], ['photos.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('user_id', 'photo_id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('id')
     )
     # ### end Alembic commands ###
     if environment == "production":

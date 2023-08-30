@@ -31,7 +31,7 @@ export const PhotosIndex = () => {
                 {photos.map(photo =>
                     <span className='all-photos-card' title={photo.name} onClick={() => history.push(`/photos/${photo.id}`)} key={photo.id}>
                         <img className='all-photos-pic' src={photo.url} alt={photo.title} style={{ borderTopRightRadius: "10px", borderTopLeftRadius: "10px" }}></img>
-                        <UserBlurb userId={photo.userId}
+                        <UserBlurb photoId={photo.id} userId={photo.userId}
                             url={photo?.Owner?.profilePic}
                             username={photo?.Owner?.username}
                             styles={{ display: "flex", flexDirection: "row", justifyContent: "space-between", paddingTop: "4px", paddingLeft: "4px", alignItems: "center" }}
