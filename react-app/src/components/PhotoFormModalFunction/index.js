@@ -1,13 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import * as sessionActions from "../../store/photos";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal"
 
 export const PhotoFormModalFunction = ({ photo, formType }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {photoId} = useParams
   const { closeModal } = useModal();
   const currentUser = useSelector(state => state.session.user);
   const currentUserPhotos = useSelector(state => state.photos.currentUserPhotos)
@@ -26,34 +25,35 @@ export const PhotoFormModalFunction = ({ photo, formType }) => {
       setDisabled(true);
     }
     setValObj(errObj);
-  }, [title.length, url.length]);
+  }, [title, url]);
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    closeModal();
     if (formType === "Update") {
-      const picData = {title, description, photoId: +photoId};
-
+      const picData = {title, description, photoId: photo.id};
+      console.log('handle submit, photoid', picData["photoId"])
       const updatedPhoto = await dispatch(sessionActions.thunkUpdatePhoto(picData));
 
       if (updatedPhoto.id) {
+        console.log('successful update', updatedPhoto)
         await dispatch(sessionActions.thunkGetCurrentUserPhotos(currentUser.id));
         closeModal();
         history.push(`/users/${currentUser.id}/photos`);
       }
     } else {
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("description", description);
-      formData.append("url", url);
-      const newPhoto = await dispatch(sessionActions.thunkCreatePhoto(formData));
-      if (newPhoto.id) {
-        await dispatch(sessionActions.thunkGetCurrentUserPhotos(currentUser.id));
-        closeModal();
-        setTitle('')
-        setDescription('')
-        setUrl('');
-        history.push(`/users/${currentUser.id}/photos`);
-      }
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("url", url);
+        const newPhoto = await dispatch(sessionActions.thunkCreatePhoto(formData));
+        if (newPhoto.id) {
+          await dispatch(sessionActions.thunkGetCurrentUserPhotos(currentUser.id));
+          // setTitle('');
+          // setDescription('');
+          // setUrl('');
+          history.push(`/users/${currentUser.id}/photos`);
+        }
     }
   };
 
@@ -75,13 +75,14 @@ export const PhotoFormModalFunction = ({ photo, formType }) => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <input
-          type='file'
-          placeholder='File Url'
-          onChange={(e) => setUrl(e.target.files[0])}
-          required
-          accept="image/*"
-        />
+        {formType !== "Update" &&
+          <input
+            type='file'
+            placeholder='File Url'
+            onChange={(e) => setUrl(e.target.files[0])}
+            required
+            accept="image/*"
+          />}
         {valObj.url && <p className="errors" style={{color: "red"}}>{valObj.url}</p>}
         <button type='submit' disabled={disabled} >Submit</button>
       </form>
