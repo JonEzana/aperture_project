@@ -42,15 +42,7 @@ function ProfileButton({ user }) {
 
   };
 
-  // const logout = (e) => {
-  //   e.preventDefault();
-  //   dispatch(sessionActions.thunkLogout());
-  //   closeMenu()
-  //   history.push('/')
-  // };
-
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
-
 
   const manage = async (e) => {
     e.preventDefault();
@@ -61,37 +53,7 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      {/* <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
-      <ul className={ulClassName} ref={ulRef}>
-        {user ? (
-          <>
-            <li>{user.username}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={handleLogout}>Log Out</button>
-            </li>
-          </>
-        ) : (
-          <>
-            <OpenModalButton
-              buttonText="Log In"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-            />
-
-            <OpenModalButton
-              buttonText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
-            />
-          </>
-        )}
-      </ul> */}
       <button onClick={openMenu} className='profile-button'>
-          {/* <i className="fa-solid fa-bars"></i>
-           */}
           <i className="fas fa-bars"></i>
           <i className="fas fa-user-circle" />
         </button>
@@ -103,7 +65,7 @@ function ProfileButton({ user }) {
               <p className="email">{user.email}</p>
               <hr style={{background: "black", height: "1px", width: "100%" }}/>
 
-              <button className="manage-btn" onClick={manage}>My Photos</button>
+              <button className="manage-btn" onClick={manage}>My Profile</button>
               <hr style={{background: "black", height: "1px", width: "100%" }}/>
 
               <button className="logout-btn" onClick={handleLogout}>Log Out</button>
