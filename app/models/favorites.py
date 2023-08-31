@@ -38,5 +38,5 @@ class Favorite(db.Model):
             'id': self.id,
             'userId': self.user_id,
             'photoId': self.photo_id,
-            'liked': self.liked
+            # 'liked': self.liked
         }

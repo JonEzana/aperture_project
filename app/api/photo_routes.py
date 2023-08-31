@@ -71,22 +71,17 @@ def create_photo():
 @photo_routes.route('/edit/<int:id>', methods=['PUT'])
 @login_required
 def update_photo(id):
-    form = CreatePhotoForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
+    data = request.json
+    photo_to_edit = Photo.query.get(id)
+    album = Album.query.get(data["newAlbumId"])
 
-    if form.validate_on_submit():
-        photo_to_edit = Photo.query.get(id)
-        album = Album.query.get(form.data['album_id'])
+    photo_to_edit.title = data['title']
+    photo_to_edit.description = data['description']
+    album.photos.append(photo_to_edit)
 
-        photo_to_edit.title = form.data['title']
-        photo_to_edit.description = form.data['description']
-        album.photos.append(photo_to_edit)
+    db.session.commit()
+    return photo_to_edit.to_dict()
 
-        db.session.commit()
-        return photo_to_edit.to_dict()
-
-    if form.errors:
-        return {'errors': form.errors}
 
 @photo_routes.route('/<int:id>/edit', methods=['PUT'])
 @login_required
