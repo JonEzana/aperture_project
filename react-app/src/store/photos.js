@@ -124,7 +124,7 @@ export const thunkUpdatePhotoList = (photoData, albumId) => async (dispatch) => 
     const req = photoData.map(photo => {
         // console.log('photo', photo);
         // photo['album_id'] = albumId
-        photo['newAlbumId'] = albumId
+        photo['album_id'] = albumId
         return fetch(`/api/photos/edit/${photo.id}`, {
             method: 'PUT',
             headers: {

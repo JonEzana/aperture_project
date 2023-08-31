@@ -61,7 +61,7 @@ def create_photo():
 
         db.session.add(new_photo)
         db.session.commit()
-        return new_photo.to_dict();
+        return new_photo.to_dict()
 
     if form.errors:
         print(form.errors)
@@ -73,8 +73,8 @@ def create_photo():
 def update_photo(id):
     data = request.json
     photo_to_edit = Photo.query.get(id)
-    album = Album.query.get(data["newAlbumId"])
-
+    album = Album.query.get(data["album_id"])
+    photo_to_edit["album_id"] = data["album_id"]
     photo_to_edit.title = data['title']
     photo_to_edit.description = data['description']
     album.photos.append(photo_to_edit)
