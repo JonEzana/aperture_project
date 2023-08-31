@@ -13,13 +13,6 @@ export default function GetAllCommentsByPhotoIdFunction({comment, currentUser, p
 
   console.log('commentttttttt =')
   if (comment && comment["Author"] == undefined) return <></>
-  // if (!Object.values(comment).length) {
-  //   return (
-  //     <div>
-  //       <p>Be the first to comment!</p>
-  //     </div>
-  //   )
-  // } else {
     return (
       <div id='comment-item'>
             <p id='comment'>{comment?.comment}</p>

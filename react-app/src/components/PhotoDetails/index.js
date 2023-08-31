@@ -56,9 +56,7 @@ export const PhotoDetails = () => {
             <div id='comments-container'>
                 <CreateComments />
                 {Object.values(comments).length ? comments.toReversed().map(comment =>              
-                // {comments.toReversed().map(comment =>
                     <GetAllCommentsByPhotoIdFunction comment={comment} currentUser={currentUser} photoId={photo.id}/>
-                // )}
                 ):<p>rando</p>}             
             </div>
             <span>
