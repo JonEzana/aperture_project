@@ -62,7 +62,6 @@ def create_album(userId):
 
         db.session.add(new_album)
         db.session.commit()
-        print('album backend!!!!!!!!!!', new_album.to_dict())
         return new_album.to_dict()
 
     if form.errors:
@@ -82,11 +81,12 @@ def update_album(userId, id):
 
 
     if form.validate_on_submit():
-
+       
         album_to_edit.title = form.data['title']
         album_to_edit.description = form.data['description']
-
+        
         db.session.commit()
+        
         return album_to_edit.to_dict()
 
     if form.errors:

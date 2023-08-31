@@ -28,24 +28,21 @@ def all_fav(userId):
 def create_fav(userId, photoId):
     """Create new fav to a photo by the user"""
     photo = Photo.query.get(photoId)
-    user = Photo.query.get(userId)
-    searchFavorite = Favorite.query.filter(and_(Favorite.user_id == userId, Favorite.photo_id == photoId)).all()
-
-    if not len(searchFavorite):
+    searchFavorite = Favorite.query.filter(and_(Favorite.user_id == userId, Favorite.photo_id == photoId)).first()
+   
+    if not searchFavorite:
         new_fav = Favorite(user_id = userId, photo_id = photoId)
-        newphoto = photo.favorites.append(new_fav)
-
-        # print('!!!!!!!!!!!!!!NEW PHOTO, line 35...........', newphoto)
-        # print('...........LINE 39', new_fav.photo)
+      
         photo.favorite_count += 1
         db.session.add(new_fav)
         db.session.commit()
+       
         return {"favPhotos": new_fav.photo.to_dict()}
     else:
-        delete_photo = Photo.query.filter(and_(Photo.user_id == userId, Photo.id == photoId)).first()
-
-        delete_photo.favorite_count -= 1
-        db.session.delete(searchFavorite[0])
+       
+        
+      
+        photo.favorite_count -= 1
+        db.session.delete(searchFavorite)
         db.session.commit()
-        # print('search!!!!!!!!!!', searchFavorite[0])
-        return {"favPhotos": delete_photo.to_dict(), 'Delete':'DeleteFav'}
+        return {"favPhotos": photo.to_dict(), 'Delete':'DeleteFav'}

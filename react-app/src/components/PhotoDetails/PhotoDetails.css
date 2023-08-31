@@ -1,11 +1,11 @@
 #outer-detail-div {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   flex-wrap: wrap;
   width: 100vw;
   height: 100vh;
   border: 1px solid blue;
-  padding: 0px; 
+  padding: 0px;
   margin-top: -23px;
   align-items: center;
 }
@@ -65,6 +65,7 @@
   width: 75px;
   border-radius: 75px;
   object-fit: cover;
+  cursor: pointer;
 }
 
 #user-text {
@@ -158,4 +159,3 @@
   font-size: 12px;
   color: rgb(60, 61, 63);
 }
-

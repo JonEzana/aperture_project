@@ -18,7 +18,7 @@ export default function PhotoContainer({photo, album}) {
         }
     }
 
-
+    if (!album.user) return null 
     return (
         <div>
             <div style={backgroundImageStyle(photo.url)} className="photo-detail-container" ref={ref} onMouseEnter={() => setAlbumInfoBox(true)} onMouseLeave={() => setAlbumInfoBox(false)} key={photo.id}>{albumInfoBox && <div className="text">
