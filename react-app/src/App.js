@@ -60,11 +60,14 @@ function App() {
           <ProtectedRoute path='/users/:userId/photos' >
               <Photostream />
           </ProtectedRoute>
-          <Route path="/login" >
+          {/* <Route path="/login" >
             <LoginFormPage />
-          </Route>
-          <Route path="/signup">
+          </Route> */}
+          {/* <Route path="/signup">
             <SignupFormPage />
+          </Route> */}
+          <Route path="/*">
+            <h1>Page Not Found</h1>
           </Route>
         </Switch>
       )}
