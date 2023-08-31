@@ -14,7 +14,7 @@ export default function CreateAlbum() {
     const location = useLocation()
     const type = location.state ? location.state.type : 'create'
     const albumId = location.state ? location.state.albumId : ''
-    const userId = location.state ? location.state.userId : ''
+    // const userId = location.state ? location.state.userId : ''
     const updateAlbum = useSelector(state => state.albums.allAlbums[albumId])
     const [title, setTitle] = useState(updateAlbum ? updateAlbum.title : "")
     const [description, setDescription] = useState(updateAlbum ? updateAlbum.description : "")
@@ -27,7 +27,7 @@ export default function CreateAlbum() {
 
     if (!photos.length || !currentUser) return null;
     const userPhotos = photos.filter(photo => photo.userId == currentUser.id)
-  
+
     const backgroundImageStyle = (photoUrl) => {
         return {
             backgroundImage: `url(${photoUrl})`,
@@ -55,8 +55,8 @@ export default function CreateAlbum() {
         else dispatch(fetchUpdateAlbum(albumId, currentUser.id, newAlbum)).then(album => dispatch(thunkUpdatePhotoList(res, album.id))).then(()=>dispatch(thunkGetAllPhotos())).then(()=>history.push(`/users/${currentUser.id}/albums/${albumId}`)).catch(e => console.log(e))
     }
 
-    const handleCancle = (userId) => {
-        history.push(`/users/${userId}/albums`)
+    const handleCancel = (id) => {
+        history.push(`/users/${id}/albums`)
     }
 
     return (
@@ -104,7 +104,7 @@ export default function CreateAlbum() {
                     </div>
                     <div className='buttom-side'>
                         <button>{type === 'edit' ? 'Update Album' : 'Submit'}</button>
-                        <button onClick={()=>handleCancle(userId)}>Cancel</button>
+                        <button onClick={()=>handleCancel(currentUser.id)}>Cancel</button>
                     </div>
                 </div>
             </form>
