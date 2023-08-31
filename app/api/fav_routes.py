@@ -43,7 +43,7 @@ def create_fav(userId, photoId):
         return {"favPhotos": new_fav.photo.to_dict()}
     else:
         delete_photo = Photo.query.filter(and_(Photo.user_id == userId, Photo.id == photoId)).first()
-        print('backend delete !!!!!!!!!!!!!!', delete_photo)
+
         delete_photo.favorite_count -= 1
         db.session.delete(searchFavorite[0])
         db.session.commit()
