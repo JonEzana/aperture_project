@@ -29,21 +29,13 @@ export const PhotosIndex = () => {
     photos.forEach(photo => {
         photo["Owner"] = userArr.find(user => user.id === photo.userId)
     });
-    const handlePhotoDetail = (e, photoId) => {
-        e.stopPropagation()
-        history.push(`/photos/${photoId}`)
-
-    }
-    if (!photos.length) return null
+ 
     return (
         <div className='container-container'>
             <div className='all-photos-container'>
                 {photos.map(photo =>
                     <span className='all-photos-card' title={photo.name} key={photo.id}>
-                        <div onClick={(e, photo)=> {
-                            console.log('photo', photo)
-                            if(photo)handlePhotoDetail(e, photo.id)
-                            }}>
+                        <div onClick={()=>history.push(`/photos/${photo.id}`)}>
                             <img className='all-photos-pic' src={photo.url} alt={photo.title} style={{ borderTopRightRadius: "10px", borderTopLeftRadius: "10px" }}></img>
                         </div>
                         <div>
@@ -55,7 +47,6 @@ export const PhotosIndex = () => {
                                 currentUser={currentUser}
                                 userFavpic={favPics}
                                 count={photo.favoriteCount}
-                                onClick={(e, id) => {e.stopPropagation(); history.push(`/users/${id}/photos`)}}
                             />
                         </div>
 
