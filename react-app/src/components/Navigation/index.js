@@ -28,10 +28,10 @@ function Navigation({ isLoaded }){
 					<OpenModalButton
 						modalComponent={ <PhotoFormModalFunction />}
 						buttonText={"Post Your Photo"}
-						style={{width: "120px", backgroundColor: "transparent", color: "white", border: "none"}}
+						style={{width: "120px", backgroundColor: "transparent", color: "white", border: "none", cursor: 'pointer'}}
 					/>}
 				{sessionUser && <NavLink to="/albums/new" className="new-spot-link">
-					Upload Album
+					Create an Album
 				</NavLink>}
 			</span>
 			{isLoaded && (
