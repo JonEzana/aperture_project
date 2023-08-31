@@ -3,10 +3,15 @@ import { NavLink } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeletePhotoModalFunction from "../DeletePhotoModal";
 import { PhotoFormModalFunction } from "../PhotoFormModalFunction";
+import {thunkCreateFav} from "../../store/fav"
+import {useDispatch, useSelector} from "react-redux"
 
-export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, userid}) {
+
+export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, userid, type}) {
     const [photoInfoBox, setPhotoInfoBox] = useState(false)
     const ref = useRef()
+    const currentUser = useSelector(state => state.session.user)
+    const dispatch = useDispatch()
 
     const urlToString = url => {
         return `url(${url})`
@@ -20,6 +25,12 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, user
             backgroundRepeat: 'no-repeat',
             width: "300px"
         }
+    }
+
+    const handleSubmit = (e, userId, photoId) => {
+        e.stopPropagation()
+        // setFav(!fav)
+        dispatch(thunkCreateFav(userId, photoId))
     }
 
     const displayName = (photo) => {
@@ -40,24 +51,27 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, user
                                 <div>{photo.title}</div>
                                 <div style={{fontSize: "11px"}}>by {displayName(photo)}</div>
                             </div>
-                            { isCurrentUserOnOwnPage &&
+                            { isCurrentUserOnOwnPage && type === 'photoStream' ?
                                 <div className="owner-icons" style={{display: "flex", gap:"6px"}}>
                                     <OpenModalButton
                                         modalComponent={<PhotoFormModalFunction photo={photo} formType={'Update'}/>}
                                         buttonText={<i className="fas fa-edit" style={{color: "#ababab"}}></i>}
                                         style={{backgroundColor: "transparent", border: "none"}}
-                                    />                                    
+                                    />
                                     <OpenModalButton
                                         modalComponent={<DeletePhotoModalFunction photoId={photo.id} userid={userid}/>}
                                         buttonText={<i className="fas fa-trash-alt" style={{color: "#ababab"}}></i>}
                                         style={{backgroundColor: "transparent", border: "none"}}
                                     />
-                                </div>
+                                </div> : null
                             }
                             { !isCurrentUserOnOwnPage &&
                                 <div className="not-owner-icons">
                                     <i className="far fa-star" style={{color: "#FFD700"}}></i>
                                 </div>
+                            }
+                            {
+                                type === "fav" && <div onClick={e => handleSubmit(e, currentUser.id, photo.id)} ><i style={{color: "#FFD700", paddingRight: "10px"}} className="fas fa-star" />{photo.favoriteCount} </div>
                             }
                         </div>
                     </div>

@@ -46,13 +46,13 @@ export const Photostream = ({backgroundUrl, fav, like}) => {
                     {
                     like === "like" ? fav.map(photo =>
                         <div key={photo.id}>
-                            <PhotoHoverComponent isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId}/>
+                            <PhotoHoverComponent type={"fav"} isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId}/>
                         </div>
                     )
                     :
                     photos.toReversed().map(photo =>
                         <div key={photo.id}>
-                            <PhotoHoverComponent isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId}/>
+                            <PhotoHoverComponent type={"photoStream"} isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId}/>
                         </div>
                     )}
                 </div>

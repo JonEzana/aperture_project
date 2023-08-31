@@ -62,6 +62,7 @@ def create_album(userId):
 
         db.session.add(new_album)
         db.session.commit()
+        print('album backend!!!!!!!!!!', new_album.to_dict())
         return new_album.to_dict()
 
     if form.errors:

@@ -52,7 +52,9 @@ export default function AllAlbums({ backgroundUrl }) {
     const sortAlbumList = (albums) => {
         return albums.sort((a, b) => {
             const latest = new Date(a.createdAt)
-            const earliest = new Date(b.createdAt)
+            const earliest = new Date(b.updatedAt)
+            console.log('latest', latest.getTime());
+            console.log('earliest', earliest.getTime());
             if (earliest.getTime() > latest.getTime()) return -1
             if (latest.getTime() > earliest.getTime()) return 1
             return 0
@@ -71,7 +73,7 @@ export default function AllAlbums({ backgroundUrl }) {
 
             {currentUser.id == userId && <div id='create-new-album'><NavLink to={`/albums/new`}>New album</NavLink></div>}
             <div className='albums-container'>
-                {sortAlbumList(userAlbum).map(album => <div onClick={() => detailsAlbum(album.userId, album.id)} className='album' style={backgroundImageStyle(album)} key={album.id}>
+                {sortAlbumList(userAlbum).toReversed().map(album => <div onClick={() => detailsAlbum(album.userId, album.id)} className='album' style={backgroundImageStyle(album)} key={album.id}>
                     <div className='title-photo-container'>
                         <div>
                             <div>{album.title}</div>

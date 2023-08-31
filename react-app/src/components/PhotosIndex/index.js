@@ -43,6 +43,7 @@ export const PhotosIndex = () => {
                             favPics={favPics}
                             currentUser={currentUser}
                             userFavpic={favPics}
+                            count={photo.favoriteCount}
                         />
                     </span>
                 )}
