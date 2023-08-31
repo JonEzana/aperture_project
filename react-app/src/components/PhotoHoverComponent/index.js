@@ -5,6 +5,7 @@ import DeletePhotoModalFunction from "../DeletePhotoModal";
 import { PhotoFormModalFunction } from "../PhotoFormModalFunction";
 import {thunkCreateFav} from "../../store/fav"
 import {useDispatch, useSelector} from "react-redux"
+import { thunkGetAllPhotos, thunkGetSinglePhoto } from "../../store/photos";
 
 
 export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, userid, type, ownerName, photoUrl}) {
@@ -31,7 +32,7 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, user
     const handleSubmit = (e, userId, photoId) => {
         e.stopPropagation()
         // setFav(!fav)
-        dispatch(thunkCreateFav(userId, photoId))
+        dispatch(thunkCreateFav(userId, photoId)).then(() => thunkGetSinglePhoto(photoId).then(() => thunkGetAllPhotos()))
     }
 
     const displayName = (name) => {

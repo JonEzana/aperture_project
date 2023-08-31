@@ -2,7 +2,7 @@ import { useHistory } from "react-router-dom"
 import { thunkCreateFav } from "../../store/fav"
 import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react"
-import { thunkGetAllPhotos } from "../../store/photos"
+import { thunkGetAllPhotos, thunkGetSinglePhoto } from "../../store/photos"
 
 
 export const UserBlurb = ({url, username, styles, userId, photoId,  currentUser, userFavpic, count}) => {
@@ -17,7 +17,7 @@ export const UserBlurb = ({url, username, styles, userId, photoId,  currentUser,
     const handleSubmit = (e, userId, photoId) => {
         e.stopPropagation()
         setFav(!fav)
-        dispatch(thunkCreateFav(userId, photoId)).then(() => dispatch(thunkGetAllPhotos()))
+        dispatch(thunkCreateFav(userId, photoId)).then(() => dispatch(thunkGetAllPhotos()).then(() => thunkGetSinglePhoto(photoId)));
     }
 
     return (
