@@ -42,12 +42,12 @@ def create_photo():
         url = form.data["url"]
         url.filename = get_unique_filename(url.filename)
         upload = upload_file_to_s3(url)
-        print('LINE 70 signup backend.......', upload)
+   
 
         if "url" not in upload:
         #   return render_template("post_form.html", form=form, errors=[upload])
             # return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-            print('URL ERRORS......', {"errors": upload})
+          
             return {"errors": upload}
 
         new_photo = Photo(
@@ -73,11 +73,9 @@ def create_photo():
 def update_photo(id):
     data = request.json
     photo_to_edit = Photo.query.get(id)
-    album = Album.query.get(data["album_id"])
-    photo_to_edit["album_id"] = data["album_id"]
+    photo_to_edit.album_id = data["album_id"]
     photo_to_edit.title = data['title']
     photo_to_edit.description = data['description']
-    album.photos.append(photo_to_edit)
 
     db.session.commit()
     return photo_to_edit.to_dict()

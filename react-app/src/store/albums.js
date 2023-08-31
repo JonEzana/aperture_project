@@ -88,8 +88,9 @@ export const fetchUpdateAlbum = (albumId, userId, updateAlbum) => async dispatch
     });
   
     if (res.ok) {
-      const updatedAlbum = await res.json(); // You need to await the json() call
-      dispatch(getOneAlbum(updatedAlbum)); // Corrected "newAlbum" to "updatedAlbum"
+      const  updatedAlbum = await res.json()
+        dispatch(getOneAlbum(updatedAlbum)); 
+     
       return updatedAlbum;
     } else {
       const error = await res.json();

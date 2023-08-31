@@ -15,8 +15,7 @@ export default function AlbumDetail() {
     const allPhotos = useSelector(state => state.photos.allPhotos)
     const { backgroundImg } = useBackgroundImgContext()
     useEffect(() => {
-        dispatch(thunkGetAllPhotos())
-        dispatch(thunkOneAlbum(userId, albumId))
+        dispatch(thunkGetAllPhotos()).then(()=>dispatch(thunkOneAlbum(userId, albumId)))
     }, [])
 
     if (!Object.values(album).length || !Object.values(allPhotos).length) return null

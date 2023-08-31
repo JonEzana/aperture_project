@@ -122,8 +122,7 @@ export const thunkUpdatePhoto = (formData) => async (dispatch) => {
 export const thunkUpdatePhotoList = (photoData, albumId) => async (dispatch) => {
 
     const req = photoData.map(photo => {
-        // console.log('photo', photo);
-        // photo['album_id'] = albumId
+
         photo['album_id'] = albumId
         return fetch(`/api/photos/edit/${photo.id}`, {
             method: 'PUT',
@@ -176,7 +175,7 @@ export default function photosReducer(state = initialState, action) {
             return { ...newState, allPhotos: { ...newState.allPhotos }, currentUserPhotos: { ...newState.currentUserPhotos }, singlePhoto: { ...newState.singlePhoto } };
         }
         case CREATE_PHOTO: {
-            console.log('reducer', action.payload)
+         
             return {
                 ...state,
                 allPhotos: { ...state.allPhotos, [action.payload.id]: action.payload },
