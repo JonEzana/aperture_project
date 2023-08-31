@@ -38,17 +38,18 @@ export const CreateComments = () => {
     }
 
     return (
-        <>
-            <form onSubmit={handleSubmit}>
+        <div id='post-comment-section'>
+            <form onSubmit={handleSubmit} id='comment-mini-form'>
                 <textarea
                     placeholder="Leave your comment here!"
                     value={commentTxt}
                     onChange={(e) => setCommentTxt(e.target.value)}
                     type="textarea"
-                    />
-                    {valObj.commentTxt && <p className="errors">{valObj.commentTxt}</p>}
-                <button type="submit" style={{width: "90px", height: "40px"}} disabled={disabled}>Post</button>
+                    style={{height:'200px'}}
+                />
+                {valObj.commentTxt && <p className="errors">{valObj.commentTxt}</p>}
+                <button type="submit" disabled={disabled} id='comment-post-button'>Post</button>
             </form>
-        </>
+        </div>
     )
 }

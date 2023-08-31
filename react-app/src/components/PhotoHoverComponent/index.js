@@ -38,7 +38,7 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, user
             return "YOU!"
         } return photo.Owner?.username;
     }
-    // console.log('hover component', photo.url)
+    console.log('hover component', photo.url)
     // console.log('hover component', isCurrentUserOnOwnPage)
 
     return (
@@ -51,7 +51,7 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, user
                                 <div>{photo.title}</div>
                                 <div style={{fontSize: "11px"}}>by {displayName(photo)}</div>
                             </div>
-                            { isCurrentUserOnOwnPage && type === 'phtotStream' ?
+                            { isCurrentUserOnOwnPage && type === 'photoStream' ?
                                 <div className="owner-icons" style={{display: "flex", gap:"6px"}}>
                                     <OpenModalButton
                                         modalComponent={<PhotoFormModalFunction photo={photo} formType={'Update'}/>}
