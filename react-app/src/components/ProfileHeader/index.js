@@ -32,7 +32,7 @@ export default function ProfileHeader({userId}){
             <div style={{width: '80%'}}>
                 <span className='profile-content'>
                     <div className='profile-img'>
-                        <img src={user.profilePic} style={{height: "100px", width: "100px", borderRadius: "50px"}}/>
+                        <img src={user.profilePic} style={{height: "100px", width: "100px", borderRadius: "50px", objectFit: 'cover'}}/>
                     </div>
                     <div className='name-and-bio'>
                         <div className='names'>{user.firstName} {user.lastName}</div>

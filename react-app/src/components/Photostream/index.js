@@ -24,6 +24,10 @@ export const Photostream = ({backgroundUrl, fav, like}) => {
         photo["Owner"] = Object.values(allUsers).find(user => user.id === photo.userId);
     });
 
+    fav && fav.forEach(photo => {
+        photo["Owner"] = Object.values(allUsers).find(user => user.id === photo.userId);
+    });
+    console.log('FAV========', fav)
     const currentUserOnOwnPage = () => {
         if (currentUser.id == userId) return true;
         return false;
@@ -36,7 +40,7 @@ export const Photostream = ({backgroundUrl, fav, like}) => {
             <div>No photos yet!</div>
         </div>
     );
-        console.log('photos ========', photos)
+
     return (
         <div>
             <ProfileHeader userId={+userId} url={backgroundUrl} />
@@ -46,13 +50,13 @@ export const Photostream = ({backgroundUrl, fav, like}) => {
                     {
                     like === "like" ? fav.map(photo =>
                         <div key={photo.id}>
-                            <PhotoHoverComponent type={"fav"} isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId}/>
+                            <PhotoHoverComponent type={"fav"} isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId} photoUrl={photo.url} ownerName={photo?.Owner?.username}/>
                         </div>
                     )
                     :
                     photos.toReversed().map(photo =>
                         <div key={photo.id}>
-                            <PhotoHoverComponent type={"photoStream"} isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId}/>
+                            <PhotoHoverComponent type={"photoStream"} isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId} ownerName={photo?.Owner?.username} photoUrl={photo.url}/>
                         </div>
                     )}
                 </div>

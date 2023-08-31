@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, NavLink, useHistory } from "react-router-dom";
 import { thunkGetAllUsers } from "../../store/users";
 import { thunkGetSinglePhoto } from "../../store/photos";
 import { UserBlurb } from "../UserBlurb";
@@ -18,6 +18,7 @@ export const PhotoDetails = () => {
     const currentUser = useSelector(state => state.session.user);
     const photo = useSelector(state => state.photos.singlePhoto);
     const comments = Object.values(useSelector(state => state.comments.photoComments)).filter(comment => comment.photoId == photoId);
+    const history = useHistory();
 
     useEffect(() => {
         dispatch(thunkGetSinglePhoto(photoId));
@@ -29,6 +30,11 @@ export const PhotoDetails = () => {
         console.log(userId);
         console.log(photoId);
         dispatch(thunkCreateFav(userId, photoId))
+    }
+
+    const handleClick = (e, id) => {
+        e.stopPropagation();
+        history.push(`/users/${id}/photos`)
     }
 
     photo["Owner"] = Object.values(users).find(user => user.id === photo.userId);
@@ -49,7 +55,7 @@ export const PhotoDetails = () => {
             <div id='detail-bottom-outer'>
             <div id='detail-bottom'>
                 <span id='detail-user-stuff'>
-                    <img src={photo?.Owner?.profilePic} id='detail-profile-pic'></img>
+                    <img src={photo?.Owner?.profilePic} id='detail-profile-pic' onClick={(e) => handleClick(e, photo.userId)}></img>
                     <span id='user-text'>
                         <h2 id='username-h2'>{photo?.Owner?.username}</h2>
                         <h4 id='user-description-h4'>{photo?.description}</h4>
@@ -61,9 +67,9 @@ export const PhotoDetails = () => {
             </div>
             <div id='comments-container'>
                 <CreateComments />
-                {Object.values(comments).length ? comments.toReversed().map(comment =>              
+                {Object.values(comments).length ? comments.toReversed().map(comment =>
                     <GetAllCommentsByPhotoIdFunction comment={comment} currentUser={currentUser} photoId={photo.id}/>
-                ):<p>rando</p>}             
+                ):<p>rando</p>}
             </div>
             <span>
             </span>

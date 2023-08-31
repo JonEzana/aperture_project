@@ -100,21 +100,27 @@ export const thunkCreatePhoto = (formData) => async (dispatch) => {
 }
 
 export const thunkUpdatePhoto = (formData) => async (dispatch) => {
+    console.log('in update thunk')
     const res = await fetch(`/api/photos/${formData.photoId}/edit`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
     });
     if (res.ok) {
+        console.log('res.ok')
         const updatedPhoto = await res.json();
+        console.log('res.ok and updatedPhtt', updatedPhoto)
         dispatch(updatePhoto(updatedPhoto));
         return updatedPhoto;
     } else if (res.status < 500) {
+        console.log('res.status < 500')
 		const data = await res.json();
 		if (data.errors) {
+            console.log('data.errors', data.errors)
 			return data.errors;
 		}
 	} else {
+        console.log('FAILURE')
 		return ["An error occurred. Please try again."];
 	}
 

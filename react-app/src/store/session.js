@@ -48,13 +48,12 @@ export const login = (email, password) => async (dispatch) => {
 		dispatch(setUser(data));
 		return null;
 	} else if (response.status < 500) {
-		console.log( 'in else ifffff')
+
 		const data = await response.json();
 		if (data.errors) {
 			return data.errors;
 		}
 	} else {
-		console.log(' in ellllseeeeee')
 		return ["An error occurred. Please try again."];
 	}
 };
