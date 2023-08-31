@@ -68,6 +68,10 @@
     color: white;
 }
 
+.photo-detail-container:hover{
+    cursor: pointer;
+}
+
 .text {
     display: flex;
     justify-content: space-between;
