@@ -74,7 +74,7 @@ export const PhotoDetails = () => {
                 </div>
                 <span>Likes: {photo.favoriteCount}</span>
                 <span id='detail-like-action'>
-                    <p style={{margin: '0px', paddingTop: '20px'}}>Favorite <i className="far fa-star" onClick={handleSubmit(currentUser.id, photoId)}></i></p>
+                    <p style={{margin: '0px', paddingTop: '20px'}}>Favorite <i className="far fa-star"></i></p>
                     {/* <p style={{margin: '0px', paddingTop: '20px'}}>Favorite <i className={didIlikeItArr.length ? "fas fa-star" : "far fa-star"} onClick={e => handleSubmit(e, currentUser.id, photo.id)} style={{color: "#FFD700", paddingRight: "10px"}}></i></p> */}
                 </span>
             </div>
