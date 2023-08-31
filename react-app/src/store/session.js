@@ -30,6 +30,7 @@ export const authenticate = () => async (dispatch) => {
 };
 
 export const login = (email, password) => async (dispatch) => {
+	console.log('inside login thunk')
 	const response = await fetch("/api/auth/login", {
 		method: "POST",
 		headers: {
@@ -42,6 +43,7 @@ export const login = (email, password) => async (dispatch) => {
 	});
 
 	if (response.ok) {
+		console.log('res is okkkkk')
 		const data = await response.json();
 		dispatch(setUser(data));
 		return null;
@@ -52,7 +54,6 @@ export const login = (email, password) => async (dispatch) => {
 			return data.errors;
 		}
 	} else {
-
 		return ["An error occurred. Please try again."];
 	}
 };
