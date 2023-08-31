@@ -29,6 +29,8 @@ export const thunkAllFav = (userId) => async (dispatch) => {
 }
 
 export const thunkCreateFav = (userId, photoId) => async (dispatch) => {
+    console.log('userid thunk', userId);
+    console.log('photoid thunk', photoId);
     const res = await fetch(`/api/fav/${userId}/${photoId}/new`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -41,7 +43,11 @@ export const thunkCreateFav = (userId, photoId) => async (dispatch) => {
     if (res.ok) {
         const favPhoto = await res.json();
         if (!favPhoto['Delete'])  dispatch(newFav(favPhoto));
-        else dispatch(deleteFav(favPhoto))
+        else {
+
+            dispatch(deleteFav(favPhoto))
+
+        }
         return favPhoto
     }
 }
@@ -57,12 +63,12 @@ export default function favReducer(state = initialState, action) {
             return newState
         }
         case CREATE_FAV: {
-            console.log('create action.create', action.favorites)
+
             const newState = {...state, allFav: {...state.allFav}}
             return {...newState, allFav: {...newState.allFav, [action.favorites.favPhotos.id]:{...action.favorites.favPhotos}}}
         }
         case Delete_Fav: {
-            console.log('delete action.delete', action.favorites)
+
             const newState = {...state, allFav: {...state.allFav}}
             delete newState.allFav[action.favorite.favPhotos.id]
             return {...newState, allFav: {...newState.allFav}}
