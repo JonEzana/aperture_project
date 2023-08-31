@@ -72,13 +72,13 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, user
                                     />
                                 </div> : null
                             }
-                            { !isCurrentUserOnOwnPage &&
+                            {/* { !isCurrentUserOnOwnPage &&
                                 <div className="not-owner-icons">
                                     <i className="far fa-star" style={{color: "#FFD700"}}></i>
                                 </div>
-                            }
+                            } */}
                             {
-                                type === "fav" && <div onClick={e => handleSubmit(e, currentUser.id, photo.id)} ><i style={{color: "#FFD700", paddingRight: "10px"}} className="fas fa-star" />{photo.favoriteCount} </div>
+                                type === "fav"  && isCurrentUserOnOwnPage ? <div onClick={e => handleSubmit(e, currentUser.id, photo.id)} ><i style={{color: "#FFD700", paddingRight: "10px"}} className="fas fa-star" />{photo.favoriteCount} </div> : <div ><i style={{color:"white", paddingRight: "10px"}} className="fas fa-star" />{photo.favoriteCount} </div>
                             }
                         </div>
                     </div>
