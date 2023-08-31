@@ -94,7 +94,6 @@ def update_photo_route(id):
 
         photo_to_edit.title = form.data['title']
         photo_to_edit.description = form.data['description']
-        photo_to_edit.url = form.data['url']
 
         db.session.commit()
         return photo_to_edit.to_dict()
