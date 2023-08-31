@@ -36,7 +36,7 @@ export const Photostream = ({backgroundUrl, fav, like}) => {
             <div>No photos yet!</div>
         </div>
     );
-
+        console.log('photos ========', photos)
     return (
         <div>
             <ProfileHeader userId={+userId} url={backgroundUrl} />
@@ -52,7 +52,7 @@ export const Photostream = ({backgroundUrl, fav, like}) => {
                     :
                     photos.toReversed().map(photo =>
                         <div key={photo.id}>
-                            <PhotoHoverComponent type={"phtotStream"} isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId}/>
+                            <PhotoHoverComponent type={"photoStream"} isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId}/>
                         </div>
                     )}
                 </div>

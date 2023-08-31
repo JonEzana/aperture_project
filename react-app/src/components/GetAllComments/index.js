@@ -2,28 +2,23 @@ import OpenModalButton from '../OpenModalButton'
 import { DeleteCommentsModal } from '../DeleteCommentsModal';
 
 export default function GetAllCommentsByPhotoIdFunction({comment, currentUser, photoId}) {
+
   function convertDate(date) {
     const splitData = date.split(' ')
-    // console.log('regular date = ', date)
-    // console.log('splitData = ', splitData)
+    console.log('regular date = ', date)
+    console.log('splitData = ', splitData)
     const cleanData = `${splitData[2]} ${splitData[1]}, ${splitData[3]}`
     return cleanData;
   }
-  if (comment && comment["Author"] == undefined) return <></>
 
-  if (!Object.values(comment).length) {
+  console.log('commentttttttt =')
+  if (comment && comment["Author"] == undefined) return <></>
     return (
-      <>
-        <p>Be the first to comment!</p>
-      </>
-    )
-  } else {
-    return (
-      <div>
-            <p>{comment?.comment}</p>
-            <div>
-              <p>{comment?.Author?.username}</p>
-              <p>{convertDate(comment?.createdAt)}</p>
+      <div id='comment-item'>
+            <p id='comment'>{comment?.comment}</p>
+            <div id='commentator-item'>
+              <span id='commentator-author'>{comment?.Author?.username}</span>
+              <span id='comment-date'>{convertDate(comment?.createdAt)}</span>
             </div>
             {currentUser.id === comment.userId &&
               <OpenModalButton
@@ -35,4 +30,4 @@ export default function GetAllCommentsByPhotoIdFunction({comment, currentUser, p
       </div>
     )
   }
-}
+// }
