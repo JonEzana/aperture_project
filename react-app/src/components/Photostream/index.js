@@ -8,7 +8,7 @@ import ProfileNav from "../ProfileNav";
 import PhotoHoverComponent from "../PhotoHoverComponent";
 import './Photostream.css'
 
-export const Photostream = ({backgroundUrl}) => {
+export const Photostream = ({backgroundUrl, fav, like}) => {
     const dispatch = useDispatch();
     const {userId} = useParams();
     const photos = Object.values(useSelector(state => state.photos.currentUserPhotos));
@@ -36,16 +36,23 @@ export const Photostream = ({backgroundUrl}) => {
             <div>No photos yet!</div>
         </div>
     );
-
+        console.log('photos ========', photos)
     return (
         <div>
             <ProfileHeader userId={+userId} url={backgroundUrl} />
             <ProfileNav userId={+userId}/>
             <div id='user-photos-container-container'>
                 <div id='user-photos-container'>
-                    {photos.map(photo =>
+                    {
+                    like === "like" ? fav.map(photo =>
                         <div key={photo.id}>
-                            <PhotoHoverComponent isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId}/>
+                            <PhotoHoverComponent type={"fav"} isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId}/>
+                        </div>
+                    )
+                    :
+                    photos.toReversed().map(photo =>
+                        <div key={photo.id}>
+                            <PhotoHoverComponent type={"photoStream"} isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId}/>
                         </div>
                     )}
                 </div>

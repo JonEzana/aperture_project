@@ -74,48 +74,56 @@ export const thunkDeletePhoto = (photoId) => async (dispatch) => {
     }
 }
 
-export const thunkCreatePhoto = (photoData) => async (dispatch) => {
-    const { title, url, description, previewImg, userId } = photoData;
+export const thunkCreatePhoto = (formData) => async (dispatch) => {
+    console.log('in thunk')
     const res = await fetch('/api/photos/new', {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            title: title,
-            url: url,
-            description: description,
-            preview_img: previewImg,
-            user_id: userId
-        })
-    });
+        body: formData
+    })
+
     if (res.ok) {
         const photo = await res.json();
+        console.log('res ok photo', photo)
         dispatch(createPhoto(photo));
         return photo;
-    } else {
-        const err = await res.json();
-        return err['errors'];
-    }
+    } else if (res.status < 500) {
+        console.log('status < 500')
+		const data = await res.json();
+		if (data.errors) {
+            console.log('data errors', data.errors)
+			return data.errors;
+		}
+	} else {
+        console.log('failed')
+		return ["An error occurred. Please try again."];
+	}
 }
 
-export const thunkUpdatePhoto = (photoId, photoData) => async (dispatch) => {
-    const res = await fetch(`/api/photos/edit/${photoId}`, {
+export const thunkUpdatePhoto = (formData) => async (dispatch) => {
+    const res = await fetch(`/api/photos/${formData.photoId}/edit`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(photoData)
+        body: JSON.stringify(formData)
     });
     if (res.ok) {
         const updatedPhoto = await res.json();
         dispatch(updatePhoto(updatedPhoto));
         return updatedPhoto;
-    } else {
-        const err = await res.json();
-        return err['errors'];
-    }
+    } else if (res.status < 500) {
+		const data = await res.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
 
 }
 export const thunkUpdatePhotoList = (photoData, albumId) => async (dispatch) => {
 
     const req = photoData.map(photo => {
+        // console.log('photo', photo);
+        // photo['album_id'] = albumId
         photo['album_id'] = albumId
         return fetch(`/api/photos/edit/${photo.id}`, {
             method: 'PUT',
@@ -168,6 +176,7 @@ export default function photosReducer(state = initialState, action) {
             return { ...newState, allPhotos: { ...newState.allPhotos }, currentUserPhotos: { ...newState.currentUserPhotos }, singlePhoto: { ...newState.singlePhoto } };
         }
         case CREATE_PHOTO: {
+            console.log('reducer', action.payload)
             return {
                 ...state,
                 allPhotos: { ...state.allPhotos, [action.payload.id]: action.payload },
@@ -176,8 +185,6 @@ export default function photosReducer(state = initialState, action) {
             }
         }
         case UPDATE_PHOTO: {
-            console.log('in reducer action', action.payload.id);
-            console.log('in reducer, state', state.allPhotos);
             return {
                 ...state,
                 allPhotos: { ...state.allPhotos, [action.payload.id]: { ...action.payload } },

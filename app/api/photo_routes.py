@@ -2,6 +2,7 @@ from flask import Blueprint, session, request
 from flask_login import login_required, current_user
 from app.models import Photo, db, Album
 from app.forms import CreatePhotoForm
+from app.api.aws_routes import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
 photo_routes = Blueprint('photos', __name__)
 
@@ -10,7 +11,7 @@ photo_routes = Blueprint('photos', __name__)
 @login_required
 def all_photos():
     """
-    Logged in homepage display all photots
+    Logged in homepage display all photos
     """
     photos = Photo.query.all()
     res = [photo.to_dict() for photo in photos]
@@ -38,17 +39,28 @@ def create_photo():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        url = form.data["url"]
+        url.filename = get_unique_filename(url.filename)
+        upload = upload_file_to_s3(url)
+        print('LINE 70 signup backend.......', upload)
+
+        if "url" not in upload:
+        #   return render_template("post_form.html", form=form, errors=[upload])
+            # return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+            print('URL ERRORS......', {"errors": upload})
+            return {"errors": upload}
+
         new_photo = Photo(
             title=form.data['title'],
-            url=form.data['url'],
+            url=upload['url'],
             description=form.data['description'],
             preview_img=form.data['preview_img'],
             album_id=form.data['album_id'],
             user_id=current_user.id
         )
+
         db.session.add(new_photo)
         db.session.commit()
-        new_photo = Photo.query.filter(user_id == current_user.id)
         return new_photo.to_dict()
 
     if form.errors:
@@ -59,25 +71,36 @@ def create_photo():
 @photo_routes.route('/edit/<int:id>', methods=['PUT'])
 @login_required
 def update_photo(id):
+    data = request.json
+    photo_to_edit = Photo.query.get(id)
+    album = Album.query.get(data["album_id"])
+    photo_to_edit["album_id"] = data["album_id"]
+    photo_to_edit.title = data['title']
+    photo_to_edit.description = data['description']
+    album.photos.append(photo_to_edit)
+
+    db.session.commit()
+    return photo_to_edit.to_dict()
+
+
+@photo_routes.route('/<int:id>/edit', methods=['PUT'])
+@login_required
+def update_photo_route(id):
     form = CreatePhotoForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-
         photo_to_edit = Photo.query.get(id)
-        album = Album.query.get(form.data['album_id'])
 
         photo_to_edit.title = form.data['title']
         photo_to_edit.description = form.data['description']
-        album.photos.append(photo_to_edit)
+        photo_to_edit.url = form.data['url']
 
         db.session.commit()
         return photo_to_edit.to_dict()
 
     if form.errors:
-        print(form.errors)
         return {'errors': form.errors}
-
 
 @photo_routes.route('/delete/<int:id>', methods=['DELETE'])
 @login_required

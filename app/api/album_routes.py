@@ -16,15 +16,14 @@ def all_albums(userId):
     album_list = [album.to_dict() for album in albums]
 
     new_photo = []
-    
+
     for album in albums:
         res = []
         photos = Photo.query.filter(and_(Photo.album_id == album.id, Photo.user_id == userId)).all()
         for photo in photos:
-            print(photo)
             res.append(photo.to_dict())
         new_photo.append(res)
- 
+
 
     for index in range(len(album_list)):
         album_list[index]['photos'] = new_photo[index]
@@ -63,6 +62,7 @@ def create_album(userId):
 
         db.session.add(new_album)
         db.session.commit()
+        print('album backend!!!!!!!!!!', new_album.to_dict())
         return new_album.to_dict()
 
     if form.errors:
@@ -79,10 +79,10 @@ def update_album(userId, id):
     form = CreateAlbumForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     album_to_edit = Album.query.filter(and_(Album.id == id, Album.user_id == userId )).first()
-    
+
 
     if form.validate_on_submit():
-   
+
         album_to_edit.title = form.data['title']
         album_to_edit.description = form.data['description']
 
@@ -97,7 +97,7 @@ def update_album(userId, id):
 @album_routes.route('/delete/<int:id>', methods=['DELETE'])
 @login_required
 def delete_your_album(id):
-    
+
     to_delete = Album.query.get(id)
     db.session.delete(to_delete)
     db.session.commit()

@@ -13,6 +13,9 @@ import AlbumDetail from "./components/AlbumDetail";
 import {PhotoDetails} from "./components/PhotoDetails";
 import { Photostream } from "./components/Photostream";
 import CreateAlbum from "./components/CreateAlbum";
+import {PhotoFormModalFunction} from "./components/PhotoFormModalFunction";
+import { UpdatePhoto } from "./components/UpdatePhoto";
+import FavPhotos from "./components/FavPhotos";
 
 
 function App() {
@@ -33,18 +36,26 @@ function App() {
           <ProtectedRoute exact path='/albums/new'>
               <CreateAlbum />
           </ProtectedRoute>
+          <ProtectedRoute exact path='/users/:userId/faves' >
+              <FavPhotos />
+          </ProtectedRoute>
           <ProtectedRoute exact path='/users/:userId/albums' >
               <AllAlbums />
           </ProtectedRoute>
           <ProtectedRoute exact path='/users/:userId/albums/:albumId'>
               <AlbumDetail />
           </ProtectedRoute>
-
           <ProtectedRoute path="/photos/all" >
               <PhotosIndex />
           </ProtectedRoute>
+          <ProtectedRoute path="/photos/new" >
+              <PhotoFormModalFunction />
+          </ProtectedRoute>
           <ProtectedRoute path="/photos/:photoId" >
               <PhotoDetails />
+          </ProtectedRoute>
+          <ProtectedRoute path="/photos/:photoId/edit" >
+              <UpdatePhoto />
           </ProtectedRoute>
           <ProtectedRoute path='/users/:userId/photos' >
               <Photostream />
