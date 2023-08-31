@@ -7,7 +7,7 @@ import { UserBlurb } from "../UserBlurb";
 import * as sessionActions from "../../store/comments";
 import GetAllCommentsByPhotoIdFunction from "../GetAllComments";
 import { CreateComments } from "../CreateComments";
-import { thunkCreateFav } from "../../store/fav";
+import { thunkCreateFav, thunkAllFav } from "../../store/fav";
 import './PhotoDetails.css';
 
 
@@ -19,16 +19,23 @@ export const PhotoDetails = () => {
     const photo = useSelector(state => state.photos.singlePhoto);
     const comments = Object.values(useSelector(state => state.comments.photoComments)).filter(comment => comment.photoId == photoId);
     const history = useHistory();
-
+    const favPics = Object.values(useSelector(state=>state.favs.allFav))
+    const userFavpic = favPics.filter(photo=>photo.userId == currentUser.id)
+    const didIlikeItArr = userFavpic.filter(fav => fav.id == photo.id)
+    
     useEffect(() => {
         dispatch(thunkGetSinglePhoto(photoId));
         dispatch(thunkGetAllUsers());
+        dispatch(thunkAllFav(currentUser.id));
         dispatch(sessionActions.thunkGetAllCommentsByPhotoId(photoId));
     }, [dispatch]);
 
+    if (!currentUser) return null;
+
     const handleSubmit = (userId, photoId) => {
-        console.log(userId);
-        console.log(photoId);
+        console.log('userId=======', userId);
+        console.log('currentUser.id=====', currentUser.id)
+        console.log('photoId=====', photoId)
         dispatch(thunkCreateFav(userId, photoId))
     }
 
@@ -58,13 +65,17 @@ export const PhotoDetails = () => {
                     <img src={photo?.Owner?.profilePic} id='detail-profile-pic' onClick={(e) => handleClick(e, photo.userId)}></img>
                     <span id='user-text'>
                         <h2 id='username-h2'>{photo?.Owner?.username}</h2>
-                        <h4 id='user-description-h4'>{photo?.description}</h4>
+                        {/* <h4 id='user-description-h4'>{photo?.description}</h4> */}
                     </span>
                 </span>
+                <div>
+                    {photo.title}
+                    {photo.description}
+                </div>
                 <span>Likes: {photo.favoriteCount}</span>
                 <span id='detail-like-action'>
                     <p style={{margin: '0px', paddingTop: '20px'}}>Favorite <i className="far fa-star" onClick={handleSubmit(currentUser.id, photoId)}></i></p>
-                    {/* <p style={{margin: '0px', paddingTop: '20px'}}>Favorite <i className={fav ? "fas fa-star" : "far fa-star"} onClick={e => handleSubmit(e, currentUser.id, photoId)} style={{color: "#FFD700", paddingRight: "10px"}}></i> {count}</p> */}
+                    {/* <p style={{margin: '0px', paddingTop: '20px'}}>Favorite <i className={didIlikeItArr.length ? "fas fa-star" : "far fa-star"} onClick={e => handleSubmit(e, currentUser.id, photo.id)} style={{color: "#FFD700", paddingRight: "10px"}}></i></p> */}
                 </span>
             </div>
             <div id='comments-container'>
