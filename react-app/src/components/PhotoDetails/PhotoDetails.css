@@ -18,6 +18,17 @@
   border: 1px solid yellow;
 }
 
+#detail-go-back {
+  border: 1px solid pink;
+  width: 200px;
+  margin-top: 400px;
+  height: fit-content;
+  display: flex;
+  position: absolute;
+  right: 1100px;
+  bottom: 950px;
+}
+
 #detail-pic {
   padding: 140px 0px 70px;
   border: 2px solid red;

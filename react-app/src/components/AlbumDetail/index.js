@@ -34,7 +34,7 @@ export default function AlbumDetail() {
       }
       res(allPhotos, userId)[0] ? previewUrl.push(res(allPhotos, userId)[0]?.url) : previewUrl.push(backgroundImg)
 
-      const backgorundImageStyle = (photoUrl) => {
+      const backgroundImageStyle = (photoUrl) => {
   
         return {
             backgroundImage: `url(${photoUrl})`,
@@ -52,7 +52,7 @@ export default function AlbumDetail() {
                     Back to albums list
                 </NavLink>
             </div>
-            <div className='album-detail-container' style={backgorundImageStyle(previewUrl.length ? previewUrl[0] : backgroundImg)}>
+            <div className='album-detail-container' style={backgroundImageStyle(previewUrl.length ? previewUrl[0] : backgroundImg)}>
                 <div className='title'>{album.title}</div>
                 <div>{album.description}</div>
                 <div>{res(allPhotos, userId).length == 1 ? '1 photo' : `${res(allPhotos, userId).length} photos`}</div>
