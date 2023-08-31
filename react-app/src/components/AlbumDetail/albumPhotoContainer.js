@@ -17,7 +17,7 @@ export default function AlbumPhotoContainer({photo, album}) {
             backgroundRepeat: 'no-repeat',
         }
     }
-    console.log('photo url', photo.url);
+
 
     return (
         <div>
@@ -38,4 +38,4 @@ export default function AlbumPhotoContainer({photo, album}) {
         </div>
     )
 }
-// style={backgroundImageStyle(photo.url)}
+
