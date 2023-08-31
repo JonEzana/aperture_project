@@ -29,16 +29,16 @@ export const PhotosIndex = () => {
     photos.forEach(photo => {
         photo["Owner"] = userArr.find(user => user.id === photo.userId)
     });
- 
+
     return (
         <div className='container-container'>
             <div className='all-photos-container'>
                 {photos.map(photo =>
-                    <span className='all-photos-card' title={photo.name} key={photo.id}>
-                        <div onClick={()=>history.push(`/photos/${photo.id}`)}>
-                            <img className='all-photos-pic' src={photo.url} alt={photo.title} style={{ borderTopRightRadius: "10px", borderTopLeftRadius: "10px" }}></img>
-                        </div>
-                        <div>
+                    <span className='all-photos-card' title={photo.name} key={photo.id} >
+                        {/* <div onClick={()=>history.push(`/photos/${photo.id}`)}> */}
+                            <img className='all-photos-pic' src={photo.url} alt={photo.title} style={{ borderTopRightRadius: "10px", borderTopLeftRadius: "10px" }} onClick={()=>history.push(`/photos/${photo.id}`)}></img>
+                        {/* </div> */}
+                        {/* <div> */}
                             <UserBlurb photoId={photo.id} userId={photo.userId}
                                 url={photo?.Owner?.profilePic}
                                 username={photo?.Owner?.username}
@@ -48,7 +48,7 @@ export const PhotosIndex = () => {
                                 userFavpic={favPics}
                                 count={photo.favoriteCount}
                             />
-                        </div>
+                        {/* </div> */}
 
                     </span>
                 )}
