@@ -44,7 +44,7 @@ export const PhotoDetails = () => {
     return (
         <div id='outer-detail-div'>
             <div id='gray-div'>
-                <img src={photo?.url} alt={photo?.title} id='detail-pic'></img>
+                <img src={photo?.url} alt={photo?.title} id='detail-pic' ></img>
             </div>
             <div id='detail-bottom-outer'>
             <div id='detail-bottom'>

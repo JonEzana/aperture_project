@@ -29,6 +29,8 @@ function Navigation({ isLoaded }){
 						modalComponent={ <PhotoFormModalFunction />}
 						buttonText={"Post Your Photo"}
 						style={{width: "120px", backgroundColor: "transparent", color: "white", border: "none"}}
+						className={"new-spot-link"}
+						id={"navbarlink"}
 					/>}
 				{sessionUser && <NavLink to="/albums/new" className="new-spot-link">
 					Upload Album

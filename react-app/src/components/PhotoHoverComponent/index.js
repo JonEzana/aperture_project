@@ -35,13 +35,14 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, user
     }
 
     const displayName = (name) => {
-        if (!type) {
+        if (type && type === "photoStream") {
             if (isCurrentUserOnOwnPage) {
                 return "YOU!"
             } else return `${name}`;
         }
         if (type && type === "fav") {
-            return `${name}`
+            if (currentUser.username === name) return "YOU!";
+            return `${name}`;
         }
     }
     console.log('hover component', photo.id, photo.url)
