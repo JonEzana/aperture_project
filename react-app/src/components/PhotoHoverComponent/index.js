@@ -27,7 +27,7 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, user
             return "YOU!"
         } return photo.Owner?.username;
     }
-    // console.log('hover component', photo.url)
+    console.log('hover component', photo.url)
     // console.log('hover component', isCurrentUserOnOwnPage)
 
     return (

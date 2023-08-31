@@ -36,7 +36,7 @@ export const Photostream = ({backgroundUrl, fav, like}) => {
             <div>No photos yet!</div>
         </div>
     );
-
+        console.log('photos ========', photos)
     return (
         <div>
             <ProfileHeader userId={+userId} url={backgroundUrl} />
