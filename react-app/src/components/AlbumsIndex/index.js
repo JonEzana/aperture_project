@@ -95,7 +95,6 @@ export default function AllAlbums({ backgroundUrl }) {
                             </div>
                             :
                              <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id, userId)}>
-                              <i className="fas fa-share"></i>
                          </div>
                             }
                     </div>

@@ -20,7 +20,7 @@ export const PhotoDetails = () => {
     const comments = Object.values(useSelector(state => state.comments.photoComments)).filter(comment => comment.photoId == photoId);
     const history = useHistory();
     const favPics = Object.values(useSelector(state=>state.favs.allFav))
-    const currentUserFavpic = favPics.filter(photo=>photo.id == photo.id)
+    const currentUserFavpic = favPics.filter(favphoto=>favphoto.id == photo.id)
 
     useEffect(() => {
         dispatch(thunkGetSinglePhoto(photoId));
@@ -42,7 +42,7 @@ export const PhotoDetails = () => {
 
     photo["Owner"] = Object.values(users).find(user => user.id === photo.userId);
 
-  
+    
 
     return (
         <div id='outer-detail-div'>
@@ -61,7 +61,6 @@ export const PhotoDetails = () => {
                     <img src={photo?.Owner?.profilePic} id='detail-profile-pic' onClick={(e) => handleClick(e, photo.userId)}></img>
                     <span id='user-text'>
                         <h2 id='username-h2'>{photo?.Owner?.username}</h2>
-                        {/* <h4 id='user-description-h4'>{photo?.description}</h4> */}
                     </span>
                 </span>
                 <div>
