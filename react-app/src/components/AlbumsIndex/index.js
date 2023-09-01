@@ -24,9 +24,10 @@ export default function AllAlbums({ backgroundUrl }) {
     }, [])
 
     const userAlbum = albums.filter(album => album.userId == userId)
-    const routetoEdit = (e, albumId) => {
+    const routetoEdit = (e, albumId, userId) => {
         e.stopPropagation()
-        history.push('/albums/new', { type: 'edit', albumId })
+        console.log(userId)
+        history.push('/albums/new', { type: 'edit', albumId, userId})
     }
 
     const routetoNew = (userId) => {
@@ -85,15 +86,15 @@ export default function AllAlbums({ backgroundUrl }) {
                             <div>{album.photos?.length == 1 || album.photos?.length === 0 ? `${album.photos?.length} photo` : `${album.photos?.length} photos`} </div>
                         </div>{
                             currentUser.id == userId ? <div className='Edit-Delete-Album'>
-                            <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id)}>
+                            <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id, userId)}>
                                 Edit
                             </div>
-                            <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id)}>
+                            <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id, userId)}>
                                 <OpenModalButton modalComponent={<DeleteAlbum album={album} />} buttonText={'Delete'} />
                             </div>
                             </div>
                             :
-                             <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id)}>
+                             <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id, userId)}>
                               <i className="fas fa-share"></i>
                          </div>
                             }

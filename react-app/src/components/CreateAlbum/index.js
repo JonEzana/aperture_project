@@ -4,7 +4,7 @@ import './CreateAlbum.css'
 import { thunkCreateAlbum, fetchUpdateAlbum } from '../../store/albums'
 import { thunkGetAllPhotos, thunkGetSinglePhoto } from '../../store/photos'
 import { useLocation } from 'react-router-dom'
-import { thunkUpdatePhotoList } from '../../store/photos'
+import { thunkUpdatePhotoList, thunkUpdatePhotoListAlbum  } from '../../store/photos'
 import { useHistory } from 'react-router-dom'
 
 export default function CreateAlbum() {
@@ -14,12 +14,12 @@ export default function CreateAlbum() {
     const location = useLocation()
     const type = location.state ? location.state.type : 'create'
     const albumId = location.state ? location.state.albumId : ''
-    // const userId = location.state ? location.state.userId : ''
+    const userId = location.state ? location.state.userId : ''
     const updateAlbum = useSelector(state => state.albums.allAlbums[albumId])
     const [title, setTitle] = useState(updateAlbum ? updateAlbum.title : "")
     const [description, setDescription] = useState(updateAlbum ? updateAlbum.description : "")
-    const [photoIdList, setPhotoIdList] = useState([])
-
+    const [photoIdList, setPhotoIdList] = useState(updateAlbum ? updateAlbum.photos?.map(photo => photo.id) : [])
+    
     const history = useHistory()
     useEffect(() => {
         dispatch(thunkGetAllPhotos())
@@ -52,13 +52,13 @@ export default function CreateAlbum() {
         }
 
         if (type === 'create') dispatch(thunkCreateAlbum(newAlbum, currentUser.id)).then((album) => dispatch(thunkUpdatePhotoList(res, album.id))).then(()=>dispatch(thunkGetAllPhotos())).then(()=>history.push(`/users/${currentUser.id}/albums`)).catch(e => console.log(e))
-        else dispatch(fetchUpdateAlbum(albumId, currentUser.id, newAlbum)).then(album => dispatch(thunkUpdatePhotoList(res, album.id))).then(()=>dispatch(thunkGetAllPhotos())).then(()=>history.push(`/users/${currentUser.id}/albums/${albumId}`)).catch(e => console.log(e))
+        else dispatch(fetchUpdateAlbum(albumId, currentUser.id, newAlbum)).then(album => dispatch(thunkUpdatePhotoListAlbum(res, album.id, userId))).then(()=>dispatch(thunkGetAllPhotos())).then(()=>history.push(`/users/${currentUser.id}/albums/${albumId}`)).catch(e => console.log(e))
     }
 
     const handleCancel = (id) => {
         history.push(`/users/${id}/albums`)
     }
-
+   
     return (
         <div>
             <div id='create-album'>{type === 'edit' ? 'Update Album' : 'Create Album'}</div>
@@ -91,7 +91,7 @@ export default function CreateAlbum() {
                             <div className='photo-container'>{userPhotos.map(photo => <div className='choose-photo' key={photo.id} style={backgroundImageStyle(photo.url)}>
 
                                 <div className='photo-div'>
-                                    <input type='checkbox' value={photo.id} onChange={(e) => {
+                                    <input type='checkbox' checked={type === 'edit' && photo.albumId === albumId ? photoIdList?.find(upphotos => upphotos == photo.id) : photoIdList?.find(upphotos => upphotos == photo.id)} value={photo.id} onChange={(e) => {
                                         if (e.target.checked) {
                                             setPhotoIdList(prev => [...prev, parseInt(e.target.value)])
                                         } else {
