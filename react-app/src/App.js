@@ -16,7 +16,7 @@ import CreateAlbum from "./components/CreateAlbum";
 import {PhotoFormModalFunction} from "./components/PhotoFormModalFunction";
 import { UpdatePhoto } from "./components/UpdatePhoto";
 import FavPhotos from "./components/FavPhotos";
-
+import { Footer } from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -71,6 +71,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      <Footer />
     </>
   );
 }
