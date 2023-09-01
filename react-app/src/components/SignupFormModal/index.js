@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { signUp } from "../../store/session";
+import * as sessionActions from "../../store/session";
 import {useHistory} from "react-router-dom";
 import "./SignupForm.css";
 
@@ -36,9 +36,21 @@ function SignupFormModal() {
 			setButtonId("enabled-signup-button")
 		}
 		setErrors(errObj);
-	}, [firstName.length, lastName.length, username.length, password.length]);
+	}, [firstName, lastName, username, password, confirmPassword]);
 
 	const handleSubmit = async (e) => {
+		// if (profilePic === null) {
+		// 	const signUpData = {email, username, firstName, lastName, profilePic: 'https://aperture-bucket-april-2023.s3.amazonaws.com/default.jpeg', password}
+		// 	await dispatch(sessionActions.signUpNoFile(signUpData));
+		// 	closeModal();
+		// 	setEmail('')
+		// 	setUsername('')
+		// 	setPassword('')
+		// 	setProfilePic('')
+		// 	setFirstName('')
+		// 	setLastName('')
+		// 	history.push("/photos/all");
+		// } else{
 			e.preventDefault();
 			const formData = new FormData()
 			formData.append("email", email)
@@ -49,7 +61,7 @@ function SignupFormModal() {
 			formData.append("password", password)
 			formData.append("bio", bio)
 			console.log(formData)
-			await dispatch(signUp(formData));
+			await dispatch(sessionActions.signUp(formData));
 			closeModal();
 			setEmail('')
 			setUsername('')
@@ -57,40 +69,8 @@ function SignupFormModal() {
 			setProfilePic('')
 			setFirstName('')
 			setLastName('')
-			// setHasSubmitted(false);
 			history.push("/photos/all");
-		// 	const userData = {
-		// 		email,
-		// 		username,
-		// 		firstName,
-		// 		lastName,
-		// 		profilePic,
-		// 		password,
-		// 		bio
-		// 	}
-		// 	// aws uploads can be a bit slow—displaying
-		// 	// some sort of loading message is a good idea
-		// 	setImageLoading(true);
-		// 	// await dispatch(signUp(userData));
-		// 	if (password === confirmPassword) {
-
-		// 	setErrors({});
-		// 	return dispatch(
-		// 		signUp(
-		// 			userData
-		// 		)
-		// 	)
-		// 		.then(closeModal)
-		// 		.catch(async (res) => {
-		// 			const data = await res.json();
-		// 			if (data && data["errors"]) {
-		// 				setErrors(data["errors"]);
-		// 			}
-		// 		});
 		// }
-		// return setErrors({
-		// 	confirmPassword: "Confirm Password field must be the same as the Password field"
-		// });
 	};
 	return (
 		<div className='modal' id="signup-modal">
@@ -188,6 +168,7 @@ function SignupFormModal() {
 							onChange={(e) => setProfilePic(e.target.files[0])}
 							placeholder="Profile Picture"
 							accept="image/*"
+							required
 						/>
 
 				</div>
