@@ -96,6 +96,46 @@ export const signUp = (formData) => async (dispatch) => {
 	}
 };
 
+export const signUpNoFile = (data) => async (dispatch) => {
+	console.log('IN THUNK, data', data)
+	const {email, firstName, lastName, profilePic, password, bio, username} = data;
+	const response = await fetch("/api/auth/signup-new", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			email,
+			last_name: lastName,
+			username: username,
+			first_name: firstName,
+			profile_pic: profilePic,
+			password,
+			bio
+		})
+	});
+
+	if (response.ok) {
+		console.log('res ok')
+		const data = await response.json();
+		dispatch(setUser(data));
+		return null;
+	} else if (response.status < 500) {
+
+		console.log('res stats < 500')
+		const data = await response.json();
+		if (data.errors) {
+
+		console.log('data errors', data.errors)
+			return data.errors;
+		}
+	} else {
+
+		console.log('error occured')
+		return ["An error occurred. Please try again."];
+	}
+};
+
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
