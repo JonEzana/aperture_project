@@ -3,7 +3,7 @@ import "./Footer.css";
 
 export const Footer = () => {
     const Colin = {name: "Colin Sung", github: "https://github.com/colinsung0714", linkedin: ""};
-    const Vivian = {name: "Vivian Li", github: "https://github.com/lypark5", linkedin: ""};
+    const Vivian = {name: "Vivian Li", github: "https://github.com/Vivi355", linkedin: ""};
     const Ludia = {name: "Ludia Park", github: "https://github.com/lypark5", linkedin: ""};
     const Jon = {name: "Jon Ezana", github: "https://github.com/JonEzana", linkedin: ""};
 
