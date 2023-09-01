@@ -2,12 +2,14 @@
     color: white;
     font-size: 18px;
     font-family: Raleway;
-    background-image: linear-gradient(to right, rgb(46, 147, 255) , rgb(35, 35, 35));
+    background-image: linear-gradient(to right, rgba(26, 95, 168, 0.393) , rgb(35, 35, 35));
+    /* background-color: rgba(0, 0, 0, 0.53); */
     border-top: 1px solid rgb(185, 182, 182);
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
     width: 101vw;
     margin-left:-8px;
+    /* margin-top: 50px; */
     height: 11vh;
 }
 

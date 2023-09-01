@@ -24,9 +24,9 @@
   margin-top: 400px;
   height: fit-content;
   display: flex;
-  position: absolute;
-  right: 1100px;
-  bottom: 950px;
+  position: fixed;
+  bottom: 93%;
+  right: 79%;
 }
 
 #detail-pic {
