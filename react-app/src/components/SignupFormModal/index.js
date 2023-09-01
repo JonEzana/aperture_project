@@ -41,7 +41,7 @@ function SignupFormModal() {
 		showPassword === false ? setPwType("password") : setPwType("text");
 
 		setErrors(errObj);
-	}, [firstName, lastName, username, password, confirmPassword, showPassword]);
+	}, [firstName, lastName, username, password, confirmPassword, showPassword, profilePic]);
 
 	const handleShowPW = () => {
 		!showPassword ? setShowPassword(true) : setShowPassword(false);

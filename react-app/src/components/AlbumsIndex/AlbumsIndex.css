@@ -29,7 +29,8 @@
     top: 165px;
     transition: top 0.5s ease-in-out;
     gap: 20px;
-    width: 100%
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.236);
 }
 
 .title-photo-container div {
@@ -59,4 +60,8 @@
 
 .Edit-Delete-Album {
     display: flex;
+}
+
+.album-link {
+    cursor: pointer;
 }

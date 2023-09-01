@@ -25,12 +25,7 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', back_populates='user', cascade="all, delete-orphan")
     favorites = db.relationship('Favorite', back_populates='users', cascade="all, delete-orphan")
 
-    # many to many
-    # photos = db.relationship(
-    #     "Photo",
-    #     secondary=favorites,
-    #     back_populates="users"
-    # )
+  
 
     @property
     def password(self):

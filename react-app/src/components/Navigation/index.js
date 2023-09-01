@@ -23,14 +23,11 @@ function Navigation({ isLoaded }){
 		<div className='nav-bar'>
           <NavLink exact to={homeUrl} style={{textDecoration: "none"}}>
             <div className="logo-btn" style={{display: "flex", flexDirection: "row", justifyContent: "center", marginLeft: "60px"}}>
-              <div className="logo-title" style={{color: "#41BEE6", textDecoration: "none", fontSize: "25px", alignSelf: "center", marginLeft: "5px", color: "white"}}>aperture</div>
+              <div className="logo-title" style={{color: "#41BEE6", textDecoration: "none", fontSize: "25px", alignSelf: "center", marginLeft: "5px", color: "white"}}><img src="https://aperture-bucket-april-2023.s3.amazonaws.com/logo.png" style={{height: "10px", paddingBottom: "2px", paddingRight: "4px"}}/>aperture</div>
             </div>
           </NavLink>
 		  <span id="right-side-nav" style={{display: "flex", flexDirection: "row", justifyContent: "center", marginRight: "20px", gap: "15px"}}>
 			<span className="upload-links">
-				{/* {sessionUser && <NavLink to="/photos/new" className="new-spot-link">
-					Upload Picture
-				</NavLink>} */}
 				{ sessionUser &&
 					<OpenModalButton
 						modalComponent={ <PhotoFormModalFunction />}

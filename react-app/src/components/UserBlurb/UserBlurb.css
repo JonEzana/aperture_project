@@ -1,0 +1,32 @@
+.user-blurb-container {
+    border: 2px solid red;
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-blurb-left {
+    border: 2px solid green;
+    padding-left: 10px;
+    display: flex;
+    gap: 5px;
+
+}
+
+.user-blurb-right {
+    border: 2px solid yellow;
+    padding-right: 10px;
+    display: flex;
+    align-items: center
+}
+
+.circle-prof-pic {
+    border: 2px solid blue;
+    height: 40px;
+    width: 40px;
+    border-radius: 25px;
+    object-fit: cover;
+}
+
+#home-user-name {
+    border: 2px solid purple;
+}

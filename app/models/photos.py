@@ -27,12 +27,7 @@ class Photo(db.Model):
 
   favorites = db.relationship('Favorite', back_populates='photo', cascade="all, delete-orphan")
 
-  #  many to many
-  # users = db.relationship(
-  #   "User",
-  #   secondary=favorites,
-  #   back_populates="photos"
-  # )
+
 
   def to_dict(self):
     return {
