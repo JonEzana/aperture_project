@@ -20,6 +20,8 @@ function SignupFormModal() {
 	const [disabled, setDisabled] = useState(true);
 	const [buttonId, setButtonId] = useState("disabled-signup-button");
 	const [imageLoading, setImageLoading] = useState(false);
+	const [showPassword, setShowPassword] = useState(false);
+	const [pwType, setPwType] = useState("password");
 	const { closeModal } = useModal();
 
 	useEffect(() => {
@@ -35,8 +37,15 @@ function SignupFormModal() {
 			setDisabled(false);
 			setButtonId("enabled-signup-button")
 		}
+
+		showPassword === false ? setPwType("password") : setPwType("text");
+
 		setErrors(errObj);
-	}, [firstName, lastName, username, password, confirmPassword]);
+	}, [firstName, lastName, username, password, confirmPassword, showPassword]);
+
+	const handleShowPW = () => {
+		!showPassword ? setShowPassword(true) : setShowPassword(false);
+	};
 
 	const handleSubmit = async (e) => {
 		// if (profilePic === null) {
@@ -129,20 +138,24 @@ function SignupFormModal() {
 
 					{errors.email && <p className="errors">{errors.email}</p>}
 
-						<input
-							className="signup-input"
-							type="password"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-							required
-							placeholder="Password"
-						/>
+						<div style={{display: "flex", flexDirection: "row", width: "100%", marginLeft: "25px"}}>
+							<input
+								className="signup-input"
+								type={pwType}
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								required
+								placeholder="Password"
+								/>
+							{ !showPassword && <i className="fas fa-eye" style={{color: "grey", alignSelf: "center", position: "absolute", marginLeft: "65%", zIndex: "2"}} onClick={handleShowPW}></i>}
+							{ showPassword && <i className="fas fa-eye-slash" style={{color: "grey", alignSelf: "center", position: "absolute", marginLeft: "65%", zIndex: "2"}} onClick={handleShowPW}></i>}
+						</div>
 
 					{errors.password && <p className="errors">{errors.password}</p>}
 
 						<input
 							className="signup-input"
-							type="password"
+							type={pwType}
 							value={confirmPassword}
 							onChange={(e) => setConfirmPassword(e.target.value)}
 							required
