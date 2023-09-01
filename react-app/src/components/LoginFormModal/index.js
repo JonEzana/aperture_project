@@ -31,11 +31,10 @@ function LoginFormModal() {
     if (password.length >= 6) setDisabled(false);
     else setDisabled(true);
     showPassword === false ? setPwType("password") : setPwType("text");
-  }, [password.length])
+  }, [password, showPassword])
 
   const handleShowPW = () => {
-    showPassword === false ? setShowPassword(true) : setShowPassword(false);
-    // showPassword === true ? setPwType("text") : setPwType("password")
+    !showPassword ? setShowPassword(true) : setShowPassword(false);
   };
 
   //route = '/login'
@@ -52,19 +51,20 @@ function LoginFormModal() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <input
-            className="login-input"
-            type={pwType}
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          {/* {showPassword === false && <i className="fa-solid fa-eye-slash" style={{color: "#000000", alignSelf: "center", position: "absolute", marginLeft: "81%", zIndex: "2"}} onClick={handleShowPW}></i>}
-          {showPassword === true && <i className="fa-solid fa-eye" style={{color: "#000000", alignSelf: "center", position: "absolute", marginLeft: "81%", zIndex: "2"}} onClick={handleShowPW}></i>} */}
-          {/* {errors.credential && (
-            <p className="valErr">{errors.credential}</p>
-          )} */}
+          <div style={{display: "flex", flexDirection: "row", width: "100%", marginLeft: "25px"}}>
+            <input
+              className="login-input"
+              type={pwType}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              />
+            { !showPassword && <i className="fas fa-eye" style={{color: "grey", alignSelf: "center", position: "absolute", marginLeft: "68%", zIndex: "2"}} onClick={handleShowPW}></i>}
+
+            { showPassword && <i className="fas fa-eye-slash" style={{color: "grey", alignSelf: "center", position: "absolute", marginLeft: "68%", zIndex: "2"}} onClick={handleShowPW}></i>}
+          </div>
+
           {errors.map((error, idx) => (
             <p className="errors" key={idx}>{error}</p>
           ))}
