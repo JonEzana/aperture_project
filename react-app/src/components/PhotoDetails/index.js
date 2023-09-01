@@ -22,7 +22,7 @@ export const PhotoDetails = () => {
     const favPics = Object.values(useSelector(state=>state.favs.allFav))
     const userFavpic = favPics.filter(photo=>photo.userId == currentUser.id)
     const didIlikeItArr = userFavpic.filter(fav => fav.id == photo.id)
-    
+
     useEffect(() => {
         dispatch(thunkGetSinglePhoto(photoId));
         dispatch(thunkGetAllUsers());
@@ -74,7 +74,7 @@ export const PhotoDetails = () => {
                 </div>
                 <span>Likes: {photo.favoriteCount}</span>
                 <span id='detail-like-action'>
-                    <p style={{margin: '0px', paddingTop: '20px'}}>Favorite <i className="far fa-star"></i></p>
+                    {/* <p style={{margin: '0px', paddingTop: '20px'}}>Favorite <i className="far fa-star"></i></p> */}
                     {/* <p style={{margin: '0px', paddingTop: '20px'}}>Favorite <i className={didIlikeItArr.length ? "fas fa-star" : "far fa-star"} onClick={e => handleSubmit(e, currentUser.id, photo.id)} style={{color: "#FFD700", paddingRight: "10px"}}></i></p> */}
                 </span>
             </div>

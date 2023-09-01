@@ -39,18 +39,18 @@ function SignupFormModal() {
 	}, [firstName, lastName, username, password, confirmPassword]);
 
 	const handleSubmit = async (e) => {
-		if (profilePic === null) {
-			const signUpData = {email, username, firstName, lastName, profilePic: 'https://aperture-bucket-april-2023.s3.amazonaws.com/default.jpeg', password}
-			await dispatch(sessionActions.signUpNoFile(signUpData));
-			closeModal();
-			setEmail('')
-			setUsername('')
-			setPassword('')
-			setProfilePic('')
-			setFirstName('')
-			setLastName('')
-			history.push("/photos/all");
-		} else{
+		// if (profilePic === null) {
+		// 	const signUpData = {email, username, firstName, lastName, profilePic: 'https://aperture-bucket-april-2023.s3.amazonaws.com/default.jpeg', password}
+		// 	await dispatch(sessionActions.signUpNoFile(signUpData));
+		// 	closeModal();
+		// 	setEmail('')
+		// 	setUsername('')
+		// 	setPassword('')
+		// 	setProfilePic('')
+		// 	setFirstName('')
+		// 	setLastName('')
+		// 	history.push("/photos/all");
+		// } else{
 			e.preventDefault();
 			const formData = new FormData()
 			formData.append("email", email)
@@ -70,7 +70,7 @@ function SignupFormModal() {
 			setFirstName('')
 			setLastName('')
 			history.push("/photos/all");
-		}
+		// }
 	};
 	return (
 		<div className='modal' id="signup-modal">
@@ -168,6 +168,7 @@ function SignupFormModal() {
 							onChange={(e) => setProfilePic(e.target.files[0])}
 							placeholder="Profile Picture"
 							accept="image/*"
+							required
 						/>
 
 				</div>
