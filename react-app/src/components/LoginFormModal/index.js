@@ -62,9 +62,12 @@ function LoginFormModal() {
           />
           {/* {showPassword === false && <i className="fa-solid fa-eye-slash" style={{color: "#000000", alignSelf: "center", position: "absolute", marginLeft: "81%", zIndex: "2"}} onClick={handleShowPW}></i>}
           {showPassword === true && <i className="fa-solid fa-eye" style={{color: "#000000", alignSelf: "center", position: "absolute", marginLeft: "81%", zIndex: "2"}} onClick={handleShowPW}></i>} */}
-          {errors.credential && (
+          {/* {errors.credential && (
             <p className="valErr">{errors.credential}</p>
-          )}
+          )} */}
+          {errors.map((error, idx) => (
+            <p className="errors" key={idx}>{error}</p>
+          ))}
         </div>
         <button disabled={disabled} id={disabled ? "disabled-login-button" : "enabled-login-button"} type="submit">Log In</button>
       </form>

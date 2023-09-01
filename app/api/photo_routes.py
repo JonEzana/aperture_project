@@ -2,6 +2,7 @@ from flask import Blueprint, session, request
 from flask_login import login_required, current_user
 from app.models import Photo, db, Album
 from app.forms import CreatePhotoForm
+from app.forms import UpdatePhotoForm
 from app.api.aws_routes import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
 photo_routes = Blueprint('photos', __name__)
@@ -42,12 +43,12 @@ def create_photo():
         url = form.data["url"]
         url.filename = get_unique_filename(url.filename)
         upload = upload_file_to_s3(url)
-        print('LINE 70 signup backend.......', upload)
+   
 
         if "url" not in upload:
         #   return render_template("post_form.html", form=form, errors=[upload])
             # return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-            print('URL ERRORS......', {"errors": upload})
+          
             return {"errors": upload}
 
         new_photo = Photo(
@@ -73,11 +74,9 @@ def create_photo():
 def update_photo(id):
     data = request.json
     photo_to_edit = Photo.query.get(id)
-    album = Album.query.get(data["album_id"])
-    photo_to_edit["album_id"] = data["album_id"]
+    photo_to_edit.album_id = data["album_id"]
     photo_to_edit.title = data['title']
     photo_to_edit.description = data['description']
-    album.photos.append(photo_to_edit)
 
     db.session.commit()
     return photo_to_edit.to_dict()
@@ -86,7 +85,7 @@ def update_photo(id):
 @photo_routes.route('/<int:id>/edit', methods=['PUT'])
 @login_required
 def update_photo_route(id):
-    form = CreatePhotoForm()
+    form = UpdatePhotoForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
@@ -94,7 +93,6 @@ def update_photo_route(id):
 
         photo_to_edit.title = form.data['title']
         photo_to_edit.description = form.data['description']
-        photo_to_edit.url = form.data['url']
 
         db.session.commit()
         return photo_to_edit.to_dict()
