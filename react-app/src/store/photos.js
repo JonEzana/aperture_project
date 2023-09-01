@@ -64,7 +64,7 @@ export const thunkGetSinglePhoto = (id) => async (dispatch) => {
 };
 
 export const thunkGetCurrentUserPhotos = (UserId) => async (dispatch) => {
-    const res = await fetch('/api/photos/all');
+    const res = await fetch(`/api/photos/all/album/${UserId}/photos`);
     if (res.ok) {
         const photoData = await res.json();
         const filteredPhotos = photoData.photos.filter(photo => photo.userId == UserId);
@@ -139,6 +139,32 @@ export const thunkUpdatePhotoList = (photoData, albumId) => async (dispatch) => 
 
         photo['album_id'] = albumId
         return fetch(`/api/photos/edit/${photo.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(photo)
+        }).then(res => res.json()).catch(e => {
+            throw e
+        })
+    })
+
+
+    Promise.allSettled(req).then(res => {
+        if (res.status === 'fulfilled') {
+            dispatch(updatePhoto(res))
+        }
+    }).catch(e => {
+        throw e
+    })
+
+}
+
+export const thunkUpdatePhotoListAlbum = (photoData, albumId, userId) => async (dispatch) => {
+
+    const req = photoData.map(photo => {
+        console.log(userId)
+        return fetch(`/api/photos/user/${userId}/album/${albumId}/edit/${photo.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

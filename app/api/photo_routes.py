@@ -4,7 +4,7 @@ from app.models import Photo, db, Album
 from app.forms import CreatePhotoForm
 from app.forms import UpdatePhotoForm
 from app.api.aws_routes import get_unique_filename, upload_file_to_s3, remove_file_from_s3
-
+from sqlalchemy import and_
 photo_routes = Blueprint('photos', __name__)
 
 
@@ -21,7 +21,7 @@ def all_photos():
 @photo_routes.route('/all/album/<int:userId>/photos')
 @login_required
 def all_album_photos(userId):
-    print('herereherer')
+ 
     photos = Photo.query.filter(Photo.user_id == userId).all()
     res = [photo.to_dict() for photo in photos]
    
@@ -85,6 +85,20 @@ def update_photo(id):
     photo_to_edit.album_id = data["album_id"]
     photo_to_edit.title = data['title']
     photo_to_edit.description = data['description']
+
+    db.session.commit()
+    return photo_to_edit.to_dict()
+
+@photo_routes.route('/user/<int:userId>/album/<int:albumId>/edit/<int:photoId>', methods=['PUT'])
+@login_required
+def update_photo_album(albumId, photoId, userId):
+    all_photos_album = Photo.query.filter(and_(Photo.album_id == albumId, Photo.user_id == userId)).all()
+    for photo in all_photos_album:
+        photo.album_id = None
+    data = request.json
+    photo_to_edit = Photo.query.get(photoId)
+    
+    photo_to_edit.album_id = albumId
 
     db.session.commit()
     return photo_to_edit.to_dict()
