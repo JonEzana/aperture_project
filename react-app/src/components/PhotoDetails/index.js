@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, NavLink, useHistory } from "react-router-dom";
 import { thunkGetAllUsers } from "../../store/users";
-import { thunkGetSinglePhoto } from "../../store/photos";
+import { thunkGetSinglePhoto, fetchAllphotos } from "../../store/photos";
 import { UserBlurb } from "../UserBlurb";
 import * as sessionActions from "../../store/comments";
 import GetAllCommentsByPhotoIdFunction from "../GetAllComments";
@@ -20,25 +20,21 @@ export const PhotoDetails = () => {
     const comments = Object.values(useSelector(state => state.comments.photoComments)).filter(comment => comment.photoId == photoId);
     const history = useHistory();
     const favPics = Object.values(useSelector(state=>state.favs.allFav))
-    const userFavpic = favPics.filter(photo=>photo.userId == currentUser.id)
-    const didIlikeItArr = userFavpic.filter(fav => fav.id == photo.id)
+    const currentUserFavpic = favPics.filter(photo=>photo.id == photo.id)
 
     useEffect(() => {
         dispatch(thunkGetSinglePhoto(photoId));
         dispatch(thunkGetAllUsers());
-        dispatch(thunkAllFav(currentUser.id));
+        dispatch(fetchAllphotos(currentUser.id));
         dispatch(sessionActions.thunkGetAllCommentsByPhotoId(photoId));
     }, [dispatch]);
 
     if (!currentUser) return null;
 
     const handleSubmit = (userId, photoId) => {
-        console.log('userId=======', userId);
-        console.log('currentUser.id=====', currentUser.id)
-        console.log('photoId=====', photoId)
-        dispatch(thunkCreateFav(userId, photoId))
+        dispatch(thunkCreateFav(userId, photoId)).then(()=>dispatch(thunkGetSinglePhoto(photo.id))).then(()=>dispatch(fetchAllphotos(currentUser.id)))
     }
-
+ 
     const handleClick = (e, id) => {
         e.stopPropagation();
         history.push(`/users/${id}/photos`)
@@ -46,7 +42,7 @@ export const PhotoDetails = () => {
 
     photo["Owner"] = Object.values(users).find(user => user.id === photo.userId);
 
-    console.log('PhotoDetails Line 35, comments: ', comments)
+  
 
     return (
         <div id='outer-detail-div'>
@@ -74,8 +70,8 @@ export const PhotoDetails = () => {
                 </div>
                 <span>Likes: {photo.favoriteCount}</span>
                 <span id='detail-like-action'>
-                    {/* <p style={{margin: '0px', paddingTop: '20px'}}>Favorite <i className="far fa-star"></i></p> */}
-                    {/* <p style={{margin: '0px', paddingTop: '20px'}}>Favorite <i className={didIlikeItArr.length ? "fas fa-star" : "far fa-star"} onClick={e => handleSubmit(e, currentUser.id, photo.id)} style={{color: "#FFD700", paddingRight: "10px"}}></i></p> */}
+        
+                    <p onClick={() => handleSubmit(currentUser.id, photo.id)} style={{margin: '0px', paddingTop: '20px'}}>Favorite <i className={ currentUserFavpic.length ? "fas fa-star" : "far fa-star"}  style={{color: "#FFD700", paddingRight: "10px"}}></i></p>
                 </span>
             </div>
             <div id='comments-container'>

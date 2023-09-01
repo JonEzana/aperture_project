@@ -16,7 +16,15 @@ def all_photos():
     """
     photos = Photo.query.all()
     res = [photo.to_dict() for photo in photos]
+    return {'photos': res}
 
+@photo_routes.route('/all/album/<int:userId>/photos')
+@login_required
+def all_album_photos(userId):
+    print('herereherer')
+    photos = Photo.query.filter(Photo.user_id == userId).all()
+    res = [photo.to_dict() for photo in photos]
+   
     return {'photos': res}
 
 

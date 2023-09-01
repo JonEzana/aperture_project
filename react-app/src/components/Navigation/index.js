@@ -1,16 +1,23 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector , useDispatch} from 'react-redux';
 import ProfileButton from './ProfileButton';
 import { useHistory } from 'react-router-dom/';
 import './Navigation.css';
 import OpenModalButton from '../OpenModalButton';
 import { PhotoFormModalFunction } from '../PhotoFormModalFunction';
+import { fetchAllphotos } from '../../store/photos'
 
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
+	const dispatch = useDispatch()
+	const history = useHistory()
 	let homeUrl;
 	sessionUser ? homeUrl = "/photos/all" : homeUrl = "/";
+	const clickCreateButton = (userId) => {
+		dispatch(fetchAllphotos(userId))
+		history.push("/albums/new")
+	}
 
 	return (
 		<div className='nav-bar'>
@@ -33,9 +40,9 @@ function Navigation({ isLoaded }){
 						className={"new-spot-link"}
 						id={"navbarlink"}
 					/>}
-				{sessionUser && <NavLink to="/albums/new" className="new-spot-link">
+				{sessionUser && <div onClick={()=>clickCreateButton(sessionUser.id)} className="new-spot-link">
 					Create an Album
-				</NavLink>}
+				</div>}
 			</span>
 			{isLoaded && (
 				<div className="prof-btn" style={{marginRight: "10%"}}>
