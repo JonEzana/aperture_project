@@ -9,6 +9,7 @@ import { NavLink } from 'react-router-dom'
 import { useBackgroundImgContext } from '../../context/BackgroundImage'
 import OpenModalButton from '../OpenModalButton'
 import { DeleteAlbum } from '../DeleteAlbumModal'
+import { thunkGetAllPhotos, fetchAllphotos } from '../../store/photos'
 export default function AllAlbums({ backgroundUrl }) {
     const history = useHistory()
     const currentUser = useSelector(state => state.session.user)
@@ -29,6 +30,7 @@ export default function AllAlbums({ backgroundUrl }) {
     }
 
     const routetoNew = (userId) => {
+        dispatch(fetchAllphotos(userId))
         history.push('/albums/new', { type: 'create', userId })
     }
 
