@@ -152,7 +152,7 @@ export const thunkUpdatePhotoList = (photoData, albumId) => async (dispatch) => 
 
 }
 
-const initialState = { allPhotos: {}, singlePhoto: {}, currentUserPhotos: {} };
+const initialState = { allPhotos: {}, singlePhoto: {}, currentUserPhotos: {},  };
 
 export default function photosReducer(state = initialState, action) {
     switch (action.type) {
