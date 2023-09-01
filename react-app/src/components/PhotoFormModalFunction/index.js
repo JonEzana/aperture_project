@@ -81,7 +81,7 @@ export const PhotoFormModalFunction = ({ photo, formType }) => {
             placeholder='File Url'
             onChange={(e) => setUrl(e.target.files[0])}
             required
-            accept="image/*"
+            accept="image/png, image/jpeg, image/jpg, image/gif, image/pdf"
           />}
         {valObj.url && <p className="errors" style={{color: "red"}}>{valObj.url}</p>}
         <button type='submit' disabled={disabled} >Submit</button>

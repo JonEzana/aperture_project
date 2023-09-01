@@ -33,7 +33,7 @@ function SignupFormModal() {
 		if (bio && bio.length > 200) errObj.bio = "Bio must be 200 characters or less";
 		if (confirmPassword && confirmPassword !== password) errObj.confirmPassword = "Password and Confirm Password fields must match";
 
-		if (username.length >= 4 && password.length >= 6 && firstName.length >= 3 && firstName.length <= 50 && lastName.length >= 3 && lastName.length <= 50 && bio.length <= 200 && password === confirmPassword) {
+		if (username.length >= 4 && password.length >= 6 && firstName.length >= 3 && firstName.length <= 50 && lastName.length >= 3 && lastName.length <= 50 && bio.length <= 200 && password === confirmPassword && profilePic) {
 			setDisabled(false);
 			setButtonId("enabled-signup-button")
 		}
@@ -169,18 +169,19 @@ function SignupFormModal() {
 							type="textarea"
 							value={bio}
 							onChange={(e) => setBio(e.target.value)}
-							placeholder="Bio"
+							placeholder="Bio (optional)"
 							style={{height: '80px'}}
 						/>
 
 					{errors.bio && <p className="errors">{errors.bio}</p>}
 
+					<label>Upload your profile picture</label>
 						<input
 							className="signup-input"
 							type="file"
 							onChange={(e) => setProfilePic(e.target.files[0])}
 							placeholder="Profile Picture"
-							accept="image/*"
+							accept="image/png, image/jpeg, image/jpg, image/gif, image/pdf"
 							required
 						/>
 
