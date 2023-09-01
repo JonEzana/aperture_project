@@ -3,6 +3,7 @@ import { thunkCreateFav } from "../../store/fav"
 import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react"
 import { thunkGetAllPhotos, thunkGetSinglePhoto } from "../../store/photos"
+import './UserBlurb.css'
 
 
 export const UserBlurb = ({url, username, styles, userId, photoId,  currentUser, userFavpic, count}) => {
@@ -21,13 +22,13 @@ export const UserBlurb = ({url, username, styles, userId, photoId,  currentUser,
     }
 
     return (
-        <div className="user-blurb-container" style={styles}>
-            <span onClick={e=>handleClick(e)} className="user-blurb-left" style={{display: "flex", flexDirection: "row", gap: "10px", alignItems: "center"}}>
-                <img src={url} className="circle-prof-pic" style={{height: "40px", width: "40px", borderRadius: "25px", objectFit: 'cover'}}></img>
-                <p className="user-name">{username}</p>
+        <div className="user-blurb-container">
+            <span onClick={e=>handleClick(e)} className="user-blurb-left">
+                <img src={url} className="circle-prof-pic"></img>
+                <p id="home-user-name">{username}</p>
             </span>
             <span className="user-blurb-right">
-                <i className={fav ? "fas fa-star" : "far fa-star"} onClick={e => handleSubmit(e, currentUser.id, photoId)} style={{color: "#FFD700", paddingRight: "10px"}}></i> {count}
+                <i className={fav ? "fas fa-star" : "far fa-star"} onClick={e => handleSubmit(e, currentUser.id, photoId)} style={{color: "#FFD700"}}></i> {count}
             </span>
 
         </div>
