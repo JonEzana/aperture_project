@@ -29,8 +29,7 @@ export const thunkAllFav = (userId) => async (dispatch) => {
 }
 
 export const thunkCreateFav = (userId, photoId) => async (dispatch) => {
-    console.log('userid thunk', userId);
-    console.log('photoid thunk', photoId);
+
     const res = await fetch(`/api/fav/${userId}/${photoId}/new`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },

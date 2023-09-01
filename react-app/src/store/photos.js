@@ -4,6 +4,14 @@ const GET_CURRENT_USER_PHOTOS = "photos/getCurrentUserPhotos";
 const DELETE_PHOTO = "photos/DELETE_PHOTO";
 const CREATE_PHOTO = "photos/createPhoto";
 const UPDATE_PHOTO = "photos/updatePhoto";
+const ALBUM_PHOTO = 'album/photos'
+
+const getalbum_photo = (photos) => {
+    return {
+        type:ALBUM_PHOTO,
+        photos
+    }
+}
 
 const getAllPhotos = (photos) => ({
     type: GET_ALL_PHOTOS,
@@ -152,7 +160,16 @@ export const thunkUpdatePhotoList = (photoData, albumId) => async (dispatch) => 
 
 }
 
-const initialState = { allPhotos: {}, singlePhoto: {}, currentUserPhotos: {} };
+export const fetchAllphotos = (userId) => async (dispatch)  => {
+    const res = await fetch(`/api/photos/all/album/${userId}/photos`);
+    if (res.ok) {
+        const photos = await res.json();
+        dispatch(getalbum_photo(photos));
+        return photos;
+    }
+};
+
+const initialState = { allPhotos: {}, singlePhoto: {}, currentUserPhotos: {},  };
 
 export default function photosReducer(state = initialState, action) {
     switch (action.type) {
@@ -196,6 +213,14 @@ export default function photosReducer(state = initialState, action) {
                 currentUserPhotos: { ...state.currentUserPhotos, [action.payload.id]: { ...action.payload } },
                 singlePhoto: { ...action.payload }
             }
+        }
+
+        case ALBUM_PHOTO: {
+            const newState ={...state, allPhotos:{}}
+            action.photos.photos.forEach(photo => {
+                newState.allPhotos[photo.id] = photo;
+            });
+            return newState
         }
         default:
             return state;

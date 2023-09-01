@@ -33,7 +33,7 @@ export const Photostream = ({backgroundUrl, fav, like}) => {
         return false;
     }
 
-    if (Object.values(currentUser).length && !photos.length) return (
+    if ( !like && Object.values(currentUser).length && !photos.length) return (
         <div>
             <ProfileHeader userId={+userId} url={backgroundUrl} />
             <ProfileNav userId={+userId}/>
@@ -48,7 +48,7 @@ export const Photostream = ({backgroundUrl, fav, like}) => {
             <div id='user-photos-container-container'>
                 <div id='user-photos-container'>
                     {
-                    like === "like" ? fav.map(photo =>
+                    like === "like" ? fav?.map(photo =>
                         <div key={photo.id}>
                             <PhotoHoverComponent type={"fav"} isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId} photoUrl={photo.url} ownerName={photo?.Owner?.username}/>
                         </div>

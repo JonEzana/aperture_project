@@ -3,13 +3,16 @@ import { useDispatch } from "react-redux";
 import { useModal } from '../../context/Modal';
 import { fetchDeleteAlbum } from '../../store/albums'
 import './DeleteAlbum.css'
+import { thunkGetAllPhotos } from "../../store/photos";
 export const DeleteAlbum = ({album}) => {
 
-    
+
     const { closeModal } = useModal();
     const dispatch = useDispatch()
-    const deleteAlbum = () => {
-        dispatch(fetchDeleteAlbum(album.id)).then(closeModal)
+    const deleteAlbum = async () => {
+        await dispatch(fetchDeleteAlbum(album.id))
+        await dispatch(thunkGetAllPhotos());
+        closeModal();
     }
     return (
         <div className="delete-album-container">
