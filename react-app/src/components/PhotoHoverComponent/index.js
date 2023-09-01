@@ -32,7 +32,7 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, user
     const handleSubmit = (e, userId, photoId) => {
         e.stopPropagation()
         // setFav(!fav)
-        dispatch(thunkCreateFav(userId, photoId)).then(() => thunkGetSinglePhoto(photoId).then(() => thunkGetAllPhotos()))
+        dispatch(thunkCreateFav(userId, photoId)).then(() => thunkGetSinglePhoto(photoId)).then(() => thunkGetAllPhotos())
     }
 
     const displayName = (name) => {

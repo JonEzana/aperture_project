@@ -21,7 +21,7 @@ export default function FavPhotos() {
     });
 
     return (
-        <div>
+       <div>
             <Photostream fav={likedPhotos} like={"like"} />
         </div>
     )
