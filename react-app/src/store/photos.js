@@ -167,7 +167,7 @@ export default function photosReducer(state = initialState, action) {
             return { ...state, allPhotos: { ...state.allPhotos }, singlePhoto: { ...action.payload }, currentUserPhotos: {} }
         }
         case GET_CURRENT_USER_PHOTOS: {
-            const newState = { ...state, allPhotos: { ...state.allPhotos }, currentUserPhotos: { ...state.currentUserPhotos } };
+            const newState = { ...state, allPhotos: { ...state.allPhotos }, currentUserPhotos: {} };
             action.payload.forEach(photo => {
                 newState.currentUserPhotos[photo.id] = photo;
             });
@@ -181,7 +181,7 @@ export default function photosReducer(state = initialState, action) {
             return { ...newState, allPhotos: { ...newState.allPhotos }, currentUserPhotos: { ...newState.currentUserPhotos }, singlePhoto: { ...newState.singlePhoto } };
         }
         case CREATE_PHOTO: {
-         
+
             return {
                 ...state,
                 allPhotos: { ...state.allPhotos, [action.payload.id]: action.payload },

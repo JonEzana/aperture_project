@@ -6,6 +6,7 @@ import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { thunkGetCurrentUserPhotos } from "../../store/photos";
+import { fetchUser } from "../../store/users";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -44,11 +45,14 @@ function ProfileButton({ user }) {
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
-  const manage = async (e) => {
+  const manage = async (e, id) => {
     e.preventDefault();
     closeMenu();
-    await dispatch(thunkGetCurrentUserPhotos());
-    history.push(`/users/${user.id}/photos`)
+    await dispatch(thunkGetCurrentUserPhotos(id))
+    await dispatch(fetchUser(id));
+    console.log('user.id in profile button manage', id)
+    history.push(`/users/${id}/photos`)
+
   }
 
   return (
@@ -65,7 +69,7 @@ function ProfileButton({ user }) {
               <p className="email">{user.email}</p>
               <hr style={{background: "black", height: "1px", width: "100%" }}/>
 
-              <button className="manage-btn" onClick={manage}>My Profile</button>
+              <button className="manage-btn" onClick={(e, id) => manage(e, user.id)}>My Profile</button>
               <hr style={{background: "black", height: "1px", width: "100%" }}/>
 
               <button className="logout-btn" onClick={handleLogout}>Log Out</button>
