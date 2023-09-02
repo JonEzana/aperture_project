@@ -31,7 +31,7 @@ function Navigation({ isLoaded }){
 				{ sessionUser &&
 					<OpenModalButton
 						modalComponent={ <PhotoFormModalFunction />}
-						buttonText={"Post Your Photo"}
+						buttonText={"Upload Your Photo"}
 
 						style={{width: "120px", backgroundColor: "transparent", color: "white", border: "none"}}
 						className={"new-spot-link"}
