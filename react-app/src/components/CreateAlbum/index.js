@@ -66,68 +66,77 @@ export default function CreateAlbum() {
     }
    
     return (
-        <div>
-            <div id='create-album'>{type === 'edit' ? 'Update Album' : 'Create Album'}</div>
-            <form onSubmit={handleSubmit}>
-                <div className='album-form'>
-                    <div className='upper-side'>
-                        <div className='left-create'>
-                            <div>Album Title</div>
-                            <div>
+        <div id='create-whole-page'>
+            <div id='create-meat'>
+                <h1 id='create-album-h1'>{type === 'edit' ? 'Update Album' : 'Create Album'}</h1>
+                <form id='album-form' onSubmit={handleSubmit}>                 
+                    <div id='both-container'>
+                    
+                        <span id='left-create'>
+                            <div id='left-create-80'>
+                                <div className='album-titles'>Album Title</div>
                                 <input
                                     type="text"
                                     placeholder='title'
                                     value={title}
                                     onChange={(e) => setTitle(e.target.value)}
                                     required
+                                    style={{width:'100%', boxSizing:'border-box'}}
+                                />
+                                <div className='album-titles'>Description</div>
+                                <textarea
+                                    type="text"
+                                    placeholder='Describe your album'
+                                    value={description}
+                                    onChange={e => setDescription(e.target.value)}
+                                    required
+                                    style={{width:'100%', height:'300px', boxSizing:'border-box'}}
                                 />
                             </div>
-                            <div>Description</div>
-                            <div className='description-box'>              <textarea
-                                type="text"
-                                placeholder='Describe your album'
-                                value={description}
-                                onChange={e => setDescription(e.target.value)}
-                                required
-                            />
-                            </div>
-                        </div>
-                        <div className='select-photos'>
-                            {type ==='edit' ? <div id='select-photo'>Choose the photos that will be included in your updated album</div>:<div id='select-photo'>Choose your photos</div>}
-                            <div className='photo-container'>{type === 'create' ? userPhotos.filter(photo => photo.albumId === null ).map(photo => <div className='choose-photo' key={photo.id} style={backgroundImageStyle(photo.url)}>
-
-                                <div className='photo-div'>
-                                    <input type='checkbox' checked={type === 'edit' && photo.albumId === albumId ? photoIdList?.find(upphotos => upphotos == photo.id) : photoIdList?.find(upphotos => upphotos == photo.id)} value={photo.id} onChange={(e) => {
-                                        if (e.target.checked) {
-                                            setPhotoIdList(prev => [...prev, parseInt(e.target.value)])
-                                        } else {
-                                            setPhotoIdList(prev => prev.filter(id => id !== parseInt(e.target.value)))
-                                        }
-                                    }} />
-                                </div>
-                            </div>)
-                            :
-                            userPhotos.map(photo => <div className='choose-photo' key={photo.id} style={backgroundImageStyle(photo.url)}>
-
-                                <div className='photo-div'>
-                                    <input type='checkbox' checked={type === 'edit' && photo.albumId === albumId ? photoIdList?.find(upphotos => upphotos == photo.id) : photoIdList?.find(upphotos => upphotos == photo.id)} value={photo.id} onChange={(e) => {
-                                        if (e.target.checked) {
-                                            setPhotoIdList(prev => [...prev, parseInt(e.target.value)])
-                                        } else {
-                                            setPhotoIdList(prev => prev.filter(id => id !== parseInt(e.target.value)))
-                                        }
-                                    }} />
-                                </div>
-                            </div>)
+                        </span>
+                        <span id='right-select-photos'>
+                            {/* {type ==='edit' ? 
+                                <div id='select-photo'>Choose the photos that will be included in your updated album</div> 
+                                : 
+                                <div id='select-photo'>Choose your photos:</div>} */}
+                            <div id='select-photo'>Choose your photos:</div>
+                            <div className='photo-container'>
+                                {type === 'create' ? 
+                                    userPhotos.filter(photo => photo.albumId === null ).map(photo => 
+                                    <div className='choose-photo' key={photo.id} style={backgroundImageStyle(photo.url)}>
+                                        <div className='photo-div'>
+                                            <input type='checkbox' checked={type === 'edit' && photo.albumId === albumId ? photoIdList?.find(upphotos => upphotos == photo.id) : photoIdList?.find(upphotos => upphotos == photo.id)} value={photo.id} onChange={(e) => {
+                                                if (e.target.checked) {
+                                                    setPhotoIdList(prev => [...prev, parseInt(e.target.value)])
+                                                } else {
+                                                    setPhotoIdList(prev => prev.filter(id => id !== parseInt(e.target.value)))
+                                                }
+                                            }} />
+                                        </div>
+                                    </div>)
+                                    :
+                                    userPhotos.map(photo => 
+                                        <div className='choose-photo' key={photo.id} style={backgroundImageStyle(photo.url)}>
+                                            <div className='photo-div'>
+                                                <input type='checkbox' checked={type === 'edit' && photo.albumId === albumId ? photoIdList?.find(upphotos => upphotos == photo.id) : photoIdList?.find(upphotos => upphotos == photo.id)} value={photo.id} onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        setPhotoIdList(prev => [...prev, parseInt(e.target.value)])
+                                                    } else {
+                                                        setPhotoIdList(prev => prev.filter(id => id !== parseInt(e.target.value)))
+                                                    }
+                                                }} />
+                                            </div>
+                                        </div>)
                             }</div>
-                        </div>
+                        </span>
+                    
                     </div>
-                    <div className='buttom-side'>
-                        <button>{type === 'edit' ? 'Update Album' : 'Submit'}</button>
-                        <button onClick={()=>handleCancel(currentUser.id)}>Cancel</button>
+                    <div id='album-button-div'>
+                        <button id='yes-album'>{type === 'edit' ? 'Update Album' : 'Submit'}</button>
+                        <button id='no-album' onClick={()=>handleCancel(currentUser.id)}>Cancel</button>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     )
 }
