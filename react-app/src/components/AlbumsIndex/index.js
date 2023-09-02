@@ -87,10 +87,10 @@ export default function AllAlbums({ backgroundUrl }) {
                         </div>{
                             currentUser.id == userId ? <div className='Edit-Delete-Album'>
                             <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id, userId)}>
-                                Edit
+                                <i className='fas fa-edit'/>
                             </div>
                             <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id, userId)}>
-                                <OpenModalButton modalComponent={<DeleteAlbum album={album} />} buttonText={'Delete'} />
+                                <OpenModalButton modalComponent={<DeleteAlbum album={album} />} buttonText={<i className="fas fa-trash-alt" style={{color: "white", cursor:'pointer'}}></i>} style={{backgroundColor: "transparent", border: "none"}}/>
                             </div>
                             </div>
                             :
