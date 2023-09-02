@@ -4,7 +4,7 @@
     position: fixed;
     bottom: 0;
     width: 101vw;
-    height: 11vh;
+    height: 8vh;
     display: flex;
     margin-left: -38px;
     justify-content: space-between;
@@ -45,8 +45,6 @@
     color: rgba(255, 255, 255, 0.6);
 }
 
-
-
 .fab{
     font-size: 22px;
 }
@@ -84,7 +82,6 @@
 .fa-github {
     font-size: 25px;;
 }
-
 
 #profile-items-container {
     /* border: 1px solid blue; */
