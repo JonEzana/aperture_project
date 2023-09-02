@@ -35,7 +35,8 @@ function Navigation({ isLoaded }){
 						style={{width: "120px", backgroundColor: "transparent", color: "white", border: "none"}}
 						className={"new-spot-link"}
 						id={"navbarlink"}
-					/>}
+					/>
+					}
 				{sessionUser && <div onClick={()=>clickCreateButton(sessionUser.id)} className="new-spot-link">
 					Create an Album
 				</div>}

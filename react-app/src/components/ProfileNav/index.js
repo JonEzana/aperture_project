@@ -18,9 +18,24 @@ export default function ProfileNav({userId}) {
         <div className='profile-nav-div'>
             <div className='profile-nav-span-container'>
                 <span className='profile-nav-span'>
-                    <NavLink to={photoUserString(userId)}>Photostream</NavLink>
-                    <NavLink to={albumUserString(userId)}>Albums</NavLink>
-                    <NavLink to={favesUserString(userId)}>Faves</NavLink>
+                    <NavLink
+                        to={photoUserString(userId)}
+                        activeClassName="active-link"
+                        >
+                            Photostream
+                    </NavLink>
+
+                    <NavLink to={albumUserString(userId)}
+                    activeClassName="active-link"
+                    >
+                        Albums
+                    </NavLink>
+
+                    <NavLink to={favesUserString(userId)}
+                    activeClassName="active-link"
+                    >
+                        Faves
+                    </NavLink>
                 </span>
             </div>
         </div>
