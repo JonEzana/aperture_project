@@ -1,7 +1,7 @@
 
-body{
+/* body{
   background-color: rgb(236, 243, 255);
-}
+} */
 
 .container-container {
   display: flex;
@@ -10,7 +10,7 @@ body{
   margin-top: 58px;
   width: 105vw;
   margin-left: -20px;
-  background-color: rgb(234, 234, 242);
+  background-color:  rgb(236, 243, 255);
 }
 
 .all-photos-container {
@@ -24,7 +24,7 @@ body{
   width: 80%;
   max-width: 1250px;
   margin-left: 85px;
-  background-color: rgb(234, 234, 242);
+  background-color:  rgb(236, 243, 255);
   margin-bottom: 200px;
 }
 

@@ -16,14 +16,14 @@ export const PhotoFormModalFunction = ({ photo, formType }) => {
   const [url, setUrl] = useState(photo ? photo.url : '');
   const [disabled, setDisabled] = useState(true);
   const [valObj, setValObj] = useState({});
-  const [buttonId, setButtonId] = useState("disabled-signup-button");
+  const [buttonClass, setButtonClass] = useState("disabled-signup-button");
 
   useEffect(() => {
     const errObj = {};
     if (title && title.length < 1) errObj.title = "Title is required";
     if (title.length > 1) {
       setDisabled(false);
-      setButtonId("enabled-signup-button")
+      setButtonClass("enabled-signup-button")
     } else {
       setDisabled(true);
     }
@@ -91,7 +91,7 @@ export const PhotoFormModalFunction = ({ photo, formType }) => {
             style={{width:'100%'}}
           />}
         {valObj.url && <p className="errors" style={{color: "red"}}>{valObj.url}</p>}
-        <button type='submit' disabled={disabled} id={buttonId} style={{marginTop:'15px'}}>Submit</button>
+        <button type='submit' disabled={disabled} className={buttonClass} style={{marginTop:'15px'}}>Submit</button>
       </form>
     </div>
   )
