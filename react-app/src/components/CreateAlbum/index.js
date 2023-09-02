@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import './CreateAlbum.css'
-import { thunkCreateAlbum, fetchUpdateAlbum } from '../../store/albums'
+import { thunkCreateAlbum, fetchUpdateAlbum, thunkOneAlbum } from '../../store/albums'
 import { thunkGetAllPhotos, thunkGetSinglePhoto } from '../../store/photos'
 import { useLocation } from 'react-router-dom'
 import { thunkUpdatePhotoList, thunkUpdatePhotoListAlbum  } from '../../store/photos'
@@ -50,9 +50,15 @@ export default function CreateAlbum() {
                 if (id == userPhoto.id) res.push(userPhoto)
             }
         }
-
-        if (type === 'create') dispatch(thunkCreateAlbum(newAlbum, currentUser.id)).then((album) => dispatch(thunkUpdatePhotoList(res, album.id))).then(()=>dispatch(thunkGetAllPhotos())).then(()=>history.push(`/users/${currentUser.id}/albums`)).catch(e => console.log(e))
-        else dispatch(fetchUpdateAlbum(albumId, currentUser.id, newAlbum)).then(album => dispatch(thunkUpdatePhotoListAlbum(res, album.id, userId))).then(()=>dispatch(thunkGetAllPhotos())).then(()=>history.push(`/users/${currentUser.id}/albums/${albumId}`)).catch(e => console.log(e))
+        if (type === 'create') {
+           
+            dispatch(thunkCreateAlbum(newAlbum, currentUser.id)).then((album) => dispatch(thunkUpdatePhotoList(res, album.id))).then(()=>dispatch(()=>thunkGetAllPhotos())).catch(e => console.log(e))
+            history.push(`/users/${currentUser.id}/albums`)
+        } 
+        else{ 
+            dispatch(fetchUpdateAlbum(albumId, currentUser.id, newAlbum)).then((album) => dispatch(thunkUpdatePhotoListAlbum(res, album.id))).then(()=>dispatch(thunkGetAllPhotos())).catch(e => console.log(e))
+            history.push(`/users/${currentUser.id}/albums/${albumId}`)
+        }
     }
 
     const handleCancel = (id) => {
@@ -88,7 +94,7 @@ export default function CreateAlbum() {
                         </div>
                         <div className='select-photos'>
                             {type ==='edit' ? <div id='select-photo'>Choose the photos that will be included in your updated album</div>:<div id='select-photo'>Choose your photos</div>}
-                            <div className='photo-container'>{userPhotos.map(photo => <div className='choose-photo' key={photo.id} style={backgroundImageStyle(photo.url)}>
+                            <div className='photo-container'>{type === 'create' ? userPhotos.filter(photo => photo.albumId === null ).map(photo => <div className='choose-photo' key={photo.id} style={backgroundImageStyle(photo.url)}>
 
                                 <div className='photo-div'>
                                     <input type='checkbox' checked={type === 'edit' && photo.albumId === albumId ? photoIdList?.find(upphotos => upphotos == photo.id) : photoIdList?.find(upphotos => upphotos == photo.id)} value={photo.id} onChange={(e) => {
@@ -99,7 +105,21 @@ export default function CreateAlbum() {
                                         }
                                     }} />
                                 </div>
-                            </div>)}</div>
+                            </div>)
+                            :
+                            userPhotos.map(photo => <div className='choose-photo' key={photo.id} style={backgroundImageStyle(photo.url)}>
+
+                                <div className='photo-div'>
+                                    <input type='checkbox' checked={type === 'edit' && photo.albumId === albumId ? photoIdList?.find(upphotos => upphotos == photo.id) : photoIdList?.find(upphotos => upphotos == photo.id)} value={photo.id} onChange={(e) => {
+                                        if (e.target.checked) {
+                                            setPhotoIdList(prev => [...prev, parseInt(e.target.value)])
+                                        } else {
+                                            setPhotoIdList(prev => prev.filter(id => id !== parseInt(e.target.value)))
+                                        }
+                                    }} />
+                                </div>
+                            </div>)
+                            }</div>
                         </div>
                     </div>
                     <div className='buttom-side'>
