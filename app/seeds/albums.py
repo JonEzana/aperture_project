@@ -31,6 +31,8 @@ def seed_albums():
     db.session.add(bts)
     db.session.add(blackpink)
     db.session.add(blkswn)
+    db.session.add(yeol_ramen)
+    db.session.add(flower)
     db.session.commit()
 
 
