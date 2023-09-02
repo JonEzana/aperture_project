@@ -47,12 +47,12 @@ export const PhotoDetails = () => {
     return (
         <div id='outer-detail-div'>
             <div id='gray-div'>
-                <span id='detail-go-back'>
+                {/* <span id='detail-go-back'>
                     <NavLink to={`/users/${photo.userId}/photos`} style={{textDecoration: 'none', color: 'white', border: '1px solid white'}}>
                         <i className="fas fa-arrow-left" style={{color: 'white'}}></i>
                         &nbsp;&nbsp;Back to Photostream
                     </NavLink>
-                </span>
+                </span> */}
                 <img src={photo?.url} alt={photo?.title} id='detail-pic'></img>
             </div>
             <div id='detail-bottom-outer'>

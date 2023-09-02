@@ -62,12 +62,12 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, user
                                 <div className="owner-icons" style={{display: "flex", gap:"6px"}}>
                                     <OpenModalButton
                                         modalComponent={<PhotoFormModalFunction photo={photo} formType={'Update'}/>}
-                                        buttonText={<i className="fas fa-edit" style={{color: "#ababab"}}></i>}
+                                        buttonText={<i className="fas fa-edit" style={{color: "#ababab", cursor:'pointer'}}></i>}
                                         style={{backgroundColor: "transparent", border: "none"}}
                                     />
                                     <OpenModalButton
                                         modalComponent={<DeletePhotoModalFunction photoId={photo.id} userid={userid}/>}
-                                        buttonText={<i className="fas fa-trash-alt" style={{color: "#ababab"}}></i>}
+                                        buttonText={<i className="fas fa-trash-alt" style={{color: "#ababab", cursor:'pointer'}}></i>}
                                         style={{backgroundColor: "transparent", border: "none"}}
                                     />
                                 </div> : null

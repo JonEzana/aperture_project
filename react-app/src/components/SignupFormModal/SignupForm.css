@@ -48,3 +48,8 @@
   width: 65%;
   font-size: 13px;
 }
+
+#file-label {
+  font-size: 14px;
+  padding-top: 7px;
+}
