@@ -58,9 +58,9 @@ export const PhotoFormModalFunction = ({ photo, formType }) => {
   };
 
   return (
-    <div>
-      <h2>{photo ? "Update Your Photo" : "Post Your Photo"}</h2>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+    <div id="photo-form-modal">
+      <h2>{photo ? "Update Your Photo" : "Upload Your Photo"}</h2>
+      <form onSubmit={handleSubmit} encType="multipart/form-data" id="photo-form">
         <input
           type='text'
           placeholder='Photo Name'

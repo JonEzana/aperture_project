@@ -18,8 +18,10 @@ function DeletePhotoModalFunction({photoId, userid}) {
   return (
     <div className='modal delete-modal'>
       <h3>Confirm Delete</h3>
-      <button onClick={yesDeletePhotoFunction} className='yes-button'>Yes</button>
-      <button onClick={closeModal} className='no-button'>No</button>
+      <div className='yes-no-buttons'>
+        <button onClick={yesDeletePhotoFunction} className='yes-button'>Yes</button>
+        <button onClick={closeModal} className='no-button'>No</button>
+      </div>
     </div>
   )
 }
