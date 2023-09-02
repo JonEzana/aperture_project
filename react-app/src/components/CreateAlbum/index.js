@@ -19,7 +19,7 @@ export default function CreateAlbum() {
     const [title, setTitle] = useState(updateAlbum ? updateAlbum.title : "")
     const [description, setDescription] = useState(updateAlbum ? updateAlbum.description : "")
     const [photoIdList, setPhotoIdList] = useState(updateAlbum ? updateAlbum.photos?.map(photo => photo.id) : [])
-    
+
     const history = useHistory()
     useEffect(() => {
         dispatch(thunkGetAllPhotos())
@@ -51,11 +51,13 @@ export default function CreateAlbum() {
             }
         }
         if (type === 'create') {
-           
-            dispatch(thunkCreateAlbum(newAlbum, currentUser.id)).then((album) => dispatch(thunkUpdatePhotoList(res, album.id))).then(()=>dispatch(()=>thunkGetAllPhotos())).catch(e => console.log(e))
-            history.push(`/users/${currentUser.id}/albums`)
-        } 
-        else{ 
+            dispatch(thunkCreateAlbum(newAlbum, currentUser.id))
+                .then((album) => dispatch(thunkUpdatePhotoList(res, album.id)))
+                .then(() => dispatch(thunkGetAllPhotos()))
+                .then(() => history.push(`/users/${currentUser.id}/albums`))
+                .catch(e => console.log(e));
+        }
+        else{
             dispatch(fetchUpdateAlbum(albumId, currentUser.id, newAlbum)).then((album) => dispatch(thunkUpdatePhotoListAlbum(res, album.id))).then(()=>dispatch(thunkGetAllPhotos())).catch(e => console.log(e))
             history.push(`/users/${currentUser.id}/albums/${albumId}`)
         }
@@ -64,14 +66,14 @@ export default function CreateAlbum() {
     const handleCancel = (id) => {
         history.push(`/users/${id}/albums`)
     }
-   
+
     return (
         <div id='create-whole-page'>
             <div id='create-meat'>
                 <h1 id='create-album-h1'>{type === 'edit' ? 'Update Album' : 'Create Album'}</h1>
-                <form id='album-form' onSubmit={handleSubmit}>                 
+                <form id='album-form' onSubmit={handleSubmit}>
                     <div id='both-container'>
-                    
+
                         <span id='left-create'>
                             <div id='left-create-80'>
                                 <div className='album-titles'>Album Title</div>
@@ -95,14 +97,14 @@ export default function CreateAlbum() {
                             </div>
                         </span>
                         <span id='right-select-photos'>
-                            {/* {type ==='edit' ? 
-                                <div id='select-photo'>Choose the photos that will be included in your updated album</div> 
-                                : 
+                            {/* {type ==='edit' ?
+                                <div id='select-photo'>Choose the photos that will be included in your updated album</div>
+                                :
                                 <div id='select-photo'>Choose your photos:</div>} */}
                             <div id='select-photo'>Choose your photos:</div>
                             <div className='photo-container'>
-                                {type === 'create' ? 
-                                    userPhotos.filter(photo => photo.albumId === null ).map(photo => 
+                                {type === 'create' ?
+                                    userPhotos.filter(photo => photo.albumId === null ).map(photo =>
                                     <div className='choose-photo' key={photo.id} style={backgroundImageStyle(photo.url)}>
                                         <div className='photo-div'>
                                             <input type='checkbox' checked={type === 'edit' && photo.albumId === albumId ? photoIdList?.find(upphotos => upphotos == photo.id) : photoIdList?.find(upphotos => upphotos == photo.id)} value={photo.id} onChange={(e) => {
@@ -115,7 +117,7 @@ export default function CreateAlbum() {
                                         </div>
                                     </div>)
                                     :
-                                    userPhotos.map(photo => 
+                                    userPhotos.map(photo =>
                                         <div className='choose-photo' key={photo.id} style={backgroundImageStyle(photo.url)}>
                                             <div className='photo-div'>
                                                 <input type='checkbox' checked={type === 'edit' && photo.albumId === albumId ? photoIdList?.find(upphotos => upphotos == photo.id) : photoIdList?.find(upphotos => upphotos == photo.id)} value={photo.id} onChange={(e) => {
@@ -129,7 +131,7 @@ export default function CreateAlbum() {
                                         </div>)
                             }</div>
                         </span>
-                    
+
                     </div>
                     <div id='album-button-div'>
                         <button id='yes-album'>{type === 'edit' ? 'Update Album' : 'Submit'}</button>
