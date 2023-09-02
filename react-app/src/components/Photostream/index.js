@@ -17,6 +17,7 @@ export const Photostream = ({ backgroundUrl, fav, like }) => {
     const currentUser = useSelector(state => state.session.user);
     const allUsers = Object.values(useSelector(state => state.users.allUsers));
 
+
     useEffect(() => {
         dispatch(thunkGetCurrentUserPhotos(userId));
         dispatch(thunkGetAllUsers());
@@ -47,14 +48,17 @@ export const Photostream = ({ backgroundUrl, fav, like }) => {
         <div>
             <ProfileHeader userId={+userId} url={backgroundUrl} />
             <ProfileNav userId={+userId} />
-            <div>
-                <OpenModalButton
+
+            {/* <div className="new-photo-link">
+                {currentUser.id == userId &&
+                    <OpenModalButton
                     modalComponent={<PhotoFormModalFunction />}
-                    buttonText={"Post Your Photo"}
+                    buttonText={"Upload Your Photo"}
                     style={{ width: "120px", backgroundColor: "transparent", color: "black", border: "none" }}
                     className={"new-spot-link"}
-                />
-            </div>
+                    />}
+            </div> */}
+
             <div id='user-photos-container-container'>
                 <div id='user-photos-container'>
                     {
