@@ -1,25 +1,27 @@
 .footer-body{
     color: white;
     font-size: 18px;
-    font-family: Raleway;
+    /* font-family: Raleway; */
     background-image: linear-gradient(to right, rgba(26, 95, 168, 0.393) , rgb(35, 35, 35));
     /* background-color: rgba(0, 0, 0, 0.53); */
     border-top: 1px solid rgb(185, 182, 182);
     position: fixed;
     bottom: 0;
     width: 101vw;
-    margin-left:-8px;
+    /* margin-left:-8px; */
     /* margin-top: 50px; */
     height: 11vh;
+    display: flex;
+    
 }
 
-.footer-content{
+/* .footer-content{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     margin: 0 2% 0 2%;
 
-}
+} */
 
 .technologies{
     display: flex;
@@ -55,10 +57,10 @@
     margin: -25px 0 20px 0;
 }
 
-h3{
+/* h3{
     font-size: 16px;
     text-align: center;
-}
+} */
 
 .creator-card{
     display: flex;

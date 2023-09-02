@@ -11,8 +11,8 @@ export const Footer = () => {
 
     return (
         <div className="footer-body">
-            <div className="footer-content">
-                <div className="technologies footer">
+            {/* <div className="footer-content"> */}
+                <span className="technologies">
                     <h3>Technologies Used:</h3>
                     <span className="technology-icons">
                         <i className="fab fa-aws"></i>
@@ -22,16 +22,16 @@ export const Footer = () => {
                         <i className="fab fa-css3"></i>
                         <i className="fab fa-python"></i>
                     </span>
-                </div>
-                <div className="creators footer">
+                </span>
+                <span className="creators">
                     <h3>Meet the Developers:</h3>
                     <span className="creator-profiles">
                         {creators.map(creator =>
                             <CreatorProfile creator={creator}/>
                         )}
                     </span>
-                </div>
-            </div>
+                </span>
+            {/* </div> */}
         </div>
     )
 }
