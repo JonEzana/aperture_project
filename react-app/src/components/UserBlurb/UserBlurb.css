@@ -1,26 +1,40 @@
 .user-blurb-container {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     display: flex;
     justify-content: space-between;
 }
 
 .user-blurb-left {
-    border: 2px solid green;
+    /* border: 2px solid green; */
     padding-left: 10px;
     display: flex;
-    gap: 5px;
-
+    gap: 10px;
+    align-items: center;
 }
 
 .user-blurb-right {
-    border: 2px solid yellow;
-    padding-right: 10px;
+    /* border: 2px solid yellow; */
+    padding-right: 8px;
     display: flex;
-    align-items: center
+    align-items: center;
+    gap: 5px;
+    width: 25%;
+}
+
+#home-star {
+    /* border: 1px solid blue; */
+    font-size: 20px;
+}
+
+#home-count {
+    /* border: 1px solid red; */
+    font-weight: bold;
+    font-size: 18px;
+    color: rgb(92, 94, 105);
 }
 
 .circle-prof-pic {
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     height: 40px;
     width: 40px;
     border-radius: 25px;
@@ -28,5 +42,8 @@
 }
 
 #home-user-name {
-    border: 2px solid purple;
+    /* border: 2px solid purple; */
+    color: rgb(87, 168, 255);
+    font-weight: bold;
+    font-size: 18px;
 }
