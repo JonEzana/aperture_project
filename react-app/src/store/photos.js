@@ -160,29 +160,27 @@ export const thunkUpdatePhotoList = (photoData, albumId) => async (dispatch) => 
 
 }
 
-export const thunkUpdatePhotoListAlbum = (photoData, albumId, userId) => async (dispatch) => {
+export const thunkUpdatePhotoListAlbum = (photoData, albumId) => async (dispatch) => {
 
-    const req = photoData.map(photo => {
-        console.log(userId)
-        return fetch(`/api/photos/user/${userId}/album/${albumId}/edit/${photo.id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(photo)
-        }).then(res => res.json()).catch(e => {
-            throw e
-        })
+    const res = await fetch(`/api/photos/album/${albumId}/edit`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(photoData)
     })
-
-
-    Promise.allSettled(req).then(res => {
-        if (res.status === 'fulfilled') {
-            dispatch(updatePhoto(res))
-        }
-    }).catch(e => {
-        throw e
-    })
+    
+    if (res.ok) {
+       
+        const data = await res.json()
+       
+        dispatch(getalbum_photo(data));
+     
+    } else {
+        const error = await res.json()
+    
+        throw error
+    }
 
 }
 
@@ -242,6 +240,7 @@ export default function photosReducer(state = initialState, action) {
         }
 
         case ALBUM_PHOTO: {
+            console.log('~~~~~~~~~~~~~~~~~~albumphoto', action.photos)
             const newState ={...state, allPhotos:{}}
             action.photos.photos.forEach(photo => {
                 newState.allPhotos[photo.id] = photo;

@@ -54,9 +54,8 @@ def create_photo():
    
 
         if "url" not in upload:
-        #   return render_template("post_form.html", form=form, errors=[upload])
-            # return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-          
+ 
+         
             return {"errors": upload}
 
         new_photo = Photo(
@@ -89,19 +88,21 @@ def update_photo(id):
     db.session.commit()
     return photo_to_edit.to_dict()
 
-@photo_routes.route('/user/<int:userId>/album/<int:albumId>/edit/<int:photoId>', methods=['PUT'])
+@photo_routes.route('/album/<int:albumId>/edit', methods=['PUT'])
 @login_required
-def update_photo_album(albumId, photoId, userId):
-    all_photos_album = Photo.query.filter(and_(Photo.album_id == albumId, Photo.user_id == userId)).all()
-    for photo in all_photos_album:
-        photo.album_id = None
+def update_photo_album(albumId):
     data = request.json
-    photo_to_edit = Photo.query.get(photoId)
     
-    photo_to_edit.album_id = albumId
-
+    
+    album = Album.query.get(albumId)
+    album.photos = []
+   
+    _ = [ album.photos.append(Photo.query.get(photo['id'])) for photo in data]
+   
     db.session.commit()
-    return photo_to_edit.to_dict()
+    res = [photo.to_dict() for photo in album.photos]
+    
+    return {'photos' : res }
 
 
 @photo_routes.route('/<int:id>/edit', methods=['PUT'])
