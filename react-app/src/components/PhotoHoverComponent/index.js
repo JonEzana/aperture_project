@@ -46,14 +46,14 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, user
             return `${name}`;
         }
     }
-  
+
 
     return (
 
             <div style={backgroundImageStyle(photoUrl)} className="photo-detail-container" ref={ref} onMouseEnter={() => setPhotoInfoBox(true)} onMouseLeave={() => setPhotoInfoBox(false)} key={photo.id} onClick={() => history.push(`/photos/${photo.id}`)}>
                 {photoInfoBox &&
                     <div className="text" >
-                        <div className="title-name-icons" style={{display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%", alignItems: "center"}}>
+                        <div className="title-name-icons" style={{display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%", alignItems: "center", backgroundColor:"rgba(0, 0, 0, 0.236)"}}>
                             <div className="title-and-name">
                                 <div>{photo.title}</div>
                                 <div style={{fontSize: "11px"}}>by {displayName(ownerName)}</div>
@@ -62,12 +62,12 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, user
                                 <div className="owner-icons" style={{display: "flex", gap:"6px"}}>
                                     <OpenModalButton
                                         modalComponent={<PhotoFormModalFunction photo={photo} formType={'Update'}/>}
-                                        buttonText={<i className="fas fa-edit" style={{color: "#ababab", cursor:'pointer'}}></i>}
+                                        buttonText={<i className="fas fa-edit" style={{color: "white", cursor:'pointer'}}></i>}
                                         style={{backgroundColor: "transparent", border: "none"}}
                                     />
                                     <OpenModalButton
                                         modalComponent={<DeletePhotoModalFunction photoId={photo.id} userid={userid}/>}
-                                        buttonText={<i className="fas fa-trash-alt" style={{color: "#ababab", cursor:'pointer'}}></i>}
+                                        buttonText={<i className="fas fa-trash-alt" style={{color: "white", cursor:'pointer'}}></i>}
                                         style={{backgroundColor: "transparent", border: "none"}}
                                     />
                                 </div> : null
@@ -75,7 +75,7 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, user
                             {
                                 type === "fav" &&
                                      isCurrentUserOnOwnPage ? <div onClick={e => handleSubmit(e, currentUser.id, photo.id)} ><i style={{color: "#FFD700", paddingRight: "10px"}} className="fas fa-star" /> </div> : null
-                                     
+
                             }
                         </div>
                     </div>

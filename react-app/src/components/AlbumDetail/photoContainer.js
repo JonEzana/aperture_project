@@ -18,18 +18,18 @@ export default function PhotoContainer({photo, album}) {
             backgroundRepeat: 'no-repeat',
         }
     }
-    
+
     const photoDetail = (e, photoId) => {
         e.stopPropagation();
         history.push(`/photos/${photoId}`)
     }
 
-    if (!album.user) return null 
+    if (!album.user) return null
     return (
         <div onClick={(e)=>photoDetail(e, photo.id)}>
             <div style={backgroundImageStyle(photo.url)} className="photo-detail-container" ref={ref} onMouseEnter={() => setAlbumInfoBox(true)} onMouseLeave={() => setAlbumInfoBox(false)} key={photo.id}>{albumInfoBox && <div className="text">
 
-                    <div className="title-and-name">
+                    <div className="title-and-name" style={{backgroundColor: "rgba(0, 0, 0, 0.236)"}} >
                         <div>{photo.title}</div>
                         <div>by {album.user.firstName} {album.user.lastName}</div>
                     </div>

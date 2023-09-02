@@ -38,4 +38,3 @@ export default function AlbumPhotoContainer({photo, album}) {
         </div>
     )
 }
-

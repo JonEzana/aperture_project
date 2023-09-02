@@ -37,9 +37,17 @@
   cursor: pointer;
   text-wrap: nowrap;
 }
-.new-spot-link:hover{
+/* .new-spot-link:hover{
   color: #1a7897
+} */
+
+#navbarlink {
+  border: 2px solid red;
 }
+
+/* #navbarlink .new-spot-link:hover {
+  color: #1a7897;
+} */
 
 .upload-links{
   display: flex;
@@ -52,6 +60,8 @@
   margin-left: 5%;
   align-items: center;
 }
+
+
 
 /* #right-side-nav{
   display: flex;
