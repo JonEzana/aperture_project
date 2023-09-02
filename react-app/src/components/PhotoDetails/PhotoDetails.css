@@ -18,7 +18,7 @@
   border: 1px solid yellow;
 }
 
-#detail-go-back {
+/* #detail-go-back {
   border: 1px solid pink;
   width: 200px;
   margin-top: 400px;
@@ -27,7 +27,7 @@
   position: fixed;
   bottom: 93%;
   right: 79%;
-}
+} */
 
 #detail-pic {
   padding: 140px 0px 70px;

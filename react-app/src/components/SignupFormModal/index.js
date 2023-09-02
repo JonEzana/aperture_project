@@ -175,12 +175,12 @@ function SignupFormModal() {
 
 					{errors.bio && <p className="errors">{errors.bio}</p>}
 
-					<label>Upload your profile picture</label>
+					<label id='file-label'>Upload your profile picture:</label>
 						<input
 							className="signup-input"
 							type="file"
 							onChange={(e) => setProfilePic(e.target.files[0])}
-							placeholder="Profile Picture"
+							// placeholder="Profile Picture"
 							accept="image/png, image/jpeg, image/jpg, image/gif, image/pdf"
 							required
 						/>
