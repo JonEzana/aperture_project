@@ -50,7 +50,6 @@ function ProfileButton({ user }) {
     closeMenu();
     await dispatch(thunkGetCurrentUserPhotos(id))
     await dispatch(fetchUser(id));
-    console.log('user.id in profile button manage', id)
     history.push(`/users/${id}/photos`)
 
   }

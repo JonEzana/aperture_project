@@ -38,13 +38,11 @@ def login():
     # form manually to validate_on_submit can be used
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        print ('inside backend it is validated!!!!!!!!!!!!!!!!')
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
         return user.to_dict()
     else:
-        print ('!!!!alsdkjfalsdajfslkd!!!!!!', validation_errors_to_error_messages(form.errors))
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -73,7 +71,7 @@ def sign_up():
         #   return render_template("post_form.html", form=form, errors=[upload])
             return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-            print('___________URL')
+
         user = User(
             username=form.data['username'],
             email=form.data['email'],
@@ -90,7 +88,6 @@ def sign_up():
         return user.to_dict()
 
     if form.errors:
-            print('FORM ERRORS.......', form.errors)
             return {"form errors": form.errors}
 
 
@@ -98,7 +95,7 @@ def sign_up():
 def sign_up_no_file():
     form = SignUpFormNoFile()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('_________---_________ form data', form.data)
+
     if form.validate_on_submit():
         user = User(
             username=form.data['username'],
@@ -116,7 +113,6 @@ def sign_up_no_file():
         return user.to_dict()
 
     if form.errors:
-            print('FORM ERRORS.......', form.errors)
             return {"form errors": form.errors}
 
 

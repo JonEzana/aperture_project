@@ -26,7 +26,6 @@ export default function AllAlbums({ backgroundUrl }) {
     const userAlbum = albums.filter(album => album.userId == userId)
     const routetoEdit = (e, albumId, userId) => {
         e.stopPropagation()
-        console.log(userId)
         history.push('/albums/new', { type: 'edit', albumId, userId})
     }
 

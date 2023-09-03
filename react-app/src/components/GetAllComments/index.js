@@ -5,13 +5,10 @@ export default function GetAllCommentsByPhotoIdFunction({comment, currentUser, p
 
   function convertDate(date) {
     const splitData = date.split(' ')
-    console.log('regular date = ', date)
-    console.log('splitData = ', splitData)
     const cleanData = `${splitData[2]} ${splitData[1]}, ${splitData[3]}`
     return cleanData;
   }
 
-  // console.log('commentttttttt =')
   if (comment && comment["Author"] == undefined) return <></>
     return (
       <div id='comment-card'>
