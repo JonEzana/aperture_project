@@ -83,7 +83,6 @@ export const thunkDeletePhoto = (photoId) => async (dispatch) => {
 }
 
 export const thunkCreatePhoto = (formData) => async (dispatch) => {
-    console.log('in thunk')
     const res = await fetch('/api/photos/new', {
         method: "POST",
         body: formData
@@ -91,44 +90,34 @@ export const thunkCreatePhoto = (formData) => async (dispatch) => {
 
     if (res.ok) {
         const photo = await res.json();
-        console.log('res ok photo', photo)
         dispatch(createPhoto(photo));
         return photo;
     } else if (res.status < 500) {
-        console.log('status < 500')
 		const data = await res.json();
 		if (data.errors) {
-            console.log('data errors', data.errors)
 			return data.errors;
 		}
 	} else {
-        console.log('failed')
 		return ["An error occurred. Please try again."];
 	}
 }
 
 export const thunkUpdatePhoto = (formData) => async (dispatch) => {
-    console.log('in update thunk')
     const res = await fetch(`/api/photos/${formData.photoId}/edit`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
     });
     if (res.ok) {
-        console.log('res.ok')
         const updatedPhoto = await res.json();
-        console.log('res.ok and updatedPhtt', updatedPhoto)
         dispatch(updatePhoto(updatedPhoto));
         return updatedPhoto;
     } else if (res.status < 500) {
-        console.log('res.status < 500')
 		const data = await res.json();
 		if (data.errors) {
-            console.log('data.errors', data.errors)
 			return data.errors;
 		}
 	} else {
-        console.log('FAILURE')
 		return ["An error occurred. Please try again."];
 	}
 
@@ -169,16 +158,16 @@ export const thunkUpdatePhotoListAlbum = (photoData, albumId) => async (dispatch
                 },
                 body: JSON.stringify(photoData)
     })
-    
+
     if (res.ok) {
-       
+
         const data = await res.json()
-       
+
         dispatch(getalbum_photo(data));
-     
+
     } else {
         const error = await res.json()
-    
+
         throw error
     }
 
@@ -240,7 +229,6 @@ export default function photosReducer(state = initialState, action) {
         }
 
         case ALBUM_PHOTO: {
-            console.log('~~~~~~~~~~~~~~~~~~albumphoto', action.photos)
             const newState ={...state, allPhotos:{}}
             action.photos.photos.forEach(photo => {
                 newState.allPhotos[photo.id] = photo;

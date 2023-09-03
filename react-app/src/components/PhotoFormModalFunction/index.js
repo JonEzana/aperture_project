@@ -35,11 +35,9 @@ export const PhotoFormModalFunction = ({ photo, formType }) => {
     closeModal();
     if (formType === "Update") {
       const picData = {title, description, photoId: photo.id};
-      console.log('handle submit, photoid', picData["photoId"])
       const updatedPhoto = await dispatch(sessionActions.thunkUpdatePhoto(picData));
 
       if (updatedPhoto.id) {
-        console.log('successful update', updatedPhoto)
         await dispatch(sessionActions.thunkGetCurrentUserPhotos(currentUser.id));
         closeModal();
         history.push(`/users/${currentUser.id}/photos`);

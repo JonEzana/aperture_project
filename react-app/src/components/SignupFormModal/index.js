@@ -69,7 +69,7 @@ function SignupFormModal() {
 			formData.append("profile_pic", profilePic)
 			formData.append("password", password)
 			formData.append("bio", bio)
-			console.log(formData)
+
 			await dispatch(sessionActions.signUp(formData));
 			closeModal();
 			setEmail('')
