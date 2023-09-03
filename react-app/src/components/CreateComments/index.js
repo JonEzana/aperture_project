@@ -45,7 +45,7 @@ export const CreateComments = () => {
                     value={commentTxt}
                     onChange={(e) => setCommentTxt(e.target.value)}
                     type="textarea"
-                    style={{height:'200px', width:'350px'}}
+                    style={{height:'200px', width:'350px', fontSize:'17px'}}
                 />
                 {valObj.commentTxt && <p className="errors">{valObj.commentTxt}</p>}
                 <button type="submit" disabled={disabled} id='comment-post-button'>Post</button>
