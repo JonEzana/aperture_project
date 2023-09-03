@@ -67,10 +67,10 @@ function ProfileButton({ user }) {
             <div className="dropdown-content loggedin">
               <p className="hello">Hello, {user.firstName}!</p>
               <p className="email">{user.email}</p>
-              <hr style={{background: "black", height: "1px", width: "100%" }}/>
+              {/* <hr style={{background: "black", height: "1px", width: "100%" }}/> */}
 
               <button className="manage-btn" onClick={(e, id) => manage(e, user.id)}>My Profile</button>
-              <hr style={{background: "black", height: "1px", width: "100%" }}/>
+              {/* <hr style={{background: "black", height: "1px", width: "100%" }}/> */}
 
               <button className="logout-btn" onClick={handleLogout}>Log Out</button>
             </div>
