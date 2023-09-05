@@ -83,7 +83,6 @@ export const thunkDeletePhoto = (photoId) => async (dispatch) => {
 }
 
 export const thunkCreatePhoto = (formData) => async (dispatch) => {
-    console.log('in thunk')
     const res = await fetch('/api/photos/new', {
         method: "POST",
         body: formData
@@ -91,44 +90,34 @@ export const thunkCreatePhoto = (formData) => async (dispatch) => {
 
     if (res.ok) {
         const photo = await res.json();
-        console.log('res ok photo', photo)
         dispatch(createPhoto(photo));
         return photo;
     } else if (res.status < 500) {
-        console.log('status < 500')
 		const data = await res.json();
 		if (data.errors) {
-            console.log('data errors', data.errors)
 			return data.errors;
 		}
 	} else {
-        console.log('failed')
 		return ["An error occurred. Please try again."];
 	}
 }
 
 export const thunkUpdatePhoto = (formData) => async (dispatch) => {
-    console.log('in update thunk')
     const res = await fetch(`/api/photos/${formData.photoId}/edit`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
     });
     if (res.ok) {
-        console.log('res.ok')
         const updatedPhoto = await res.json();
-        console.log('res.ok and updatedPhtt', updatedPhoto)
         dispatch(updatePhoto(updatedPhoto));
         return updatedPhoto;
     } else if (res.status < 500) {
-        console.log('res.status < 500')
 		const data = await res.json();
 		if (data.errors) {
-            console.log('data.errors', data.errors)
 			return data.errors;
 		}
 	} else {
-        console.log('FAILURE')
 		return ["An error occurred. Please try again."];
 	}
 
@@ -160,29 +149,27 @@ export const thunkUpdatePhotoList = (photoData, albumId) => async (dispatch) => 
 
 }
 
-export const thunkUpdatePhotoListAlbum = (photoData, albumId, userId) => async (dispatch) => {
+export const thunkUpdatePhotoListAlbum = (photoData, albumId) => async (dispatch) => {
 
-    const req = photoData.map(photo => {
-        console.log(userId)
-        return fetch(`/api/photos/user/${userId}/album/${albumId}/edit/${photo.id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(photo)
-        }).then(res => res.json()).catch(e => {
-            throw e
-        })
+    const res = await fetch(`/api/photos/album/${albumId}/edit`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(photoData)
     })
 
+    if (res.ok) {
 
-    Promise.allSettled(req).then(res => {
-        if (res.status === 'fulfilled') {
-            dispatch(updatePhoto(res))
-        }
-    }).catch(e => {
-        throw e
-    })
+        const data = await res.json()
+
+        dispatch(getalbum_photo(data));
+
+    } else {
+        const error = await res.json()
+
+        throw error
+    }
 
 }
 

@@ -37,7 +37,6 @@ def one_album(userId, id):
     """
     Query for one album by album id
     """
-    print('one album backend')
     one_user = User.query.get(userId).to_dict()
     one_album = Album.query.get(id).to_dict()
     one_album["user"] = one_user
@@ -81,12 +80,12 @@ def update_album(userId, id):
 
 
     if form.validate_on_submit():
-       
+
         album_to_edit.title = form.data['title']
         album_to_edit.description = form.data['description']
-        
+
         db.session.commit()
-        
+
         return album_to_edit.to_dict()
 
     if form.errors:

@@ -13,12 +13,14 @@ export const CreateComments = () => {
     const [commentTxt, setCommentTxt] = useState('');
     const [valObj, setValObj] = useState({});
     const [disabled, setDisabled] = useState(true);
+    const [buttonId, setButtonId] = useState('disabled-comment-button');
 
     useEffect(() => {
         const errObj = {};
         if (commentTxt && (commentTxt.length < 3 || commentTxt.length > 100)) errObj.commentTxt = "Comments must be between 3 and 100 characters";
         if (commentTxt.length > 3 && commentTxt.length < 100) {
             setDisabled(false);
+            setButtonId('enabled-comment-button')
         } else {
             setDisabled(true);
         }
@@ -45,10 +47,10 @@ export const CreateComments = () => {
                     value={commentTxt}
                     onChange={(e) => setCommentTxt(e.target.value)}
                     type="textarea"
-                    style={{height:'200px'}}
+                    style={{height:'200px', width:'350px', fontSize:'17px'}}
                 />
                 {valObj.commentTxt && <p className="errors">{valObj.commentTxt}</p>}
-                <button type="submit" disabled={disabled} id='comment-post-button'>Post</button>
+                <button type="submit" disabled={disabled} id={buttonId}>Post</button>
             </form>
         </div>
     )

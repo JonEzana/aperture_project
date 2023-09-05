@@ -28,7 +28,8 @@ export const UserBlurb = ({url, username, styles, userId, photoId,  currentUser,
                 <p id="home-user-name">{username}</p>
             </span>
             <span className="user-blurb-right">
-                <i className={fav ? "fas fa-star" : "far fa-star"} onClick={e => handleSubmit(e, currentUser.id, photoId)} style={{color: "#FFD700"}}></i> {count}
+                <i id='home-star' className={fav ? "fas fa-star" : "far fa-star"} onClick={e => handleSubmit(e, currentUser.id, photoId)} style={{color: "#FFD700"}}></i> 
+                <span id='home-count'>{count}</span>
             </span>
 
         </div>

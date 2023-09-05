@@ -31,12 +31,12 @@ function Navigation({ isLoaded }){
 				{ sessionUser &&
 					<OpenModalButton
 						modalComponent={ <PhotoFormModalFunction />}
-						buttonText={"Upload Your Photo"}
-
+						buttonText={"Upload Photo"}
 						style={{width: "120px", backgroundColor: "transparent", color: "white", border: "none"}}
 						className={"new-spot-link"}
 						id={"navbarlink"}
-					/>}
+					/>
+					}
 				{sessionUser && <div onClick={()=>clickCreateButton(sessionUser.id)} className="new-spot-link">
 					Create an Album
 				</div>}

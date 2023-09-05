@@ -17,6 +17,13 @@ def seed_albums():
     blkswn = Album(
         user_id=5, title='blkswn', description='description for testing'
     )
+    yeol_ramen = Album(
+        user_id=6, title='Colin stuff', description='this is my stuff ok'
+    )
+    flower = Album(
+        user_id=7, title='Vivian stuff', description='this is my cruds'
+    )
+
 
 
     db.session.add(test)
@@ -24,6 +31,8 @@ def seed_albums():
     db.session.add(bts)
     db.session.add(blackpink)
     db.session.add(blkswn)
+    db.session.add(yeol_ramen)
+    db.session.add(flower)
     db.session.commit()
 
 

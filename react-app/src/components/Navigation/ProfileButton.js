@@ -50,7 +50,6 @@ function ProfileButton({ user }) {
     closeMenu();
     await dispatch(thunkGetCurrentUserPhotos(id))
     await dispatch(fetchUser(id));
-    console.log('user.id in profile button manage', id)
     history.push(`/users/${id}/photos`)
 
   }
@@ -58,8 +57,8 @@ function ProfileButton({ user }) {
   return (
     <>
       <button onClick={openMenu} className='profile-button'>
-          <i className="fas fa-bars"></i>
-          <i className="fas fa-user-circle" />
+          <i className="fas fa-bars" id='hamburger-menu'></i>
+          <i className="fas fa-user-circle" id='profile-icon' />
         </button>
       <div className="dropdown">
         <ul className={ulClassName} ref={ulRef}>
@@ -67,10 +66,10 @@ function ProfileButton({ user }) {
             <div className="dropdown-content loggedin">
               <p className="hello">Hello, {user.firstName}!</p>
               <p className="email">{user.email}</p>
-              <hr style={{background: "black", height: "1px", width: "100%" }}/>
+              {/* <hr style={{background: "black", height: "1px", width: "100%" }}/> */}
 
               <button className="manage-btn" onClick={(e, id) => manage(e, user.id)}>My Profile</button>
-              <hr style={{background: "black", height: "1px", width: "100%" }}/>
+              {/* <hr style={{background: "black", height: "1px", width: "100%" }}/> */}
 
               <button className="logout-btn" onClick={handleLogout}>Log Out</button>
             </div>

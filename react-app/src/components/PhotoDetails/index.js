@@ -47,40 +47,39 @@ export const PhotoDetails = () => {
     return (
         <div id='outer-detail-div'>
             <div id='gray-div'>
-                <span id='detail-go-back'>
+                {/* <span id='detail-go-back'>
                     <NavLink to={`/users/${photo.userId}/photos`} style={{textDecoration: 'none', color: 'white', border: '1px solid white'}}>
                         <i className="fas fa-arrow-left" style={{color: 'white'}}></i>
                         &nbsp;&nbsp;Back to Photostream
                     </NavLink>
-                </span>
+                </span> */}
                 <img src={photo?.url} alt={photo?.title} id='detail-pic'></img>
             </div>
-            <div id='detail-bottom-outer'>
-            <div id='detail-bottom'>
-                <span id='detail-user-stuff'>
-                    <img src={photo?.Owner?.profilePic} id='detail-profile-pic' onClick={(e) => handleClick(e, photo.userId)}></img>
-                    <span id='user-text'>
-                        <h2 id='username-h2'>{photo?.Owner?.username}</h2>
+            <div id='detail-mid'>
+                <span id='detail-mid-left-big'>
+                    <span id='detail-user-stuff' onClick={(e) => handleClick(e, photo.userId)}>
+                        <img src={photo?.Owner?.profilePic} id='detail-profile-pic'></img>
+                        <h3 id='username-h3'>{photo?.Owner?.username}</h3>
                     </span>
                 </span>
-                <div>
-                    {photo.title}
-                    {photo.description}
-                </div>
-                <span>Likes: {photo.favoriteCount}</span>
-                <span id='detail-like-action'>
-        
-                    <p onClick={() => handleSubmit(currentUser.id, photo.id)} style={{margin: '0px', paddingTop: '20px'}}>Favorite <i className={ currentUserFavpic.length ? "fas fa-star" : "far fa-star"}  style={{color: "#FFD700", paddingRight: "10px"}}></i></p>
+                <span id='photo-details-block'>
+                    <h3 id='detail-photo-title'>{photo.title}</h3>
+                    <div id='detail-photo-desc'>{photo.description}</div>
+                </span>
+                <span id='detail-mid-right-big'>
+                    <p id='fave-word-star' onClick={() => handleSubmit(currentUser.id, photo.id)}>Favorite <i className={ currentUserFavpic.length ? "fas fa-star" : "far fa-star"}  style={{color: "#FFD700"}}></i></p>
+                    <span id='details-like-count'>Likes: {photo.favoriteCount}</span>
                 </span>
             </div>
-            <div id='comments-container'>
-                <CreateComments />
-                {Object.values(comments).length ? comments.toReversed().map(comment =>
-                    <GetAllCommentsByPhotoIdFunction comment={comment} currentUser={currentUser} photoId={photo.id}/>
-                ):<p>rando</p>}
-            </div>
-            <span>
-            </span>
+            <div id='detail-bottom-outer'>
+                <div id='create-comments-container-div'>
+                    <CreateComments />
+                </div>
+                <div id='comments-container'>
+                    {Object.values(comments).length ? comments.toReversed().map(comment =>
+                        <GetAllCommentsByPhotoIdFunction comment={comment} currentUser={currentUser} photoId={photo.id}/>
+                    ):<p>Be the first to leave a comment!</p>}
+                </div>
             </div>
         </div>
     )

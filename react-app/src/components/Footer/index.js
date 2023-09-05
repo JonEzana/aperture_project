@@ -10,28 +10,31 @@ export const Footer = () => {
     const creators = [Colin, Vivian, Ludia, Jon];
 
     return (
-        <div className="footer-body">
-            <div className="footer-content">
-                <div className="technologies footer">
-                    <h3>Technologies Used:</h3>
-                    <span className="technology-icons">
-                        <i className="fab fa-aws"></i>
-                        <i className="fab fa-js-square"></i>
-                        <i className="fab fa-react"></i>
-                        <i className="fab fa-html5"></i>
-                        <i className="fab fa-css3"></i>
-                        <i className="fab fa-python"></i>
-                    </span>
+        <div id="footer-body">
+            <span id="technologies-left">
+                <div className='footer-h3-title-div'>
+                    Technologies Used:
                 </div>
-                <div className="creators footer">
-                    <h3>Meet the Developers:</h3>
-                    <span className="creator-profiles">
-                        {creators.map(creator =>
-                            <CreatorProfile creator={creator}/>
-                        )}
-                    </span>
+                <div id="technology-icons">
+                    <i className="fab fa-aws fa-xs"></i>
+                    <i className="fab fa-js-square fa-xs"></i>
+                    <i className="fab fa-react fa-xs"></i>
+                    <i className="fab fa-html5 fa-xs"></i>
+                    <i className="fab fa-css3 fa-xs"></i>
+                    <i className="fab fa-python fa-xs"></i>
                 </div>
-            </div>
+            </span>
+            <span id="creators-right">
+                <div className='footer-h3-title-div'>
+                    Meet the Devs:
+                </div>
+                <div id='profile-items-container'>
+                    {creators.map(creator =>
+                        <CreatorProfile creator={creator} creators={creators}/>
+                    )}
+                </div>
+            </span>
         </div>
     )
 }
+
