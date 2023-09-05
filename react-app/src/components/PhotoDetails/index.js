@@ -57,8 +57,8 @@ export const PhotoDetails = () => {
             </div>
             <div id='detail-mid'>
                 <span id='detail-mid-left-big'>
-                    <span id='detail-user-stuff'>
-                        <img src={photo?.Owner?.profilePic} id='detail-profile-pic' onClick={(e) => handleClick(e, photo.userId)}></img>
+                    <span id='detail-user-stuff' onClick={(e) => handleClick(e, photo.userId)}>
+                        <img src={photo?.Owner?.profilePic} id='detail-profile-pic'></img>
                         <h3 id='username-h3'>{photo?.Owner?.username}</h3>
                     </span>
                     <span id='photo-details-block'>
