@@ -61,10 +61,10 @@ export const PhotoDetails = () => {
                         <img src={photo?.Owner?.profilePic} id='detail-profile-pic'></img>
                         <h3 id='username-h3'>{photo?.Owner?.username}</h3>
                     </span>
-                    <span id='photo-details-block'>
-                        <h3 id='detail-photo-title'>{photo.title}</h3>
-                        <div id='detail-photo-desc'>{photo.description}</div>
-                    </span>
+                </span>
+                <span id='photo-details-block'>
+                    <h3 id='detail-photo-title'>{photo.title}</h3>
+                    <div id='detail-photo-desc'>{photo.description}</div>
                 </span>
                 <span id='detail-mid-right-big'>
                     <p id='fave-word-star' onClick={() => handleSubmit(currentUser.id, photo.id)}>Favorite <i className={ currentUserFavpic.length ? "fas fa-star" : "far fa-star"}  style={{color: "#FFD700"}}></i></p>

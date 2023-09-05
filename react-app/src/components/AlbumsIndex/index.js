@@ -53,6 +53,8 @@ export default function AllAlbums({ backgroundUrl }) {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
+            width: '300px',
+            height: '300px'
         }
     }
 
@@ -80,16 +82,16 @@ export default function AllAlbums({ backgroundUrl }) {
             <div className='albums-container'>
                 {sortAlbumList(userAlbum).toReversed().map(album => <div onClick={() => detailsAlbum(album.userId, album.id)} className='album' style={backgroundImageStyle(album)} key={album.id}>
                     <div className='title-photo-container'>
-                        <div>
+                        <span style={{paddingLeft:'4px'}}>
                             <div>{album.title}</div>
-                            <div>{album.photos?.length == 1 || album.photos?.length === 0 ? `${album.photos?.length} photo` : `${album.photos?.length} photos`} </div>
-                        </div>{
+                            <div style={{fontSize: "11px"}}>{album.photos?.length == 1 || album.photos?.length === 0 ? `${album.photos?.length} photo` : `${album.photos?.length} photos`} </div>
+                        </span >{
                             currentUser.id == userId ? <div className='Edit-Delete-Album'>
                             <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id, userId)}>
                                 <i className='fas fa-edit'/>
                             </div>
                             <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id, userId)}>
-                                <OpenModalButton modalComponent={<DeleteAlbum album={album} />} buttonText={<i className="fas fa-trash-alt" style={{color: "white", cursor:'pointer'}}></i>} style={{backgroundColor: "transparent", border: "none"}}/>
+                                <OpenModalButton modalComponent={<DeleteAlbum album={album} />} buttonText={<i className="fas fa-trash-alt" style={{color: "white", cursor:'pointer'}}></i>} style={{backgroundColor: "transparent", border: "none", paddingRight:'10px'}}/>
                             </div>
                             </div>
                             :
