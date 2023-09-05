@@ -43,10 +43,10 @@
   width: 100%;
   /* border: 1px solid purple; */
   height: 85px;
-  gap: 300px;
+  gap: 200px;
   padding-right: 100px;
   border-bottom: 1px solid rgb(178, 183, 192);
-  margin-left: -23px;
+  margin-left: -50px;
 }
 
 #detail-mid-left-big {
@@ -89,10 +89,12 @@
   flex-direction: column;
   /* border: 1px solid red; */
   width: 300px;
+  justify-content: center;
+  align-items: center;
 }
 
 #detail-photo-title {
-  font-size: 18px;
+  font-size: 23px;
   font-weight: bold;
   color: rgb(60, 61, 63);
   margin: 0px;

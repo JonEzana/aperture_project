@@ -25,7 +25,8 @@ export default function PhotoHoverComponent({photo, isCurrentUserOnOwnPage, user
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            width: "300px"
+            width: '300px',
+            height: '300px'
         }
     }
 

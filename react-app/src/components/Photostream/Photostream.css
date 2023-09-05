@@ -6,8 +6,8 @@
   /* border: 2px solid red; */
   gap: 5px;
   width: 80%;
-  max-width: 1250px;
   background-color: rgb(234, 234, 242);
+  height: 300px;
   /* margin: 40px 75px 75px; */
 }
 
@@ -18,9 +18,10 @@
   background-color: rgb(234, 234, 242);
   width: 100vw;
   margin-left: -8px;
-  margin-bottom: 300px;
+  margin-bottom: 200px;
+  height: 320px;
 }
 
 .user-photos-pic {
-  max-height: 300px;
+  height: 300px;
 }
