@@ -272,4 +272,38 @@
   color: rgb(60, 61, 63);
 }
 
+.edit-mode-off{
+  display: flex;
+  gap: 15px;
+}
 
+.fa-edit{
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  border: none;
+  background-color: rgb(138, 141, 145);
+  border-radius: 5px;
+}
+.comment-edit-mode-buttons{
+  display: flex;
+  gap: 15px;
+}
+
+.comment-cancel-btn{
+  background-color: transparent;
+  border: none;
+}
+
+.comment-cancel-btn:hover{
+  cursor: pointer;
+}
+
+.edit-mode{
+  display: flex;
+  justify-content: center;
+  border: 3px solid rgb(157, 204, 255);
+  border-radius: 30px;
+  width: 70%;
+  padding: 10px;
+}
