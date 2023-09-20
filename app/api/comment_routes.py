@@ -1,7 +1,7 @@
 from flask import Blueprint, session, request
 from flask_login import login_required, current_user
 from app.models import Photo, db, Comment, User
-from app.forms import CreateCommentForm
+from app.forms import CreateCommentForm, UpdateCommentForm
 
 comment_routes = Blueprint('comments', __name__)
 
@@ -57,3 +57,21 @@ def delete_comment(id):
   db.session.delete(to_delete)
   db.session.commit()
   return {"Message": "Comment Deleted Successfully"}
+
+
+@comment_routes.route('/<int:id>/edit', methods=["PUT"])
+@login_required
+def update_comment(id):
+  comment_to_update = Comment.query.get(id)
+  form = UpdateCommentForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+
+  if form.validate_on_submit():
+    comment_to_update.comment = form.data["comment"]
+    db.session.commit()
+
+    return comment_to_update.to_dict()
+
+  if form.errors:
+    print('update comment form errors', form.errors)
+    return {"errors": form.errors}
