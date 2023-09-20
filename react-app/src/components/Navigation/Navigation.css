@@ -37,17 +37,19 @@
   cursor: pointer;
   text-wrap: nowrap;
 }
-/* .new-spot-link:hover{
-  color: #1a7897
+
+/* #upload-photo-link {
+  border: 2px solid red;  
 } */
 
-#navbarlink {
-  border: 2px solid red;
+#upload-photo-link:hover{
+  color: #21b9ff;  
 }
 
-/* #navbarlink .new-spot-link:hover {
-  color: #1a7897;
-} */
+
+.new-spot-link:hover {
+  color: #21b9ff;
+} 
 
 .upload-links{
   display: flex;

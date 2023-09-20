@@ -14,10 +14,11 @@
 #gray-div {
   display: flex;
   justify-content: center;
-  width: 101vw;
+  width: 100%;
   background-color: rgb(25, 25, 30);
   margin: -23px 0 0 -20px;
   border: 1px solid yellow;
+  padding-right: 100px;
 }
 
 /* #detail-go-back {
@@ -133,13 +134,14 @@
 }
 
 #detail-bottom-outer {
-  width: 101vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   /* border: 2px solid green; */
   background-color:  rgb(236, 243, 255);
   margin-left: -23px;
+  padding-right: 100px;
 }
 
 #comments-container {
