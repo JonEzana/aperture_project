@@ -2,6 +2,8 @@
     /* border: 2px solid red; */
     display: flex;
     justify-content: space-between;
+    background-color: #47688a;
+    height: 100%;
 }
 
 .user-blurb-left {

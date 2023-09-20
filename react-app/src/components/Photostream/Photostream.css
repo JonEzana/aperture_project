@@ -1,25 +1,26 @@
+#user-photos-container-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  /* background-color: rgb(234, 234, 242); */
+
+  background-color: #eaeaea;
+  margin-left: -8px;
+  margin-right: -8px;
+  padding-bottom: 80px;
+  min-height: 600px;
+}
+
 #user-photos-container {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: flex-start;
-  /* border: 2px solid red; */
   gap: 5px;
-  width: 80%;
-  background-color: rgb(234, 234, 242);
-  height: 300px;
-  /* margin: 40px 75px 75px; */
-}
+  margin: 45px 45px 45px 75px;
 
-#user-photos-container-container {
-  display: flex;
-  justify-content: center;
-  /* border: 2px solid blue; */
-  background-color: rgb(234, 234, 242);
-  width: 100vw;
-  margin-left: -8px;
-  margin-bottom: 200px;
-  height: 320px;
 }
 
 .user-photos-pic {

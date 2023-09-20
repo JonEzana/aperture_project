@@ -30,15 +30,26 @@ export const PhotosIndex = () => {
         photo["Owner"] = userArr.find(user => user.id === photo.userId)
     });
 
+    const hotPhotos = photos.sort((a,b) => {
+        const favCountA = a.favoriteCount;
+        const favCountB = b.favoriteCount;
+
+        if (favCountA > favCountB) {
+            return -1
+        } else if (favCountA === favCountB ) {
+           return 0
+        } else return 1;
+    })
+
     return (
         <div className='container-container'>
             <div className='all-photos-container'>
-                {photos.map(photo =>
+                    <h1>Explore Popular Photos</h1>
+
+                <div id="cards-container">
+                {hotPhotos.map(photo =>
                     <span className='all-photos-card' title={photo.name} key={photo.id} >
-                        {/* <div onClick={()=>history.push(`/photos/${photo.id}`)}> */}
-                            <img className='all-photos-pic' src={photo.url} alt={photo.title} style={{ borderTopRightRadius: "10px", borderTopLeftRadius: "10px" }} onClick={()=>history.push(`/photos/${photo.id}`)}></img>
-                        {/* </div> */}
-                        {/* <div> */}
+                            <img className='all-photos-pic' src={photo.url} alt={photo.title} onClick={()=>history.push(`/photos/${photo.id}`)}></img>
                             <UserBlurb photoId={photo.id} userId={photo.userId}
                                 url={photo?.Owner?.profilePic}
                                 username={photo?.Owner?.username}
@@ -47,11 +58,10 @@ export const PhotosIndex = () => {
                                 currentUser={currentUser}
                                 userFavpic={favPics}
                                 count={photo.favoriteCount}
-                            />
-                        {/* </div> */}
-
+                                />
                     </span>
                 )}
+                </div>
             </div>
         </div>
     )
