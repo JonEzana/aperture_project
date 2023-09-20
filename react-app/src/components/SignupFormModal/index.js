@@ -18,7 +18,7 @@ function SignupFormModal() {
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState({});
 	const [disabled, setDisabled] = useState(true);
-	const [buttonId, setButtonId] = useState("disabled-signup-button");
+	const [buttonClass, setButtonClass] = useState("disabled-signup-button");
 	const [imageLoading, setImageLoading] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
 	const [userBackgroundImg, setUserBackgroundImg] = useState(null)
@@ -36,7 +36,7 @@ function SignupFormModal() {
 
 		if (username.length >= 4 && password.length >= 6 && firstName.length >= 3 && firstName.length <= 50 && lastName.length >= 3 && lastName.length <= 50 && (bio && bio.length <= 200) && password === confirmPassword) {
 			setDisabled(false);
-			setButtonId("enabled-signup-button")
+			setButtonClass("enabled-signup-button")
 		}
 
 		showPassword === false ? setPwType("password") : setPwType("text");
@@ -195,7 +195,7 @@ function SignupFormModal() {
 						/>
 
 				</div>
-				<button disabled={disabled} id={buttonId} type="submit">Sign Up</button>
+				<button disabled={disabled} className={buttonClass} type="submit">Sign Up</button>
 				{(imageLoading)&& <p>Loading...</p>}
 			</form>
 		</div>
