@@ -18,9 +18,10 @@ function SignupFormModal() {
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState({});
 	const [disabled, setDisabled] = useState(true);
-	const [buttonId, setButtonId] = useState("disabled-signup-button");
+	const [buttonClass, setButtonClass] = useState("disabled-signup-button");
 	const [imageLoading, setImageLoading] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
+	const [userBackgroundImg, setUserBackgroundImg] = useState(null)
 	const [pwType, setPwType] = useState("password");
 	const { closeModal } = useModal();
 
@@ -33,15 +34,15 @@ function SignupFormModal() {
 		if (bio && bio.length > 200) errObj.bio = "Bio must be 200 characters or less";
 		if (confirmPassword && confirmPassword !== password) errObj.confirmPassword = "Password and Confirm Password fields must match";
 
-		if (username.length >= 4 && password.length >= 6 && firstName.length >= 3 && firstName.length <= 50 && lastName.length >= 3 && lastName.length <= 50 && bio.length <= 200 && password === confirmPassword && profilePic) {
+		if (username.length >= 4 && password.length >= 6 && firstName.length >= 3 && firstName.length <= 50 && lastName.length >= 3 && lastName.length <= 50 && password === confirmPassword) {
 			setDisabled(false);
-			setButtonId("enabled-signup-button")
+			setButtonClass("enabled-signup-button")
 		}
 
 		showPassword === false ? setPwType("password") : setPwType("text");
 
 		setErrors(errObj);
-	}, [firstName, lastName, username, password, confirmPassword, showPassword, profilePic]);
+	}, [firstName, lastName, username, password, confirmPassword, showPassword, bio]);
 
 	const handleShowPW = () => {
 		!showPassword ? setShowPassword(true) : setShowPassword(false);
@@ -66,10 +67,10 @@ function SignupFormModal() {
 			formData.append("username", username)
 			formData.append("first_name", firstName)
 			formData.append("last_name", lastName)
-			formData.append("profile_pic", profilePic)
+			if(profilePic)formData.append("profile_pic", profilePic)
 			formData.append("password", password)
 			formData.append("bio", bio)
-
+			if(userBackgroundImg)formData.append('user_background_pic', userBackgroundImg)
 			await dispatch(sessionActions.signUp(formData));
 			closeModal();
 			setEmail('')
@@ -172,7 +173,7 @@ function SignupFormModal() {
 							placeholder="Bio (optional)"
 							style={{height: '80px'}}
 						/>
-
+						<p>{bio.length}/200</p>
 					{errors.bio && <p className="errors">{errors.bio}</p>}
 
 					<label id='file-label'>Upload your profile picture:</label>
@@ -182,11 +183,19 @@ function SignupFormModal() {
 							onChange={(e) => setProfilePic(e.target.files[0])}
 							// placeholder="Profile Picture"
 							accept="image/png, image/jpeg, image/jpg, image/gif, image/pdf"
-							required
+						/>
+					
+					<label id='file-label'>Upload your background picture:</label>
+						<input
+							className="signup-input"
+							type="file"
+							onChange={(e) => setUserBackgroundImg(e.target.files[0])}
+							// placeholder="Profile Picture"
+							accept="image/png, image/jpeg, image/jpg, image/gif, image/pdf"
 						/>
 
 				</div>
-				<button disabled={disabled} id={buttonId} type="submit">Sign Up</button>
+				<button disabled={disabled} className={buttonClass} type="submit">Sign Up</button>
 				{(imageLoading)&& <p>Loading...</p>}
 			</form>
 		</div>

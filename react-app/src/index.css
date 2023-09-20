@@ -7,9 +7,6 @@ body {
     cursor: pointer;
 }
 
-#navbarlink:hover{
-    cursor: pointer;
-}
 .errors {
     color: red;
 }
