@@ -52,11 +52,15 @@ export default function AlbumDetail() {
                 </NavLink>
             </div>
             <div className='album-detail-container' style={backgroundImageStyle(previewUrl.length ? previewUrl[0] : backgroundImg)}>
-                <div className='title'>{album.title}</div>
-                <div>{album.description}</div>
-                <div>{res(allPhotos, userId).length == 1 ? '1 photo' : `${res(allPhotos, userId).length} photos`}</div>
+                <div id='album-detail-info-card'>
+                    <h1 id='album-title'>{album.title}</h1>
+                    <div id='album-tiddly-bits'>
+                        <div>{album.description}</div>
+                        <div>{res(allPhotos, userId).length == 1 ? '1 photo' : `${res(allPhotos, userId).length} photos`}</div>
+                        <div>By: {album.user?.firstName} {album.user?.lastName}</div>
+                    </div>
+                </div>
 
-                <NavLink to={`/users/${userId}/photos`}>By: {album.user?.firstName} {album.user?.lastName}</NavLink>
             </div>
             <div className='photos-container'>
                 {res(allPhotos, userId).sort((a, b) => {
