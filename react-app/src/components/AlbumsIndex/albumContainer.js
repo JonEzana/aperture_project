@@ -12,7 +12,7 @@ export const AlbumContainer = ({userAlbum, userId, currentUser}) => {
         history.push('/albums/new', { type: 'edit', albumId, userId})
     }
 
- 
+
     const photoUrl = (album) => {
         if (album.photos) {
             for (let photo of album.photos) {
@@ -52,29 +52,31 @@ export const AlbumContainer = ({userAlbum, userId, currentUser}) => {
     }
 
     return (
-        <div className='albums-container'>
-        {sortAlbumList(userAlbum).toReversed().map(album => <div onMouseEnter={()=>setInfoBox(true)} onMouseLeave={()=>setInfoBox(false)} onClick={() => detailsAlbum(album.userId, album.id)} className='album' style={backgroundImageStyle(album)} key={album.id}>
-            {infoBox && <div className='title-photo-container'>
-                <span style={{paddingLeft:'4px'}}>
-                    <div>{album.title}</div>
-                    <div style={{fontSize: "11px"}}>{album.photos?.length == 1 || album.photos?.length === 0 ? `${album.photos?.length} photo` : `${album.photos?.length} photos`} </div>
-                </span >{
-                    currentUser.id == userId ? <div className='Edit-Delete-Album'>
-                    <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id, userId)}>
-                        <i className='fas fa-edit'/>
+        <div className="albums-container-container">
+            <div className='albums-container'>
+            {sortAlbumList(userAlbum).toReversed().map(album => <div onMouseEnter={()=>setInfoBox(true)} onMouseLeave={()=>setInfoBox(false)} onClick={() => detailsAlbum(album.userId, album.id)} className='album' style={backgroundImageStyle(album)} key={album.id}>
+                {infoBox && <div className='title-photo-container'>
+                    <span style={{paddingLeft:'4px'}}>
+                        <div>{album.title}</div>
+                        <div style={{fontSize: "11px"}}>{album.photos?.length == 1 || album.photos?.length === 0 ? `${album.photos?.length} photo` : `${album.photos?.length} photos`} </div>
+                    </span >{
+                        currentUser.id == userId ? <div className='Edit-Delete-Album'>
+                        <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id, userId)}>
+                            <i className='fas fa-edit'/>
+                        </div>
+                        <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id, userId)}>
+                            <OpenModalButton modalComponent={<DeleteAlbum album={album} />} buttonText={<i className="fas fa-trash-alt" style={{color: "white", cursor:'pointer'}}></i>} style={{backgroundColor: "transparent", border: "none", paddingRight:'10px'}}/>
+                        </div>
+                        </div>
+                        :
+                        <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id, userId)}>
                     </div>
-                    <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id, userId)}>
-                        <OpenModalButton modalComponent={<DeleteAlbum album={album} />} buttonText={<i className="fas fa-trash-alt" style={{color: "white", cursor:'pointer'}}></i>} style={{backgroundColor: "transparent", border: "none", paddingRight:'10px'}}/>
-                    </div>
-                    </div>
-                    :
-                     <div id='album-arrow-icon' onClick={e => routetoEdit(e, album.id, userId)}>
-                 </div>
-                    }
-            </div>}
-        </div>
-        )}
+                        }
+                </div>}
+            </div>
+            )}
 
+        </div>
     </div>
     )
 }

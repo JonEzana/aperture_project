@@ -4,7 +4,9 @@
   flex-direction: row;
   justify-content: flex-start;
 
-  background-color: rgb(234, 234, 242);
+  /* background-color: rgb(234, 234, 242); */
+
+  background-color: #eaeaea;
   margin-left: -8px;
   margin-right: -8px;
   padding-bottom: 80px;
