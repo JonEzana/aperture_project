@@ -74,11 +74,12 @@ export default function AllAlbums({ backgroundUrl }) {
 
 
     return (
-        <div>
+        <div className='albums-page'>
             <ProfileHeader userId={userId} url={backgroundUrl} />
             <ProfileNav userId={userId} />
 
             {/* {currentUser.id == userId && <div id='create-new-album'><div className='album-link' onClick={()=> routetoNew(userId)}>New album</div></div>} */}
+            <div className='albums-container-container'>
             <div className='albums-container'>
                 {sortAlbumList(userAlbum).toReversed().map(album => <div onClick={() => detailsAlbum(album.userId, album.id)} className='album' style={backgroundImageStyle(album)} key={album.id}>
                     <div className='title-photo-container'>
@@ -101,6 +102,8 @@ export default function AllAlbums({ backgroundUrl }) {
                     </div>
                 </div>
                 )}
+
+            </div>
 
             </div>
         </div>
