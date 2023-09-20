@@ -1,22 +1,9 @@
-/* #outer-detail-div {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 100vw;
-  height: 100vh;
-  border: 1px solid blue;
-  padding: 0px;
-  margin-top: -23px;
-  align-items: center;
-} */
-/* this top stuff u need for ??  check */
 
 #gray-div {
   display: flex;
   justify-content: center;
   width: 100%;
   background-color: rgb(25, 25, 30);
-  margin: -23px 0 0 -20px;
   border: 1px solid yellow;
   padding-right: 100px;
 }
@@ -46,7 +33,6 @@
   height: 85px;
   gap: 200px;
   padding-right: 100px;
-  border-bottom: 1px solid rgb(178, 183, 192);
   margin-left: -50px;
 }
 
@@ -140,7 +126,7 @@
   align-items: center;
   /* border: 2px solid green; */
   background-color:  rgb(236, 243, 255);
-  margin-left: -23px;
+  border-top: 1px solid rgb(178, 183, 192);
   padding-right: 100px;
 }
 
@@ -153,6 +139,7 @@
   padding-top: 20px;
   min-height: 800px;
   gap: 20px;
+  border: 1px solid rgb(178, 183, 192);
 }
 
 #create-comments-container-div {
@@ -160,8 +147,8 @@
   background-color: white;
   display: flex;
   justify-content: center;
-  border-bottom: 10px solid rgb(236, 243, 255);
-  border-top: 10px solid rgb(236, 243, 255);
+  border: 1px solid rgb(178, 183, 192);
+  margin: 10px 0px;
 }
 
 #post-comment-section {
@@ -174,6 +161,7 @@
   border: 3px solid rgb(157, 204, 255);
   border-radius: 30px;
   padding: 30px;
+  margin: 20px;
 }
 
 #comment-mini-form {
@@ -228,7 +216,6 @@
 #comment-and-trash {
   display: flex;
   justify-content: space-between;
-  /* border: 1px solid #ff0000; */
   width: 100%;
   align-items: flex-end;
   gap: 10px;
