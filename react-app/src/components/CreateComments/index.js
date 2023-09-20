@@ -56,8 +56,8 @@ export const CreateComments = ({ oldComment, type, editMode, setEditMode }) => {
     }
 
     return (
-        <div id='post-comment-section'>
-            <form onSubmit={handleSubmit} id='comment-mini-form'>
+        <div id={type ? 'post-comment-section-update' : 'post-comment-section'}>
+            <form onSubmit={handleSubmit} id='comment-mini-form' className={!type ? "mini-form" : "edit-mini-form"}>
                 <textarea
                     placeholder="Leave your comment here!"
                     value={commentTxt}
