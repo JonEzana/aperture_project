@@ -34,7 +34,7 @@ function SignupFormModal() {
 		if (bio && bio.length > 200) errObj.bio = "Bio must be 200 characters or less";
 		if (confirmPassword && confirmPassword !== password) errObj.confirmPassword = "Password and Confirm Password fields must match";
 
-		if (username.length >= 4 && password.length >= 6 && firstName.length >= 3 && firstName.length <= 50 && lastName.length >= 3 && lastName.length <= 50 && (bio && bio.length <= 200) && password === confirmPassword) {
+		if (username.length >= 4 && password.length >= 6 && firstName.length >= 3 && firstName.length <= 50 && lastName.length >= 3 && lastName.length <= 50 && password === confirmPassword) {
 			setDisabled(false);
 			setButtonClass("enabled-signup-button")
 		}
@@ -173,7 +173,7 @@ function SignupFormModal() {
 							placeholder="Bio (optional)"
 							style={{height: '80px'}}
 						/>
-
+						<p>{bio.length}/200</p>
 					{errors.bio && <p className="errors">{errors.bio}</p>}
 
 					<label id='file-label'>Upload your profile picture:</label>
