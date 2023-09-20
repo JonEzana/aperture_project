@@ -33,7 +33,7 @@ export default function GetAllCommentsByPhotoIdFunction({comment, currentUser, p
             <div id='comment'>{comment?.comment}</div>
             {currentUser.id === comment.userId &&
               <span className="edit-mode-off">
-                <i className="fas fa-edit" onClick={handleEdit}></i>
+                <i className="fas fa-edit edit-comment-icon" onClick={handleEdit}></i>
                 <OpenModalButton
                 modalComponent={<DeleteCommentsModal commentId={comment.id} userid={currentUser.id} photoId={photoId}/>}
                 buttonText={<i className="fas fa-trash-alt" id='comment-trash-icon'></i>}
