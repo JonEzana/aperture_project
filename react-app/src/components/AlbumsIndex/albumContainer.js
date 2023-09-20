@@ -53,7 +53,7 @@ export const AlbumContainer = ({userAlbum, userId, currentUser}) => {
 
     return (
         <div className='albums-container'>
-        {sortAlbumList(userAlbum).toReversed().map(album => <div onMouseEnter={()=>setInfoBox(true)} onMouseLeave={()=>setInfoBox(false)} MoonClick={() => detailsAlbum(album.userId, album.id)} className='album' style={backgroundImageStyle(album)} key={album.id}>
+        {sortAlbumList(userAlbum).toReversed().map(album => <div onMouseEnter={()=>setInfoBox(true)} onMouseLeave={()=>setInfoBox(false)} onClick={() => detailsAlbum(album.userId, album.id)} className='album' style={backgroundImageStyle(album)} key={album.id}>
             {infoBox && <div className='title-photo-container'>
                 <span style={{paddingLeft:'4px'}}>
                     <div>{album.title}</div>
