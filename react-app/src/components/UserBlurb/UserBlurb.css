@@ -2,7 +2,7 @@
     /* border: 2px solid red; */
     display: flex;
     justify-content: space-between;
-    background-color: #47688a;
+    background-color: rgb(209, 224, 242);
     height: 100%;
 }
 
@@ -27,13 +27,14 @@
 #home-star {
     /* border: 1px solid blue; */
     font-size: 20px;
+    margin-top: 21px;
 }
 
 #home-count {
     /* border: 1px solid red; */
     font-weight: bold;
     font-size: 18px;
-    color: rgb(138, 141, 159);
+    color: rgb(0, 110, 228);
 }
 
 .circle-prof-pic {
@@ -46,7 +47,8 @@
 
 #home-user-name {
     /* border: 2px solid purple; */
-    color: rgb(87, 168, 255);
+    /* color: rgb(0, 121, 250); */
+    color: rgb(0, 110, 228);
     font-weight: bold;
     font-size: 18px;
 }
