@@ -3,11 +3,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import './ProfileHeader.css'
 import { fetchUser } from '../../store/users';
 import { useBackgroundImgContext } from '../../context/BackgroundImage';
+import { compose } from 'redux';
 
 export default function ProfileHeader({userId}){
     const dispatch = useDispatch()
     const {backgroundImg, setBackgroundImg} = useBackgroundImgContext();
     const user = useSelector(state => state.users.singleUser)
+   
     useEffect(() => {
         dispatch(fetchUser(userId))
     }, [])
@@ -17,7 +19,7 @@ export default function ProfileHeader({userId}){
     const urlToString = url => {
         return `url(${url})`
     }
-
+   
     const backgroundImageStyle = (url) => {
         return {
             backgroundImage: urlToString(url),
@@ -26,9 +28,9 @@ export default function ProfileHeader({userId}){
             backgroundRepeat: 'no-repeat',
         }
     }
-
+  
     return (
-        <div className='user-profile-container' style={backgroundImageStyle(backgroundImg)}>
+        <div className='user-profile-container' style={backgroundImageStyle(user.userBackgroundPic)}>
             <div style={{width: '80%'}}>
                 <span className='profile-content'>
                     <div className='profile-img'>
