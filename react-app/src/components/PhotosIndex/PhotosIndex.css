@@ -13,7 +13,7 @@
   margin-top: 58px;
   width: 105vw;
   margin-left: -20px;
-  background-color: rgb(77, 77, 77)
+  background-color: rgb(67, 72, 85)
 }
 
 .all-photos-container {
@@ -24,10 +24,9 @@
   /* border: 2px solid red; */
   gap: 5px;
   max-width: 1250px;
-  margin-left: 85px;
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) , rgb(147, 147, 147));
-  /* background-color: rgb(77, 77, 77); */
-  margin-bottom: 200px;
+  /* background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) , rgb(147, 147, 147)); */
+  background: linear-gradient(0deg, rgb(188, 188, 188) -70%, rgb(3, 8, 32));
+  padding: 75px 35px 75px 35px;
 }
 
 #cards-container{

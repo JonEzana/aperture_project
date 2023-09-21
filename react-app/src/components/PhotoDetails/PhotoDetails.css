@@ -4,7 +4,7 @@
   justify-content: center;
   width: 100%;
   background-color: rgb(25, 25, 30);
-  border: 1px solid yellow;
+  /* border: 1px solid yellow; */
   padding-right: 100px;
 }
 
@@ -52,7 +52,8 @@
   min-width: 150px;
   gap: 13px;
   border-radius: 45px;
-  border: 3px solid rgb(178, 183, 192);
+  /* border: 3px solid rgb(178, 183, 192); */
+  border: 3px solid rgb(157, 204, 255);
   padding-left: 20px;
   height: 75px;
   cursor: pointer;
@@ -69,6 +70,7 @@
   font-weight: bold;
   margin: 0px;
   font-size: 18px;
+  color: rgb(3, 135, 243);
 }
 
 #photo-details-block {
@@ -83,12 +85,13 @@
 #detail-photo-title {
   font-size: 23px;
   font-weight: bold;
-  color: rgb(60, 61, 63);
+  color: rgb(3, 135, 243);
   margin: 0px;
 }
 
 #detail-photo-desc {
   font-size: 14px;
+  /* color: rgb(3, 135, 243); */
   color: rgb(60, 61, 63);
 }
 
@@ -107,7 +110,8 @@
   margin: 0px;
   font-weight: bold;
   font-size: 18px;
-  color: rgb(60, 61, 63);
+  /* color: rgb(60, 61, 63); */
+  color: rgb(3, 135, 243);
 }
 
 #details-like-count {
@@ -125,7 +129,8 @@
   flex-direction: column;
   align-items: center;
   /* border: 2px solid green; */
-  background-color:  rgb(236, 243, 255);
+  /* background-color:  rgb(236, 243, 255); */
+  background-color: #e6f2ff;
   border-top: 1px solid rgb(178, 183, 192);
   padding-right: 100px;
 }

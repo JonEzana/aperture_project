@@ -2,7 +2,7 @@
     /* border: 2px solid red; */
     display: flex;
     justify-content: space-between;
-    background-color: rgb(209, 224, 242);
+    background: linear-gradient(0deg, rgb(78, 84, 91) 10%, rgb(41, 41, 41));
     height: 100%;
 }
 
@@ -34,7 +34,7 @@
     /* border: 1px solid red; */
     font-weight: bold;
     font-size: 18px;
-    color: rgb(0, 110, 228);
+    color: white;
 }
 
 .circle-prof-pic {
@@ -43,12 +43,13 @@
     width: 40px;
     border-radius: 25px;
     object-fit: cover;
+    border: 2px solid rgb(255, 81, 214);
 }
 
 #home-user-name {
     /* border: 2px solid purple; */
     /* color: rgb(0, 121, 250); */
-    color: rgb(0, 110, 228);
+    color: white;
     font-weight: bold;
     font-size: 18px;
 }
