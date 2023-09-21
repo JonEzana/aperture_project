@@ -49,15 +49,21 @@
     align-items: center;
 }
 
+#album-detail-outer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #dae9fc;
+    height: 100vh;
+}
+
 .one-album-container {
-    margin-left: 100px;
-    margin-right: 100px;
+    width: 80%;
 }
 
 .photos-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    /* margin-top: 10px; */
     margin: 10px auto;
     justify-content: space-around;
     gap: 10px;
