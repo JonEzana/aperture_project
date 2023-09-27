@@ -1,7 +1,25 @@
 from app.models import db, Photo, environment, SCHEMA
 import random
 from sqlalchemy.sql import text
-
+urls = [
+"https://aperture-bucket-april-2023.s3.amazonaws.com/tornado.jpeg",
+"https://aperture-bucket-april-2023.s3.amazonaws.com/snowymountains.jpg",
+"https://aperture-bucket-april-2023.s3.amazonaws.com/snake.jpeg",
+"https://aperture-bucket-april-2023.s3.amazonaws.com/river.jpg",
+"https://aperture-bucket-april-2023.s3.amazonaws.com/redpanda.jpeg",
+"https://aperture-bucket-april-2023.s3.amazonaws.com/pig.jpeg",
+"https://aperture-bucket-april-2023.s3.amazonaws.com/rabbit.jpeg",
+"https://aperture-bucket-april-2023.s3.amazonaws.com/moon.jpg",
+"https://aperture-bucket-april-2023.s3.amazonaws.com/panda.jpeg",
+"https://aperture-bucket-april-2023.s3.amazonaws.com/house.jpeg",
+"https://aperture-bucket-april-2023.s3.amazonaws.com/forestroad2.jpg",
+"https://aperture-bucket-april-2023.s3.amazonaws.com/forestroad.jpg",
+"https://aperture-bucket-april-2023.s3.amazonaws.com/chipmunk.jpeg",
+"https://aperture-bucket-april-2023.s3.amazonaws.com/deer.jpeg",
+"https://aperture-bucket-april-2023.s3.amazonaws.com/bear.jpeg",
+"https://aperture-bucket-april-2023.s3.amazonaws.com/beach.jpg",
+"https://aperture-bucket-april-2023.s3.amazonaws.com/allanimals.jpeg"
+]
 def seed_photos():
   Photo1 = Photo(
     user_id=1, album_id=1, url="https://aperture-bucket-april-2023.s3.amazonaws.com/ONEEE.jpeg", title='Photo1', description='description1', preview_img=True, favorite_count=random.randint(1, 30)
@@ -50,7 +68,14 @@ def seed_photos():
   Photo15 = Photo(
     user_id=7, album_id=7, url="https://aperture-bucket-april-2023.s3.amazonaws.com/FIFTEEEEEN.jpeg", title='Photo15', description='description15', favorite_count=random.randint(1, 30)
   )
+  Photo15 = Photo(
+    user_id=7, album_id=7, url="https://aperture-bucket-april-2023.s3.amazonaws.com/FIFTEEEEEN.jpeg", title='Photo15', description='description15', favorite_count=random.randint(1, 30)
+  )
+  
+  _= [Photo(user_id=random.randint(1,7), album_id=random.randint(1,7), url=(urls[i]), title=f'Photo{i+16}', description=f'description{i+16}', favorite_count=random.randint(1, 30)) for i in range(len(urls))]
 
+  for photo in _:
+     db.session.add(photo)
 
   db.session.add(Photo1)
   db.session.add(Photo2)
