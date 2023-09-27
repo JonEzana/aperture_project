@@ -3,11 +3,12 @@
     /* border-top: 1px solid rgb(185, 182, 182); */
     position: fixed;
     bottom: 0;
-    width: 101vw;
+    width: 105vw;
     height: 8vh;
     display: flex;
     margin-left: -38px;
     justify-content: space-between;
+    padding: 10px 0px;
 }
 
 #technologies-left {

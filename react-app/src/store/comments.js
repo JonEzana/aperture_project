@@ -1,6 +1,7 @@
 const GET_ALL_COMMENTS = 'comments/GET_ALL';
 const CREATE_COMMENT = 'comments/createComment';
 const DELETE_COMMENT = 'comments/deleteComment';
+const UPDATE_COMMENT = "comments/updateComment";
 
 const getAllCommentsByPhotoId = (comments) => ({    //need to specify cuz later we might wanna make get all comments by current user.
   type: GET_ALL_COMMENTS,
@@ -15,6 +16,11 @@ const createComment = (comment) => ({
 const deleteComment = (commentId) => ({
   type: DELETE_COMMENT,
   payload: commentId
+});
+
+const updateComment = (comment) => ({
+  type: UPDATE_COMMENT,
+  payload: comment
 })
 
 export const thunkGetAllCommentsByPhotoId = (photoId) => async (dispatch) => {
@@ -55,7 +61,31 @@ export const thunkDeleteComment = (commentId) => async (dispatch) => {
   } else {
     const error = res.json()
     throw error
+  }
 }
+
+export const thunkUpdateComment = (commentData) => async (dispatch) => {
+  const res = await fetch(`/api/comments/${commentData.id}/edit`, {
+    method: "PUT",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(commentData)
+  })
+  if (res.ok) {
+    console.log('res ok')
+    const comment = await res.json();
+    dispatch(updateComment(comment));
+    return comment;
+  } else if (res.status < 500) {
+    console.log('status < 500')
+		const data = await res.json();
+		if (data.errors) {
+      console.log('data.errors', data.errors)
+			return data.errors;
+		}
+	} else {
+    console.log('else')
+		return ["An error occurred. Please try again."];
+	}
 }
 
 const initialState = { userComments: {}, photoComments: {} };   // user:{} is for if we wish to implement manage all comments by current user, not gonna touch.
@@ -78,6 +108,14 @@ export default function commentReducer (state = initialState, action) {
     case DELETE_COMMENT: {
       const newState = {...state, photoComments: {...state.photoComments}};
       delete newState.photoComments[action.payload];
+      return newState;
+    }
+    case UPDATE_COMMENT: {
+      const newState = {
+        ...state,
+        photoComments: {...state.photoComments, [action.payload.id]: action.payload}
+      }
+      console.log('NEW STATE: ', newState);
       return newState;
     }
     default:

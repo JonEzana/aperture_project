@@ -44,29 +44,38 @@ export default function AlbumDetail() {
     }
 
     return (
-        <div className='one-album-container'>
-            <div className='back-to-albums'>
-                <NavLink to={`/users/${userId}/albums`}>
-                    <i className="fas fa-arrow-left"></i>
-                    Back to albums list
-                </NavLink>
-            </div>
-            <div className='album-detail-container' style={backgroundImageStyle(previewUrl.length ? previewUrl[0] : backgroundImg)}>
-                <div className='title'>{album.title}</div>
-                <div>{album.description}</div>
-                <div>{res(allPhotos, userId).length == 1 ? '1 photo' : `${res(allPhotos, userId).length} photos`}</div>
+        <div id='album-detail-outer'>
 
-                <NavLink to={`/users/${userId}/photos`}>By: {album.user?.firstName} {album.user?.lastName}</NavLink>
+
+            <div className='one-album-container'>
+                <div className='back-to-albums'>
+                    <NavLink to={`/users/${userId}/albums`}>
+                        <i className="fas fa-arrow-left"></i>
+                        Back to albums list
+                    </NavLink>
+                </div>
+                <div className='album-detail-container' style={backgroundImageStyle(previewUrl.length ? previewUrl[0] : backgroundImg)}>
+                    <div id='album-detail-info-card'>
+                        <h1 id='album-title'>{album.title}</h1>
+                        <div id='album-tiddly-bits'>
+                            <div>{album.description}</div>
+                            <div>{res(allPhotos, userId).length == 1 ? '1 photo' : `${res(allPhotos, userId).length} photos`}</div>
+                            <div>By: {album.user?.firstName} {album.user?.lastName}</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div className='photos-container'>
+                    {res(allPhotos, userId).sort((a, b) => {
+                    const latest = new Date(a.createdAt)
+                    const earliest = new Date(b.createdAt)
+                    if (earliest.getTime() > latest.getTime()) return -1
+                    if (latest.getTime() > earliest.getTime()) return 1
+                    return 0
+                    }).map(photo => <div key={photo.id}><PhotoContainer photo={photo} album={album} /></div>)}
+                </div>
             </div>
-            <div className='photos-container'>
-                {res(allPhotos, userId).sort((a, b) => {
-                const latest = new Date(a.createdAt)
-                const earliest = new Date(b.createdAt)
-                if (earliest.getTime() > latest.getTime()) return -1
-                if (latest.getTime() > earliest.getTime()) return 1
-                return 0
-                }).map(photo => <div key={photo.id}><PhotoContainer photo={photo} album={album} /></div>)}
-            </div>
+
         </div>
     )
 }

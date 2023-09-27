@@ -55,16 +55,6 @@
   padding-top: 7px;
 }
 
-#enabled-signup-button {
-  background-color: rgb(87, 168, 255);
-  color: white;
-  border-radius: 17px;
-  border: none;
-  padding: 10px;
-  width: 65%;
-  font-size: 13px;
-}
-
 #disabled-signup-button {
   background-color: rgb(214, 233, 254);
   color: rgb(168, 170, 174);
