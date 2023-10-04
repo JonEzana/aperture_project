@@ -29,8 +29,10 @@ export const Footer = () => {
                     Meet the Devs:
                 </div>
                 <div id='profile-items-container'>
-                    {creators.map(creator =>
+                    {creators.map((creator, i) =>
+                    <div key={i}>
                         <CreatorProfile creator={creator} creators={creators}/>
+                    </div>
                     )}
                 </div>
             </span>

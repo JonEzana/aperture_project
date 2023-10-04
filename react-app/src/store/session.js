@@ -79,18 +79,18 @@ export const signUp = (formData) => async (dispatch) => {
 	});
 
 	if (response.ok) {
-		console.log('82', response)
+		
 		const data = await response.json();
 		dispatch(setUser(data));
 		return null;
 	} else if (response.status < 500) {
-		console.log('87', response)
+		
 		const data = await response.json();
 		if (data.errors) {
 			return data.errors;
 		}
 	} else {
-		console.log('93')
+		
 		return ["An error occurred. Please try again."];
 	}
 };

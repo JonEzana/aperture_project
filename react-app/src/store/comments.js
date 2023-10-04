@@ -71,19 +71,19 @@ export const thunkUpdateComment = (commentData) => async (dispatch) => {
     body: JSON.stringify(commentData)
   })
   if (res.ok) {
-    console.log('res ok')
+  
     const comment = await res.json();
     dispatch(updateComment(comment));
     return comment;
   } else if (res.status < 500) {
-    console.log('status < 500')
+ 
 		const data = await res.json();
 		if (data.errors) {
-      console.log('data.errors', data.errors)
+  
 			return data.errors;
 		}
 	} else {
-    console.log('else')
+
 		return ["An error occurred. Please try again."];
 	}
 }
@@ -115,7 +115,7 @@ export default function commentReducer (state = initialState, action) {
         ...state,
         photoComments: {...state.photoComments, [action.payload.id]: action.payload}
       }
-      console.log('NEW STATE: ', newState);
+
       return newState;
     }
     default:

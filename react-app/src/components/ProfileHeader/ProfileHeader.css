@@ -20,12 +20,12 @@
 }
 
 .names {
-    color: white;
+   
     font-size: 25px;
 }
 
 .bio {
-    color: white;
+
     font-size: 15px
 }
 
@@ -34,4 +34,8 @@
     flex-direction: column;
     /* border: 1px solid white; */
     justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0 25px;
+    border-radius: 10px;
+    color: white;
 }

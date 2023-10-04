@@ -43,36 +43,36 @@ export const Photostream = ({ backgroundUrl, fav, like }) => {
             <div>No photos yet!</div>
         </div>
     );
-
-    return (
+    if (like === 'like') {
+        return (
+            <div>
+                <ProfileHeader userId={+userId} url={backgroundUrl} />
+                <ProfileNav userId={+userId} />
+                <div id='user-photos-container-container'>
+                    <div id='user-photos-container'>
+                        {
+                            fav.length ? fav.map(photo =>
+                                <div key={photo.id}>
+                                    <PhotoHoverComponent type={"fav"} isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId} photoUrl={photo.url} ownerName={photo?.Owner?.username} />
+                                </div>
+                            ) : <p>No favorites yet</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        )
+    }
+    else return (
         <div>
             <ProfileHeader userId={+userId} url={backgroundUrl} />
             <ProfileNav userId={+userId} />
-
-            {/* <div className="new-photo-link">
-                {currentUser.id == userId &&
-                    <OpenModalButton
-                    modalComponent={<PhotoFormModalFunction />}
-                    buttonText={"Upload Your Photo"}
-                    style={{ width: "120px", backgroundColor: "transparent", color: "black", border: "none" }}
-                    className={"new-spot-link"}
-                    />}
-            </div> */}
-
             <div id='user-photos-container-container'>
                 <div id='user-photos-container'>
-                    {
-                        like === "like" ? fav?.map(photo =>
-                            <div key={photo.id}>
-                                <PhotoHoverComponent type={"fav"} isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId} photoUrl={photo.url} ownerName={photo?.Owner?.username} />
-                            </div>
-                        )
-                            :
-                            photos.toReversed().map(photo =>
-                                <div key={photo.id}>
-                                    <PhotoHoverComponent type={"photoStream"} isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId} ownerName={photo?.Owner?.username} photoUrl={photo.url} />
-                                </div>
-                            )}
+                    {photos.toReversed().map(photo =>
+                        <div key={photo.id}>
+                            <PhotoHoverComponent type={"photoStream"} isCurrentUserOnOwnPage={currentUserOnOwnPage()} photo={photo} userid={+userId} ownerName={photo?.Owner?.username} photoUrl={photo.url} />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

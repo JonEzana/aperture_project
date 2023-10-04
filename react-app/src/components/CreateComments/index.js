@@ -28,16 +28,16 @@ export const CreateComments = ({ oldComment, type, editMode, setEditMode }) => {
     }, [dispatch, commentTxt.length]);
 
     const handleSubmit = async (e) => {
-        console.log('in handle submit general')
+     
         e.preventDefault();
         let commentData = {comment: commentTxt, userId: user.id, photoId: +photoId};
 
         if (type && type === "Update") {
-            console.log('in handle submit line 35')
+       
             commentData.id = oldComment.id
             const updatedComment = await dispatch(commentActions.thunkUpdateComment(commentData, photoId))
             if (updatedComment.id) {
-                console.log('in handle submit line 39')
+           
                 await dispatch(commentActions.thunkGetAllCommentsByPhotoId(+photoId));
                 await dispatch(thunkGetSinglePhoto(+photoId));
                 setEditMode(!editMode)
