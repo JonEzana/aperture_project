@@ -2,12 +2,9 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import './ProfileHeader.css'
 import { fetchUser } from '../../store/users';
-import { useBackgroundImgContext } from '../../context/BackgroundImage';
-import { compose } from 'redux';
 
 export default function ProfileHeader({userId}){
     const dispatch = useDispatch()
-    const {backgroundImg, setBackgroundImg} = useBackgroundImgContext();
     const user = useSelector(state => state.users.singleUser)
    
     useEffect(() => {
@@ -34,7 +31,7 @@ export default function ProfileHeader({userId}){
             <div style={{width: '80%'}}>
                 <span className='profile-content'>
                     <div className='profile-img'>
-                        <img src={user.profilePic} style={{height: "100px", width: "100px", borderRadius: "50px", objectFit: 'cover'}}/>
+                        <img src={user.profilePic} alt={user.profilePic} style={{height: "100px", width: "100px", borderRadius: "50px", objectFit: 'cover'}}/>
                     </div>
                     <div className='name-and-bio'>
                         <div className='names'>{user.firstName} {user.lastName}</div>

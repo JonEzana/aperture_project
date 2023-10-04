@@ -19,7 +19,7 @@ export default function CreateAlbum() {
     const [title, setTitle] = useState(updateAlbum ? updateAlbum.title : "")
     const [description, setDescription] = useState(updateAlbum ? updateAlbum.description : "")
     const [photoIdList, setPhotoIdList] = useState(updateAlbum ? updateAlbum.photos?.map(photo => photo.id) : [])
-
+    const [error , setError] = useState({})
     const history = useHistory()
     useEffect(() => {
         dispatch(thunkGetAllPhotos())
@@ -55,10 +55,10 @@ export default function CreateAlbum() {
                 .then((album) => dispatch(thunkUpdatePhotoList(res, album.id)))
                 .then(() => dispatch(thunkGetAllPhotos()))
                 .then(() => history.push(`/users/${currentUser.id}/albums`))
-                .catch(e => console.log(e));
+                .catch(e => setError(e));
         }
         else{
-            dispatch(fetchUpdateAlbum(albumId, currentUser.id, newAlbum)).then((album) => dispatch(thunkUpdatePhotoListAlbum(res, album.id))).then(()=>dispatch(thunkGetAllPhotos())).catch(e => console.log(e))
+            dispatch(fetchUpdateAlbum(albumId, currentUser.id, newAlbum)).then((album) => dispatch(thunkUpdatePhotoListAlbum(res, album.id))).then(()=>dispatch(thunkGetAllPhotos())).catch(e => setError(e))
             history.push(`/users/${currentUser.id}/albums/${albumId}`)
         }
     }
@@ -133,6 +133,7 @@ export default function CreateAlbum() {
                         </span>
 
                     </div>
+                    {error && <p>{error}</p>}
                     <div id='album-button-div'>
                         <button id='yes-album'>{type === 'edit' ? 'Update Album' : 'Submit'}</button>
                         <button id='no-album' onClick={()=>handleCancel(currentUser.id)}>Cancel</button>
