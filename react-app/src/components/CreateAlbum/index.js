@@ -8,6 +8,7 @@ import { thunkUpdatePhotoList, thunkUpdatePhotoListAlbum  } from '../../store/ph
 import { useHistory } from 'react-router-dom'
 
 export default function CreateAlbum() {
+    console.log('IN CREATE ALBUM ')
     const photos = Object.values(useSelector(state => state.photos.allPhotos))
     const currentUser = useSelector(state => state.session.user)
     const dispatch = useDispatch()
@@ -24,6 +25,7 @@ export default function CreateAlbum() {
     useEffect(() => {
         dispatch(thunkGetAllPhotos())
     }, [])
+
 
     if (!photos.length || !currentUser) return null;
     const userPhotos = photos.filter(photo => photo.userId == currentUser.id)
@@ -104,7 +106,7 @@ export default function CreateAlbum() {
                             <div id='select-photo'>Choose your photos:</div>
                             <div className='photo-container'>
                                 {type === 'create' ?
-                                    userPhotos.filter(photo => photo.albumId === null ).map(photo =>
+                                   ( userPhotos.filter(photo => photo.albumId === null ).map(photo =>
                                     <div className='choose-photo' key={photo.id} style={backgroundImageStyle(photo.url)}>
                                         <div className='photo-div'>
                                             <input type='checkbox' checked={type === 'edit' && photo.albumId === albumId ? photoIdList?.find(upphotos => upphotos == photo.id) : photoIdList?.find(upphotos => upphotos == photo.id)} value={photo.id} onChange={(e) => {
@@ -115,9 +117,9 @@ export default function CreateAlbum() {
                                                 }
                                             }} />
                                         </div>
-                                    </div>)
+                                    </div>))
                                     :
-                                    userPhotos.map(photo =>
+                                    (userPhotos.map(photo =>
                                         <div className='choose-photo' key={photo.id} style={backgroundImageStyle(photo.url)}>
                                             <div className='photo-div'>
                                                 <input type='checkbox' checked={type === 'edit' && photo.albumId === albumId ? photoIdList?.find(upphotos => upphotos == photo.id) : photoIdList?.find(upphotos => upphotos == photo.id)} value={photo.id} onChange={(e) => {
@@ -128,12 +130,12 @@ export default function CreateAlbum() {
                                                     }
                                                 }} />
                                             </div>
-                                        </div>)
+                                        </div>))
                             }</div>
                         </span>
 
                     </div>
-                    {error && <p>{error}</p>}
+                    {/* {error && <p>{error}</p>} */}
                     <div id='album-button-div'>
                         <button id='yes-album'>{type === 'edit' ? 'Update Album' : 'Submit'}</button>
                         <button id='no-album' onClick={()=>handleCancel(currentUser.id)}>Cancel</button>

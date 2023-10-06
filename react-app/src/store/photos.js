@@ -174,8 +174,10 @@ export const thunkUpdatePhotoListAlbum = (photoData, albumId) => async (dispatch
 }
 
 export const fetchAllphotos = (userId) => async (dispatch)  => {
+    console.log('in thunk')
     const res = await fetch(`/api/photos/all/album/${userId}/photos`);
     if (res.ok) {
+        console.log('in resok')
         const photos = await res.json();
         dispatch(getalbum_photo(photos));
         return photos;
