@@ -71,8 +71,8 @@ def seed_photos():
   Photo15 = Photo(
     user_id=7, album_id=7, url="https://aperture-bucket-april-2023.s3.amazonaws.com/FIFTEEEEEN.jpeg", title='Photo15', description='description15', favorite_count=random.randint(1, 30)
   )
-  
-  _= [Photo(user_id=random.randint(1,7), album_id=random.randint(1,7), url=(urls[i]), title=f'Photo{i+16}', description=f'description{i+16}', favorite_count=random.randint(1, 30)) for i in range(len(urls))]
+
+  _= [Photo(user_id=random.randint(1,7), url=(urls[i]), title=f'Photo{i+16}', description=f'description{i+16}', favorite_count=random.randint(1, 30)) for i in range(len(urls))]
 
   for photo in _:
      db.session.add(photo)
